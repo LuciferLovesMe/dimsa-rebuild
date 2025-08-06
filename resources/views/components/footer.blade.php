@@ -1,6 +1,6 @@
 <!-- Footer -->
-<footer class="bg-[#080E1E] text-white font-sans ">
-    <div class="container mx-auto px-4 lg:px-8">
+<footer class="bg-[#080E1E] px-20 text-white font-sans ">
+    <div class="container px-4 lg:px-8">
         <div class="pt-4">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
 
