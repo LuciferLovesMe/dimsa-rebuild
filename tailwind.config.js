@@ -1,4 +1,4 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
+import defaultTheme from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -9,9 +9,11 @@ export default {
     ],
     theme: {
         extend: {
-            // Daftarkan 'Poppins' sebagai font sans-serif utama
             fontFamily: {
-                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
+                sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                blue_primary: "#051244",
             },
         },
     },
