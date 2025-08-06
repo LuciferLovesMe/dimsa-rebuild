@@ -59,7 +59,13 @@ class GaleriRepository implements \App\Interfaces\GaleriInterface
      * */
     public function show($id)
     {
-        // Logic to retrieve a specific gallery item by ID
+        $data = Galeri::with('files')
+            ->where('id', $id)
+            ->first();
+        if (!$data) {
+            throw new \Exception('Gallery item not found');
+        }  
+        return $data;
     }
 
     /** 
@@ -69,7 +75,15 @@ class GaleriRepository implements \App\Interfaces\GaleriInterface
      * */
     public function update($request, $id)
     {
-        // Logic to update a specific gallery item by ID
+        $data = Galeri::find($id);
+        if (!$data) {
+            throw new \Exception('Gallery item not found');
+        }
+        $data->judul = $request['judul'];
+        $data->url = $request['url'];
+        $data->type = $request['type'];
+        $data->is_publish = ($request['is_publish'] == true || 1) ? 1 : 0;
+        $data->save();
     }
 
     /**
@@ -79,6 +93,10 @@ class GaleriRepository implements \App\Interfaces\GaleriInterface
      * */
     public function destroy($id)
     {
-        // Logic to remove a specific gallery item by ID
-    } 
+        $data = Galeri::find($id);
+        if (!$data) {
+            throw new \Exception('Gallery item not found');
+        }
+        $data->delete();
+    }
 }
