@@ -1,34 +1,40 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
-class GaleriController extends Controller
+class PengumumanController extends Controller
 {
-    private $galeriRepository;
+    private $pengumumanRepository;
 
-    public function __construct(\App\Interfaces\GaleriInterface $galeriRepository)
+    public function __construct(\App\Interfaces\PengumumanInterface $pengumumanRepository)
     {
-        $this->galeriRepository = $galeriRepository;
+        $this->pengumumanRepository = $pengumumanRepository;
     }
+    
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
+        if (!$request->ajax()) {
+            return view('backend.pengumuman.index');
+        }
+        
         try {
-            $data = $this->galeriRepository->index($request->all());
+            $data = $this->pengumumanRepository->index($request);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Gallery items retrieved successfully',
+                'message' => 'Pengumuman retrieved successfully',
                 'data' => $data,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve gallery items: ' . $e->getMessage(),
+                'message' => 'Failed to retrieve pengumuman: ' . $e->getMessage(),
             ], 500);
         } catch (QueryException $e) {
             return response()->json([
@@ -36,10 +42,6 @@ class GaleriController extends Controller
                 'message' => 'Database error: ' . $e->getMessage(),
             ], 500);
         }
-        return response()->json([
-            'status' => 'error',
-            'message' => 'An unexpected error occurred',
-        ], 500);
     }
 
     /**
@@ -56,53 +58,55 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->galeriRepository->store($request->all());
+            $this->pengumumanRepository->store($request->all());
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Pengumuman created successfully',
+            ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to create gallery item: ' . $e->getMessage(),
+                'message' => 'Failed to create pengumuman: ' . $e->getMessage(),
             ], 500);
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Database error: ' . $e->getMessage(),
             ], 500);
-        } 
+        }
         return response()->json([
-            'status' => 'success',
-            'message' => 'Gallery item created successfully',
-        ], 201);
+            'status' => 'error',
+            'message' => 'An unexpected error occurred',
+        ], 500);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
+        if (!$request->ajax()) {
+            return view('backend.pengumuman.show', ['id' => $id]);
+        }
+
         try {
-            $data = $this->galeriRepository->show($id);
-            if (!$data) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Gallery item not found',
-                ], 404);
-            }
+            $data = $this->pengumumanRepository->show($id);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Gallery item retrieved successfully',
+                'message' => 'Pengumuman retrieved successfully',
                 'data' => $data,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve gallery item: ' . $e->getMessage(),
+                'message' => 'Failed to retrieve pengumuman: ' . $e->getMessage(),
             ], 500);
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Database error: ' . $e->getMessage(),
             ], 500);
-        }  
+        }
     }
 
     /**
@@ -110,30 +114,7 @@ class GaleriController extends Controller
      */
     public function edit(string $id)
     {
-        try {
-            $data = $this->galeriRepository->show($id);
-            if (!$data) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Gallery item not found',
-                ], 404);
-            }
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Gallery item retrieved successfully',
-                'data' => $data,
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to retrieve gallery item: ' . $e->getMessage(),
-            ], 500);
-        } catch (QueryException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
-        }  
+        //
     }
 
     /**
@@ -142,15 +123,15 @@ class GaleriController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $this->galeriRepository->update($request->all(), $id);
+            $this->pengumumanRepository->update($id, $request->all());
             return response()->json([
                 'status' => 'success',
-                'message' => 'Gallery item updated successfully',
+                'message' => 'Pengumuman updated successfully',
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to update gallery item: ' . $e->getMessage(),
+                'message' => 'Failed to update pengumuman: ' . $e->getMessage(),
             ], 500);
         } catch (QueryException $e) {
             return response()->json([
@@ -170,15 +151,15 @@ class GaleriController extends Controller
     public function destroy(string $id)
     {
         try {
-            $this->galeriRepository->destroy($id);
+            $this->pengumumanRepository->destroy($id);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Gallery item deleted successfully',
+                'message' => 'Pengumuman deleted successfully',
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to delete gallery item: ' . $e->getMessage(),
+                'message' => 'Failed to delete pengumuman: ' . $e->getMessage(),
             ], 500);
         } catch (QueryException $e) {
             return response()->json([
