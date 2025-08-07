@@ -27,20 +27,8 @@
                     <i class="fa fa-bell"></i>
                 </div>
 
-                <!-- Main Content -->
-                <!-- Judul Dinamis -->
-                <h1 class="text-3xl text-gray-900">{{ $title ?? 'Default Title' }}</h1>
+                @yield('content')
 
-                <!-- Breadcrumb Dinamis -->
-                <div class="flex flex-row text-sm mt-2">
-                    <p class="text-gray-400">Sekolah / {{ $breadcrumb ?? 'Default Breadcrumb' }} /</p>
-                    <p class="text-blue_primary font-medium">{{ $sub_breadcrumb ?? 'Default Sub Breadcrumb' }}</p>
-                </div>
-
-                <div class="p-8 mt-4 h-96 rounded-lg shadow-lg bg-white">
-                    {{-- Isi konten di sini --}}
-                    @yield('content')
-                </div>
             </div>
         </main>
 

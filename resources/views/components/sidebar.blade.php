@@ -9,7 +9,12 @@
     </div>
 
     <!-- Navigation Links -->
-    <nav class="flex-grow space-y-2 overflow-y-hidden px-4 ">
+    <nav class="flex-grow space-y-3 overflow-y-auto px-4 ">
+        <a href="#"
+            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
+            <i class="fa fa-pie-chart"></i>
+            <span>Dashboard</span>
+        </a>
         <a href="#"
             class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
             <i class="fa-regular fa-window-maximize"></i>
@@ -132,11 +137,6 @@
             class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
             <i class="fa-regular fa-building"></i>
             <span>Fasilitas</span>
-        </a>
-        <a href="#"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
-            <i class="fa fa-flask"></i>
-            <span>Analitik</span>
         </a>
     </nav>
 
