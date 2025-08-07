@@ -15,7 +15,7 @@ class PengumumanController extends Controller
     {
         $this->pengumumanRepository = $pengumumanRepository;
     }
-    
+
     public function index(Request $request)
     {
         try {
