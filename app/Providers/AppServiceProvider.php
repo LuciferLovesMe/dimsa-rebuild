@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Interfaces\GaleriInterface;
+use App\Interfaces\PengumumanInterface;
+use App\Interfaces\QnaInterface;
+use App\Repositories\GaleriRepository;
+use App\Repositories\PengumumanRepository;
+use App\Repositories\QnaRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(GaleriInterface::class, GaleriRepository::class);
+        $this->app->bind(PengumumanInterface::class, PengumumanRepository::class);
+        $this->app->bind(QnaInterface::class, QnaRepository::class);
     }
 
     /**
