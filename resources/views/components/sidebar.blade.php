@@ -1,4 +1,3 @@
-<!-- Sidebar -->
 <aside
     class="fixed inset-y-0 left-0 z-50 flex h-full w-64 flex-col bg-gray-900 text-gray-300 transition-transform duration-300 lg:relative lg:translate-x-0"
     :class="{ 'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen }">
@@ -9,20 +8,22 @@
     </div>
 
     <!-- Navigation Links -->
-    <nav class="flex-grow space-y-3 overflow-y-auto px-4 ">
-        <a href="#"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
+    <nav class="flex-grow space-y-3 overflow-y-auto px-4">
+        <a href="{{ route('dashboard') }}"
+            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                {{ request()->routeIs('dashboard') ? 'bg-gray-800 text-white' : '' }}">
             <i class="fa fa-pie-chart"></i>
             <span>Dashboard</span>
         </a>
-        <a href="#"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
+        <a href="{{ route('slideshow') }}"
+            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                {{ request()->routeIs('slideshow') ? 'bg-gray-800 text-white' : '' }}">
             <i class="fa-regular fa-window-maximize"></i>
             <span>Slideshow</span>
         </a>
 
         <!-- Dropdown: Tentang Sekolah -->
-        <div x-data="{ open: true }"> <!-- Set to true to be open by default -->
+        <div x-data="{ open: true }">
             <button @click="open = !open"
                 class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
                 <span class="flex items-center gap-3">
@@ -39,31 +40,25 @@
                 </svg>
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg bg-blue-600 px-3 py-2.5 text-sm font-semibold text-white">
+                <li><a href="{{ route('dewan') }}"
+                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                            {{ request()->routeIs('dewan') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-users"></i>
                         <span>Dewan Yayasan</span>
                     </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
+                <li><a href="{{ route('staff') }}"
+                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                            {{ request()->routeIs('staff') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-graduation-cap"></i>
                         <span>Guru & Staff</span>
                     </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
+                <li><a href="{{ route('partner') }}"
+                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                            {{ request()->routeIs('partner') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-handshake"></i>
                         <span>Partner Lembaga</span>
                     </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-trophy"></i>
-                        <span>Program Unggulan</span>
-                    </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-minus-circle"></i>
-                        <span>Tata Tertib</span>
-                    </a></li>
+                <!-- Tambahkan item lainnya sesuai kebutuhan -->
             </ul>
         </div>
 
@@ -86,58 +81,15 @@
                 </svg>
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
+                <li><a href="{{ route('berita') }}"
+                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                            {{ request()->routeIs('berita') ? 'bg-gray-800 text-white' : '' }}">
                         <i class="fa fa-newspaper"></i>
                         <span>Berita</span>
                     </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-book"></i>
-                        <span>Karya Ilmiah</span>
-                    </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-journal-whills"></i>
-                        <span>Majalah</span>
-                    </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-image"></i>
-                        <span>Galeri</span>
-                    </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-bullhorn"></i>
-                        <span>Pengumuman</span>
-                    </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-question-circle"></i>
-                        <span>QnA</span>
-                    </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-address-book"></i>
-                        <span>Alumni</span>
-                    </a></li>
-                <li><a href="#"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-gray-800 hover:text-white">
-                        <i class="fa fa-briefcase"></i>
-                        <span>Lowongan Kerja</span>
-                    </a></li>
+                <!-- Tambahkan item lainnya sesuai kebutuhan -->
             </ul>
         </div>
-        <a href="#"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
-            <i class="fa-regular fa-star"></i>
-            <span>Ekstrakurikuler</span>
-        </a>
-        <a href="#"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
-            <i class="fa-regular fa-building"></i>
-            <span>Fasilitas</span>
-        </a>
     </nav>
 
     <!-- User Profile -->
