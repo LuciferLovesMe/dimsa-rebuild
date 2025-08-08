@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AlumniController;
 use App\Http\Controllers\API\PengumumanController;
 use App\Http\Controllers\API\QnaController;
 use Illuminate\Http\Request;
@@ -17,5 +18,10 @@ Route::prefix('/pengumuman')->group(function () {
 Route::prefix('/qna')->group(function () {
     Route::get('/', [QnaController::class, 'index']);
     Route::get('/{id}', [QnaController::class, 'show']);
-    Route::post('/{id}', [QnaController::class, 'destroy']);
+});
+
+Route::prefix('/alumni')->group(function () {
+    Route::get('/', [AlumniController::class, 'index']);
+    Route::get('/{id}', [AlumniController::class, 'show']);
+    Route::post('/{id}', [AlumniController::class, 'update']);
 });
