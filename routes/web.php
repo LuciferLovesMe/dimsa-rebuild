@@ -42,4 +42,12 @@ Route::prefix('/admin')->group(function () {
         Route::post('/{id}/update', [LowonganKerjaController::class, 'update']);
         Route::post('/{id}/destroy', [LowonganKerjaController::class, 'destroy']);
     });
+
+    Route::prefix('/testimoni')->group(function () {
+        Route::get('/', [TestimoniController::class, 'index']);
+        Route::get('/{id}', [TestimoniController::class, 'show']);
+        Route::post('/', [TestimoniController::class, 'store']);
+        Route::post('/{id}/update', [TestimoniController::class, 'update']);
+        Route::post('/{id}/destroy', [TestimoniController::class, 'destroy']);
+    });
 });

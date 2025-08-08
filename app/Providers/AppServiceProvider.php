@@ -7,11 +7,13 @@ use App\Interfaces\GaleriInterface;
 use App\Interfaces\LowonganKerjaInterface;
 use App\Interfaces\PengumumanInterface;
 use App\Interfaces\QnaInterface;
+use App\Interfaces\TestimoniInterface;
 use App\Repositories\AlumniRepository;
 use App\Repositories\GaleriRepository;
 use App\Repositories\LowonganKerjaRepository;
 use App\Repositories\PengumumanRepository;
 use App\Repositories\QnaRepository;
+use App\Repositories\TestimoniRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(QnaInterface::class, QnaRepository::class);
         $this->app->bind(AlumniInterface::class, AlumniRepository::class);
         $this->app->bind(LowonganKerjaInterface::class, LowonganKerjaRepository::class);
+        $this->app->bind(TestimoniInterface::class, TestimoniRepository::class);
     }
 
     /**
