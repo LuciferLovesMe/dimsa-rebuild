@@ -1,23 +1,23 @@
 <aside
-    class="fixed inset-y-0 left-0 z-50 flex h-full w-64 flex-col bg-gray-900 text-gray-300 transition-transform duration-300 lg:relative lg:translate-x-0"
+    class="fixed inset-y-0 left-0 z-50 flex h-full w-fit flex-col bg-gray-900 text-gray-300 transition-transform duration-300 lg:relative lg:translate-x-0"
     :class="{ 'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen }">
 
     <!-- Logo -->
-    <div class="flex h-20 shrink-0 items-center px-6">
+    <div class="flex h-20 shrink-0 items-center px-8 py-4">
         <img class="h-8 w-auto" src="{{ asset('images/dimsa_white.png') }}" alt="Logo DIMSA">
     </div>
 
     <!-- Navigation Links -->
-    <nav class="flex-grow space-y-3 overflow-y-auto px-4">
+    <nav class="flex-grow space-y-3 overflow-y-auto px-8">
         <a href="{{ route('dashboard') }}"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
-                {{ request()->routeIs('dashboard') ? 'bg-gray-800 text-white' : '' }}">
+            class="sidebar-subitem
+                {{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-pie-chart"></i>
             <span>Dashboard</span>
         </a>
         <a href="{{ route('slideshow') }}"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
-                {{ request()->routeIs('slideshow') ? 'bg-gray-800 text-white' : '' }}">
+            class="sidebar-subitem
+                {{ request()->routeIs('slideshow') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa-regular fa-window-maximize"></i>
             <span>Slideshow</span>
         </a>
@@ -41,22 +41,34 @@
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
                 <li><a href="{{ route('dewan') }}"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                        class="sidebar-subitem
                             {{ request()->routeIs('dewan') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-users"></i>
                         <span>Dewan Yayasan</span>
                     </a></li>
                 <li><a href="{{ route('staff') }}"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                        class="sidebar-subitem
                             {{ request()->routeIs('staff') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-graduation-cap"></i>
                         <span>Guru & Staff</span>
                     </a></li>
                 <li><a href="{{ route('partner') }}"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                        class="sidebar-subitem
                             {{ request()->routeIs('partner') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-handshake"></i>
                         <span>Partner Lembaga</span>
+                    </a></li>
+                <li><a href="{{ route('program') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('program') ? 'bg-blue-600 text-white' : '' }}">
+                        <i class="fa fa-trophy"></i>
+                        <span>Program Unggulan</span>
+                    </a></li>
+                <li><a href="{{ route('tatib') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('tatib') ? 'bg-blue-600 text-white' : '' }}">
+                        <i class="fa fa-warning"></i>
+                        <span>Tata Tertib</span>
                     </a></li>
                 <!-- Tambahkan item lainnya sesuai kebutuhan -->
             </ul>
@@ -82,10 +94,58 @@
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
                 <li><a href="{{ route('berita') }}"
-                        class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white
+                        class="sidebar-subitem
                             {{ request()->routeIs('berita') ? 'bg-gray-800 text-white' : '' }}">
                         <i class="fa fa-newspaper"></i>
                         <span>Berita</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                        <i class="fa fa-book"></i>
+                        <span>Karya Ilmiah</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                        <i class="fa fa-journal-whills"></i>
+                        <span>Majalah</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                        <i class="fa fa-image"></i>
+                        <span>Galeri</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                        <i class="fa fa-bullhorn"></i>
+                        <span>Pengumuman</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                        <i class="fa fa-question-circle"></i>
+                        <span>QnA</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                        <i class="fa fa-address-book"></i>
+                        <span>Alumni</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                        <i class="fa fa-briefcase"></i>
+                        <span>Lowongan Kerja</span>
+                    </a></li>
+                <li><a href="{{ route('karya-ilmiah') }}"
+                        class="sidebar-subitem
+                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-gray-500' : '' }}">
+                        <i class="fa fa-image"></i>
+                        <span>Testimoni</span>
                     </a></li>
                 <!-- Tambahkan item lainnya sesuai kebutuhan -->
             </ul>
