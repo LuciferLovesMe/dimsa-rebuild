@@ -28,3 +28,39 @@ Route::get('/admin/partner', function () {
 Route::get('/admin/berita', function () {
     return view('pages.admin.berita.index');
 })->name('berita');
+Route::get('/admin/program', function () {
+    return view('pages.admin.program.index');
+})->name('program');
+Route::get('/admin/tatib', function () {
+    return view('pages.admin.tata_tertib.index');
+})->name('tatib');
+Route::get('/admin/karya-ilmiah', function () {
+    return view('pages.admin.karya_ilmiah.index');
+})->name('karya-ilmiah');
+Route::get('/admin/majalah', function () {
+    return view('pages.admin.majalah.index');
+})->name('majalah');
+Route::get('/admin/galeri', function () {
+    return view('pages.admin.galeri.index');
+})->name('galeri');
+Route::get('/admin/pengumuman', function () {
+    return view('pages.admin.pengumuman.index');
+})->name('pengumuman');
+Route::get('/admin/qna', function () {
+    return view('pages.admin.qna.index');
+})->name('qna');
+Route::get('/admin/alumni', function () {
+    return view('pages.admin.alumni.index');
+})->name('alumni');
+Route::get('/admin/lowongan-kerja', function () {
+    return view('pages.admin.lowongan_kerja.index');
+})->name('lowongan-kerja');
+Route::get('/admin/testimoni', function () {
+    return view('pages.admin.testimoni.index');
+})->name('testimoni');
+Route::get('/admin/ekstrakurikuler', function () {
+    return view('pages.admin.ekstrakurikuler.index');
+})->name('ekstrakurikuler');
+Route::get('/admin/fasilitas', function () {
+    return view('pages.admin.fasilitas.index');
+})->name('fasilitas');
