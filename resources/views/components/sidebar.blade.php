@@ -8,7 +8,7 @@
     </div>
 
     <!-- Navigation Links -->
-    <nav class="flex-grow space-y-3 overflow-y-auto px-8">
+    <nav class="flex-grow space-y-3 overflow-y-auto px-8 scrollbar-hide">
         <a href="{{ route('dashboard') }}"
             class="sidebar-subitem
                 {{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white' : '' }}">
@@ -22,8 +22,7 @@
             <span>Slideshow</span>
         </a>
 
-        <!-- Dropdown: Tentang Sekolah -->
-        <div x-data="{ open: true }">
+        <div x-data="{ open: localStorage.getItem('tentangSekolahOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('tentangSekolahOpen', value))" class="mb-2">
             <button @click="open = !open"
                 class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
                 <span class="flex items-center gap-3">
@@ -35,8 +34,7 @@
                 </span>
                 <svg class="h-4 w-4 shrink-0 transition-transform" :class="{ 'rotate-90': open }" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
@@ -70,12 +68,10 @@
                         <i class="fa fa-warning"></i>
                         <span>Tata Tertib</span>
                     </a></li>
-                <!-- Tambahkan item lainnya sesuai kebutuhan -->
             </ul>
         </div>
 
-        <!-- Dropdown: Informasi -->
-        <div x-data="{ open: false }">
+        <div x-data="{ open: localStorage.getItem('informasiOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('informasiOpen', value))" class="mb-2">
             <button @click="open = !open"
                 class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
                 <span class="flex items-center gap-3">
@@ -88,8 +84,7 @@
                 </span>
                 <svg class="h-4 w-4 shrink-0 transition-transform" :class="{ 'rotate-90': open }" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
@@ -147,9 +142,20 @@
                         <i class="fa fa-image"></i>
                         <span>Testimoni</span>
                     </a></li>
-                <!-- Tambahkan item lainnya sesuai kebutuhan -->
             </ul>
         </div>
+        <a href="{{ route('ekstrakurikuler') }}"
+            class="sidebar-subitem
+                {{ request()->routeIs('ekstrakurikuler') ? 'bg-blue-600 text-white' : '' }}">
+            <i class="fa fa-star"></i>
+            <span>Ekstrakurikuler</span>
+        </a>
+        <a href="{{ route('fasilitas') }}"
+            class="sidebar-subitem
+                {{ request()->routeIs('fasilitas') ? 'bg-blue-600 text-white' : '' }}">
+            <i class="fa fa-building"></i>
+            <span>Fasilitas</span>
+        </a>
     </nav>
 
     <!-- User Profile -->
