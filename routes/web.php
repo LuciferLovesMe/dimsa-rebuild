@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AlumniController;
+use App\Http\Controllers\Backend\LowonganKerjaController;
 use App\Http\Controllers\Backend\PengumumanController;
 use App\Http\Controllers\Backend\QnaController;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +33,13 @@ Route::prefix('/admin')->group(function () {
         Route::post('/', [AlumniController::class, 'store']);
         Route::post('/{id}/update', [AlumniController::class, 'update']);
         Route::post('/{id}/destroy', [AlumniController::class, 'destroy']);
+    });
+
+    Route::prefix('/lowongan-kerja')->group(function () {
+        Route::get('/', [LowonganKerjaController::class, 'index']);
+        Route::get('/{id}', [LowonganKerjaController::class, 'show']);
+        Route::post('/', [LowonganKerjaController::class, 'store']);
+        Route::post('/{id}/update', [LowonganKerjaController::class, 'update']);
+        Route::post('/{id}/destroy', [LowonganKerjaController::class, 'destroy']);
     });
 });

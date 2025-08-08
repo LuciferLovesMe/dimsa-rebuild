@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AlumniController;
+use App\Http\Controllers\API\LowonganKerjaController;
 use App\Http\Controllers\API\PengumumanController;
 use App\Http\Controllers\API\QnaController;
 use Illuminate\Http\Request;
@@ -23,5 +24,10 @@ Route::prefix('/qna')->group(function () {
 Route::prefix('/alumni')->group(function () {
     Route::get('/', [AlumniController::class, 'index']);
     Route::get('/{id}', [AlumniController::class, 'show']);
-    Route::post('/{id}', [AlumniController::class, 'update']);
+});
+
+Route::prefix('/lowongan-kerja')->group(function () {
+    Route::get('/', [LowonganKerjaController::class, 'index']);
+    Route::get('/{id}', [LowonganKerjaController::class, 'show']);
+    Route::post('/{id}', [LowonganKerjaController::class, 'update']);
 });
