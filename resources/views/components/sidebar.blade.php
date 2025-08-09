@@ -38,9 +38,9 @@
                 </svg>
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
-                <li><a href="{{ route('dewan') }}"
+                <li><a href="{{ route('admin.dewan.pimpinan') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('dewan') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->routeIs('admin.dewan.*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-users"></i>
                         <span>Dewan Yayasan</span>
                     </a></li>

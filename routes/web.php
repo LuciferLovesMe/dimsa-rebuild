@@ -16,9 +16,50 @@ Route::get('/admin/dashboard', function () {
 Route::get('/admin/slideshow', function () {
     return view('pages.admin.slideshow.index');
 })->name('slideshow');
-Route::get('/admin/dewan', function () {
-    return view('pages.admin.dewan.index');
-})->name('dewan');
+
+
+
+// Grup Rute untuk semua halaman di bawah "admin"
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Grup Rute untuk semua halaman di bawah "dewan"
+    Route::prefix('dewan')->name('dewan.')->group(function () {
+
+        // Rute untuk /admin/dewan/pimpinan
+        Route::get('/pimpinan', function () {
+            // Data ini nantinya bisa datang dari database
+            $data = [
+                ['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1],
+            ];
+            // Mengirim data ke view 'dewan.show'
+            return view('pages.admin.dewan.show', [
+                'title' => 'Pimpinan',
+                'breadcrumb3' => 'Data Pimpinan',
+                'dewanData' => $data,
+            ]);
+        })->name('pimpinan');
+
+        // Rute untuk /admin/dewan/pengasuh
+        Route::get('/pengasuh', function () {
+            // Data ini nantinya bisa datang dari database
+            $data = [
+                ['id' => 1, 'nama' => 'Ahmad Subarjo', 'jabatan' => 'Pengasuh Putra', 'status' => 1],
+                ['id' => 2, 'nama' => 'Siti Aminah', 'jabatan' => 'Pengasuh Putri', 'status' => 0],
+            ];
+            // Mengirim data ke view 'dewan.show'
+            return view('pages.admin.dewan.show', [
+                'title' => 'Pengasuh',
+                'breadcrumb3' => 'Data Pengasuh',
+                'dewanData' => $data,
+            ]);
+        })->name('pengasuh');
+    });
+
+    // Anda bisa menambahkan rute admin lainnya di sini
+    // contoh: Route::get('/dashboard', ...)->name('dashboard');
+
+});
+
 Route::get('/admin/staff', function () {
     return view('pages.admin.staff.index');
 })->name('staff');
