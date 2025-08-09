@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.guest.landing');
-})->name('landing-page');
-
 Route::get('/login', function () {
     return view('pages.auth.login');
 })->name('login');
@@ -54,10 +50,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ]);
         })->name('pengasuh');
     });
-
-    // Anda bisa menambahkan rute admin lainnya di sini
-    // contoh: Route::get('/dashboard', ...)->name('dashboard');
-
 });
 
 Route::get('/admin/staff', function () {
@@ -105,3 +97,107 @@ Route::get('/admin/ekstrakurikuler', function () {
 Route::get('/admin/fasilitas', function () {
     return view('pages.admin.fasilitas.index');
 })->name('fasilitas');
+
+// landing
+Route::get('/', function () {
+    return view('pages.guest.landing');
+})->name('landing-page');
+
+// profile
+Route::get('/selayang-pandang', function () {
+    return view('pages.guest.profil-sekolah.selayang-pandang');
+})->name('selayang-pandang');
+
+Route::get('/sejarah-pondok', function () {
+    return view('pages.guest.profil-sekolah.sejarah-pondok');
+})->name('sejarah-pondok');
+
+Route::get('/visi-misi', function () {
+    return view('pages.guest.profil-sekolah.visi-misi');
+})->name('visi-misi');
+
+Route::get('/struktur-organisasi', function () {
+    return view('pages.guest.profil-sekolah.struktur-organisasi');
+})->name('struktur-organisasi');
+
+Route::get('/akreditasi', function () {
+    return view('pages.guest.profil-sekolah.akreditasi');
+})->name('akreditasi');
+
+Route::get('/logo', function () {
+    return view('pages.guest.profil-sekolah.logo');
+})->name('logo');
+
+Route::get('/pimpinan', function () {
+    return view('pages.guest.profil-sekolah.pimpinan');
+})->name('pimpinan');
+
+
+// akdemik
+Route::get('/akademik-smp', function () {
+    return view('pages.guest.akademik.smp');
+})->name('smp');
+
+Route::get('/akademik-ma', function () {
+    return view('pages.guest.akademik.ma');
+})->name('ma');
+
+// program
+Route::get('kelas-cyber', function () {
+    return view('pages.guest.program.kelas-cyber');
+})->name('kelas-cyber');
+
+Route::get('kelas-tahfidz', function () {
+    return view('pages.guest.program.kelas-tahfidz');
+})->name('kelas-tahfidz');
+
+Route::get('kurikulum-pondok', function () {
+    return view('pages.guest.program.kurikulum-pondok');
+})->name('kurikulum-pondok');
+
+Route::get('ekstrakurikuler', function () {
+    return view('pages.guest.program.ekstrakurikuler');
+})->name('ekstrakurikuler');
+
+// fasilitas
+Route::get('sarana-prasarana', function () {
+    return view('pages.guest.fasilitas.sarana');
+})->name('sarana-prasarana');
+
+Route::get('tata-tertib', function () {
+    return view('pages.guest.fasilitas.tata-tertib');
+})->name('tata-tertib');
+
+
+// berita
+Route::get('kabar', function () {
+    return view('pages.guest.berita.kabar');
+})->name('kabar');
+
+Route::get('karya-ilmiah', function () {
+    return view('pages.guest.berita.karya-ilmiah');
+})->name('karya-ilmiah');
+
+Route::get('majalah', function () {
+    return view('pages.guest.berita.majalah');
+})->name('majalah');
+
+Route::get('galeri', function () {
+    return view('pages.guest.berita.galeri');
+})->name('galeri');
+
+Route::get('pengumuman', function () {
+    return view('pages.guest.berita.pengumuman');
+})->name('pengumuman');
+
+Route::get('qna', function () {
+    return view('pages.guest.berita.qna');
+})->name('qna');
+
+Route::get('alumni', function () {
+    return view('pages.guest.berita.alumni');
+})->name('alumni');
+
+Route::get('lowongan-kerja', function () {
+    return view('pages.guest.berita.lowogan-kerja');
+})->name('lowongan-kerja');
