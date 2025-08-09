@@ -16,16 +16,7 @@ class StatusPublish extends Component
     public $color;
     public function __construct($status)
     {
-        $this->status = $status;
-
-        // Tentukan warna berdasarkan status
-        if ($status == 'Publish') {
-            $this->color = 'green';
-        } elseif ($status == 'Draft') {
-            $this->color = 'yellow';
-        } else {
-            $this->color = 'gray'; // Default warna untuk status yang tidak dikenali
-        }
+        $this->status = $status == 1 ? 'Publish' : 'Draft';
     }
 
     /**
