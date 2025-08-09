@@ -2,7 +2,7 @@
 
 <body class="flex">
 
-    @include('components.sidebar')
+    @include('layouts.partials.sidebar')
 
     <div class="flex flex-1 flex-col">
 

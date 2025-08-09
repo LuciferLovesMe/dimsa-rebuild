@@ -4,7 +4,7 @@
 @include('layouts.head')
 
 <body class="font-sans">
-    @include('components.navbar')
+    @include('layouts.partials.navbar.navbar')
 
     <main>
         @yield('content')
