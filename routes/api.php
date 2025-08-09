@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AlumniController;
+use App\Http\Controllers\API\EkstrakulikulerController;
 use App\Http\Controllers\API\LowonganKerjaController;
 use App\Http\Controllers\API\PengumumanController;
 use App\Http\Controllers\API\QnaController;
@@ -35,5 +36,9 @@ Route::prefix('/lowongan-kerja')->group(function () {
 Route::prefix('/testimoni')->group(function () {
     Route::get('/', [TestimoniController::class, 'index']);
     Route::get('/{id}', [TestimoniController::class, 'show']);
-    Route::post('/{id}/update', [TestimoniController::class, 'update']);
+});
+
+Route::prefix('/ekstrakulikuler')->group(function () {
+    Route::get('/', [EkstrakulikulerController::class, 'index']);
+    Route::get('/{id}', [EkstrakulikulerController::class, 'show']);
 });

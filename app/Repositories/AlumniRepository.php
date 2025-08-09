@@ -29,25 +29,10 @@ class AlumniRepository implements AlumniInterface
     {
         $file =  $data->file('image');
         
-        $path = public_path() . '/uploads/alumni/';
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
-        }
-
-        $fileType = $file->getClientOriginalExtension();
-        $fileName = time() . '.';
-        if ($fileType == 'png' || $fileType == 'jpg' || $fileType == 'jpeg') {
-            $imageManager = new ImageManager(new Driver());
-            $image = $imageManager->read($file);
-            $image->toWebp(80)->save($path . $fileName . 'webp');
-            $storedData['image'] = $fileName . 'webp';
-        } else {
-            $storedData['image'] = $file->store('images/alumni', 'public');
-            $file->move($path, $storedData['image']);
-        }
         $storedData['nama_alumni'] = $data->nama_alumni;
         $storedData['tahun_lulus'] = $data->tahun_lulus;
         $storedData['lembaga'] = $data->lembaga;
+        $storedData['image'] = storeImage($file, '/uploads/alumni/');
 
         return $this->alumni->create($storedData);
     }
@@ -57,28 +42,7 @@ class AlumniRepository implements AlumniInterface
         $alumni = $this->alumni->findOrFail($id);
 
         if ($data->file('image')) {
-            $path = public_path() . '/uploads/alumni/';
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
-            }
-
-            if ($alumni->image && file_exists($path . $alumni->image)) {
-                unlink($path . $alumni->image);
-            }
-            
-            $file =  $data->file('image');
-            
-            $fileType = $file->getClientOriginalExtension();
-            $fileName = time() . '.';
-            if ($fileType == 'png' || $fileType == 'jpg' || $fileType == 'jpeg') {
-                $imageManager = new ImageManager(new Driver());
-                $image = $imageManager->read($file);
-                $image->toWebp(80)->save($path . $fileName . 'webp');
-                $storedData['image'] = $fileName . '.webp';
-            } else {
-                $storedData['image'] = $file->store('images/alumni', 'public');
-                $file->move($path, $storedData['image']);
-            }
+            $storedData['image'] = storeImage($data->file('image'), '/uploads/alumni/');
         } 
         $storedData['nama_alumni'] = $data->nama_alumni;
         $storedData['tahun_lulus'] = $data->tahun_lulus;
