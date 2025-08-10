@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AgendaController;
 use App\Http\Controllers\Backend\AlumniController;
 use App\Http\Controllers\Backend\EkstrakulikulerController;
 use App\Http\Controllers\Backend\LowonganKerjaController;
@@ -58,5 +59,13 @@ Route::prefix('/admin')->group(function () {
         Route::post('/', [EkstrakulikulerController::class, 'store']);
         Route::post('/{id}/update', [EkstrakulikulerController::class, 'update']);
         Route::post('/{id}/destroy', [EkstrakulikulerController::class, 'destroy']);
+    });
+
+    Route::prefix('/agenda')->group(function () {
+        Route::get('/', [AgendaController::class, 'index']);
+        Route::get('/{id}', [AgendaController::class, 'show']);
+        Route::post('/', [AgendaController::class, 'store']);
+        Route::post('/{id}/update', [AgendaController::class, 'update']);
+        Route::post('/{id}/destroy', [AgendaController::class, 'destroy']);
     });
 });

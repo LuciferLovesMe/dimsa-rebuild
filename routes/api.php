@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AgendaController;
 use App\Http\Controllers\API\AlumniController;
 use App\Http\Controllers\API\EkstrakulikulerController;
 use App\Http\Controllers\API\LowonganKerjaController;
@@ -41,4 +42,9 @@ Route::prefix('/testimoni')->group(function () {
 Route::prefix('/ekstrakulikuler')->group(function () {
     Route::get('/', [EkstrakulikulerController::class, 'index']);
     Route::get('/{id}', [EkstrakulikulerController::class, 'show']);
+});
+
+Route::prefix('/agenda')->group(function () {
+    Route::get('/', [AgendaController::class, 'index']);
+    Route::get('/{id}', [AgendaController::class, 'show']);
 });

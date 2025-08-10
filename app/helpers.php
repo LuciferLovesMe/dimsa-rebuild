@@ -17,7 +17,7 @@ if (!function_exists('storeImage')) {
             $image = $imageManager->read($file);
             $image->toWebp(80)->save($path . $fileName . 'webp');
         } else {
-            $file->store('images/alumni', 'public');
+            // $file->store('images/alumni', 'public');
             $file->move($path, $fileName . 'webp');
         }
         return $fileName . 'webp';
