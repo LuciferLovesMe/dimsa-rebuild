@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AgendaController;
 use App\Http\Controllers\Backend\AlumniController;
 use App\Http\Controllers\Backend\EkstrakulikulerController;
 use App\Http\Controllers\Backend\LowonganKerjaController;
+use App\Http\Controllers\Backend\MajalahController;
 use App\Http\Controllers\Backend\PengumumanController;
 use App\Http\Controllers\Backend\QnaController;
 use Illuminate\Support\Facades\Route;
@@ -67,5 +68,13 @@ Route::prefix('/admin')->group(function () {
         Route::post('/', [AgendaController::class, 'store']);
         Route::post('/{id}/update', [AgendaController::class, 'update']);
         Route::post('/{id}/destroy', [AgendaController::class, 'destroy']);
+    });
+
+    Route::prefix('/majalah')->group(function () {
+        Route::get('/', [MajalahController::class, 'index']);
+        Route::get('/{id}', [MajalahController::class, 'show']);
+        Route::post('/', [MajalahController::class, 'store']);
+        Route::post('/{id}/update', [MajalahController::class, 'update']);
+        Route::post('/{id}/destroy', [MajalahController::class, 'destroy']);
     });
 });

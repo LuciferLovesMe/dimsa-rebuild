@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AgendaController;
 use App\Http\Controllers\API\AlumniController;
 use App\Http\Controllers\API\EkstrakulikulerController;
 use App\Http\Controllers\API\LowonganKerjaController;
+use App\Http\Controllers\API\MajalahController;
 use App\Http\Controllers\API\PengumumanController;
 use App\Http\Controllers\API\QnaController;
 use App\Http\Controllers\API\TestimoniController;
@@ -47,4 +48,9 @@ Route::prefix('/ekstrakulikuler')->group(function () {
 Route::prefix('/agenda')->group(function () {
     Route::get('/', [AgendaController::class, 'index']);
     Route::get('/{id}', [AgendaController::class, 'show']);
+});
+
+Route::prefix('/majalah')->group(function () {
+    Route::get('/', [MajalahController::class, 'index']);
+    Route::get('/{id}', [MajalahController::class, 'show']);
 });
