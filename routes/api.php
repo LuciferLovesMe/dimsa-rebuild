@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AgendaController;
 use App\Http\Controllers\API\AlumniController;
 use App\Http\Controllers\API\EkstrakulikulerController;
+use App\Http\Controllers\API\FasilitasController;
 use App\Http\Controllers\API\GaleriController;
 use App\Http\Controllers\API\LowonganKerjaController;
 use App\Http\Controllers\API\MajalahController;
@@ -59,4 +60,9 @@ Route::prefix('/majalah')->group(function () {
 Route::prefix('/galeri')->group(function () {
     Route::get('/', [GaleriController::class, 'index']);
     Route::get('/{id}', [GaleriController::class, 'show']);
+});
+
+Route::prefix('/fasilitas')->group(function () {
+    Route::get('/', [FasilitasController::class, 'index']);
+    Route::get('/{id}', [FasilitasController::class, 'show']);
 });

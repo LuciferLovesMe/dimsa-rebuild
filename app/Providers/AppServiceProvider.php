@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Interfaces\AgendaInterface;
 use App\Interfaces\AlumniInterface;
 use App\Interfaces\EkstrakulikulerInterface;
+use App\Interfaces\FasilitasInterface;
 use App\Interfaces\GaleriInterface;
 use App\Interfaces\LowonganKerjaInterface;
 use App\Interfaces\PengumumanInterface;
@@ -14,6 +15,7 @@ use App\Interfaces\TestimoniInterface;
 use App\Repositories\AgendaRepository;
 use App\Repositories\AlumniRepository;
 use App\Repositories\EkstrakulikulerRepository;
+use App\Repositories\FasilitasRepository;
 use App\Repositories\GaleriRepository;
 use App\Repositories\LowonganKerjaRepository;
 use App\Repositories\PengumumanRepository;
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(EkstrakulikulerInterface::class, EkstrakulikulerRepository::class);
         $this->app->bind(AgendaInterface::class, AgendaRepository::class);
         $this->app->bind(PublikasiInterface::class, PublikasiRepository::class);
+        $this->app->bind(FasilitasInterface::class, FasilitasRepository::class);
     }
 
     /**

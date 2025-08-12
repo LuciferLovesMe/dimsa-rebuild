@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AgendaController;
 use App\Http\Controllers\Backend\AlumniController;
 use App\Http\Controllers\Backend\EkstrakulikulerController;
+use App\Http\Controllers\Backend\FasilitasController;
 use App\Http\Controllers\Backend\GaleriController;
 use App\Http\Controllers\Backend\LowonganKerjaController;
 use App\Http\Controllers\Backend\MajalahController;
@@ -85,5 +86,13 @@ Route::prefix('/admin')->group(function () {
         Route::post('/', [GaleriController::class, 'store']);
         Route::post('/{id}/update', [GaleriController::class, 'update']);
         Route::post('/{id}/destroy', [GaleriController::class, 'destroy']);
+    });
+
+    Route::prefix('/fasilitas')->group(function () {
+        Route::get('/', [FasilitasController::class, 'index']);
+        Route::get('/{id}', [FasilitasController::class, 'show']);
+        Route::post('/', [FasilitasController::class, 'store']);
+        Route::post('/{id}/update', [FasilitasController::class, 'update']);
+        Route::post('/{id}/destroy', [FasilitasController::class, 'destroy']);
     });
 });

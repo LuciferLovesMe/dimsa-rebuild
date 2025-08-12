@@ -21,7 +21,6 @@ class GaleriRepository implements \App\Interfaces\GaleriInterface
     
     public function store($request, $type = 'image')
     {
-        // Logic to store a new gallery item
         $galeri = new Galeri();
         $galeri->judul = $request->judul;
         $galeri->type = $request->type;
