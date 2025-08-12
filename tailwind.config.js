@@ -1,3 +1,5 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -6,7 +8,17 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                blue_primary: "#051244",
+            },
+        },
     },
-    plugins: [],
+
+    plugins: [
+         require('tailwind-scrollbar-hide')
+    ],
 };
