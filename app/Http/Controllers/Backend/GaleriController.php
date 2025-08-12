@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class GaleriController extends Controller
 {
@@ -57,22 +58,26 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->galeriRepository->store($request->all());
+            $response = [
+                'status' => 'success',
+                'data' => $this->galeriRepository->store($request, $request->type),
+            ];
+            $responseCode = Response::HTTP_CREATED;
         } catch (\Exception $e) {
-            return response()->json([
+            $response = [
                 'status' => 'error',
                 'message' => 'Failed to create gallery item: ' . $e->getMessage(),
-            ], 500);
+            ];
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
         } catch (QueryException $e) {
-            return response()->json([
+            $response = [
                 'status' => 'error',
                 'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
-        } 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Gallery item created successfully',
-        ], 201);
+            ];
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        }
+
+        return response()->json($response, $responseCode);
     }
 
     /**
@@ -111,30 +116,7 @@ class GaleriController extends Controller
      */
     public function edit(string $id)
     {
-        try {
-            $data = $this->galeriRepository->show($id);
-            if (!$data) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Gallery item not found',
-                ], 404);
-            }
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Gallery item retrieved successfully',
-                'data' => $data,
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to retrieve gallery item: ' . $e->getMessage(),
-            ], 500);
-        } catch (QueryException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
-        }  
+        //
     }
 
     /**
@@ -143,7 +125,7 @@ class GaleriController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $this->galeriRepository->update($request->all(), $id);
+            $this->galeriRepository->update($request, $id);
             return response()->json([
                 'status' => 'success',
                 'message' => 'Gallery item updated successfully',

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AgendaController;
 use App\Http\Controllers\Backend\AlumniController;
 use App\Http\Controllers\Backend\EkstrakulikulerController;
+use App\Http\Controllers\Backend\GaleriController;
 use App\Http\Controllers\Backend\LowonganKerjaController;
 use App\Http\Controllers\Backend\MajalahController;
 use App\Http\Controllers\Backend\PengumumanController;
@@ -76,5 +77,13 @@ Route::prefix('/admin')->group(function () {
         Route::post('/', [MajalahController::class, 'store']);
         Route::post('/{id}/update', [MajalahController::class, 'update']);
         Route::post('/{id}/destroy', [MajalahController::class, 'destroy']);
+    });
+
+    Route::prefix('/galeri')->group(function () {
+        Route::get('/', [GaleriController::class, 'index']);
+        Route::get('/{id}', [GaleriController::class, 'show']);
+        Route::post('/', [GaleriController::class, 'store']);
+        Route::post('/{id}/update', [GaleriController::class, 'update']);
+        Route::post('/{id}/destroy', [GaleriController::class, 'destroy']);
     });
 });

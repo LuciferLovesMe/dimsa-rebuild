@@ -4,14 +4,14 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
 if (!function_exists('storeImage')) {
-    function storeImage($file, $pathFolder)
+    function storeImage($file, $pathFolder, $iteration = 1)
     {
         $path = public_path() . $pathFolder;
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
         $fileType = $file->getClientOriginalExtension();
-        $fileName = time() . '.';
+        $fileName = time() . '-' . $iteration . '.';
         if ($fileType != 'webp') {
             $imageManager = new ImageManager(new Driver());
             $image = $imageManager->read($file);

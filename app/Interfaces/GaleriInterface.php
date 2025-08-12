@@ -4,29 +4,14 @@ namespace App\Interfaces;
 
 interface GaleriInterface
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index($request);
+    public function index($request, $type = 'image');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store($request);
+    public function store($request, $type = 'image');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id);
+    public function show($id, $type = 'image');
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update($request, $id);
+    public function update($request, $id, $type = 'image');
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id);
 
 }
