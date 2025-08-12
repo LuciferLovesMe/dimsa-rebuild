@@ -7,8 +7,8 @@
             <img src="https://placehold.co/1200x300/e2e8f0/334155?text=Foto+Mudir" alt="Placeholder Selayang Pandang"
                 class="w-full rounded-lg shadow-md">
         </div>
-        <h1 class="text-4xl font-bold text-gray-900">Selayang Pandang</h1>
-        <div class="flex flex-col gap-y-5 text-justify mt-5 text-md text-gray-700 leading-relaxed">
+        <h1 class="font-bold text-2xl md:text-4xl text-gray-900">Selayang Pandang</h1>
+        <div class="flex flex-col gap-y-5 text-justify mt-5 text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
             <p>Pondok Darul Ihsan Muhammadiyah Sragen atau biasa disebut Dimsa, adalah pondok pesantren yang
                 memiliki
                 visi
@@ -38,8 +38,9 @@
     <hr class="my-10 border-t-2 border-gray-200">
     <div class="flex flex-row justify-end">
         <div class="flex flex-col cursor-pointer items-end" onclick="location.href='{{ route('sejarah-pondok') }}'">
-            <p class="text-sm text-gray-600 hover:text-gray-800">Berikutnya<i class="fa-solid fa-arrow-right ml-2"></i></p>
-            <h1 class="text-xl font-bold">Sejarah Pondok</h1>
+            <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800">Berikutnya<i
+                    class="fa-solid fa-arrow-right ml-2"></i></p>
+            <h1 class="font-bold text-lg md:text-xl">Sejarah Pondok</h1>
         </div>
     </div>
 @endsection
