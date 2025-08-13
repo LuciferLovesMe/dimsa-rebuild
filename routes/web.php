@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/admin')->group(function () {
+Route::prefix('/admin/api')->group(function () {
     Route::prefix('/pengumuman')->group(function () {
         Route::get('/', [PengumumanController::class, 'index']);
         Route::get('/{id}', [PengumumanController::class, 'show']);
@@ -82,11 +82,11 @@ Route::prefix('/admin')->group(function () {
     });
 
     Route::prefix('/galeri')->group(function () {
-        Route::get('/', [GaleriController::class, 'index']);
-        Route::get('/{id}', [GaleriController::class, 'show']);
-        Route::post('/', [GaleriController::class, 'store']);
-        Route::post('/{id}/update', [GaleriController::class, 'update']);
-        Route::post('/{id}/destroy', [GaleriController::class, 'destroy']);
+        Route::get('/', [GaleriController::class, 'index'])->name('galeri.index');
+        Route::get('/{id}', [GaleriController::class, 'show'])->name('galeri.show');
+        Route::post('/', [GaleriController::class, 'store'])->name('galeri.store');
+        Route::post('/{id}/update', [GaleriController::class, 'update'])->name('galeri.update');
+        Route::post('/{id}/destroy', [GaleriController::class, 'destroy'])->name('galeri.destroy');
     });
 
     Route::prefix('/fasilitas')->group(function () {

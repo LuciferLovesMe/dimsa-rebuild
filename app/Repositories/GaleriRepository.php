@@ -5,13 +5,10 @@ use App\Models\Galeri;
 
 class GaleriRepository implements \App\Interfaces\GaleriInterface
 {
-    public function index($request, $type = 'image')
+    public function index($type = 'image')
     {
         // Logic to retrieve and return a list of gallery items
         $data = Galeri::with('files')
-            ->when(isset($request->judul), function ($query) use ($request) {
-                $query->where('judul', 'like', '%' . $request->judul . '%');
-            })
             ->where('type', $type)
             ->orderBy('id', 'desc')
             ->get();

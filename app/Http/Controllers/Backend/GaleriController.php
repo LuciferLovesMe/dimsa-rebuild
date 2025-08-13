@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,11 +23,40 @@ class GaleriController extends Controller
     public function index(Request $request)
     {
         try {
-            $data = $this->galeriRepository->index($request->all());
+            $type = $request->get('type') ?? 'image';
+            $data = $this->galeriRepository->index($type);
+            $datatable = datatables()
+                ->of($data)
+                ->addColumn('judul', function ($item) {
+                    return $item->judul;
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                });
+
+            if ($type == 'image') {
+                $datatable->addColumn('jumlah_gambar', function ($item) {
+                    return count($item->files);
+                });
+            } else {
+                $datatable->addColumn('url', function ($item){
+                    return $item->url;
+                });
+            }
+
+            $datatable->addIndexColumn()
+                ->make(true);
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Gallery items retrieved successfully',
-                'data' => $data,
+                'data' => $datatable
             ], 200);
         } catch (\Exception $e) {
             return response()->json([

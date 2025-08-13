@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface GaleriInterface
 {
-    public function index($request, $type = 'image');
+    public function index($type = 'image');
 
     public function store($request, $type = 'image');
 
