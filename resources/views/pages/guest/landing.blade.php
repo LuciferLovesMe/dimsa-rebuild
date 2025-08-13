@@ -6,52 +6,48 @@
 @section('content')
     <section id="hero" class="hero w-full h-screen bg-cover bg-center"
         style="background-image: url('{{ asset('images/thumbnail.jpeg') }}');">
-        <div class="flex items-center justify-center h-full bg-black bg-opacity-50">
-            <div class="text-center text-white p-8">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4">Selamat Datang di DIMSA</h1>
-                <p class="text-lg md:text-xl mb-8">Ponpes Darul Ihsan Muhammadiyah Sragen</p>
+        <div class="flex items-center justify-center h-full bg-black bg-opacity-50 px-4 sm:px-8">
+            <div class="text-center text-white p-4 sm:p-8">
+                <h1 class="text-2xl sm:text-4xl md:text-6xl font-bold mb-2 sm:mb-4">Selamat Datang di DIMSA</h1>
+                <p class="text-base sm:text-lg md:text-xl mb-4 sm:mb-8">Ponpes Darul Ihsan Muhammadiyah Sragen</p>
+            </div>
+        </div>
     </section>
 
-    <section id="tentang" class="mx-20 py-16 sm:py-24">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div class="flex flex-col lg:flex-row gap-12">
-
+    <section id="tentang" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
                 <div class="w-full lg:w-1/3 self-start">
                     <div class="lg:sticky top-24">
-                        <p class="text-sm text-gray-500 mb-2">Selayang Pandang</p>
-
+                        <p class="text-xs sm:text-sm text-gray-500 mb-2">Selayang Pandang</p>
                         <img src="https://placehold.co/600x400/e2e8f0/334155?text=Foto+Mudir" alt="Foto Mudir Ponpes DIMSA"
-                            class="w-full h-72 object-cover rounded-xl shadow-lg">
+                            class="w-full h-48 sm:h-72 object-cover rounded-xl shadow-lg">
                     </div>
                 </div>
-
-                <div class="w-full lg:w-2/3 flex flex-col gap-y-6">
-                    <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">
+                <div class="w-full lg:w-2/3 flex flex-col gap-y-4 sm:gap-y-6">
+                    <h1 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800">
                         Sambutan Mudir Ponpes DIMSA
                     </h1>
-                    <p class="text-base text-gray-600 leading-relaxed text-justify">
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed text-justify">
                         Selamat datang di Pondok Pesantren Darul Ihsan Muhammadiyah Sragen, tempat di mana pendidikan dan
                         pengembangan karakter santri menjadi prioritas utama. Kami percaya bahwa pendidikan adalah fondasi
                         yang membentuk masa depan individu dan masyarakat. Di Pondok Pesantren Darul Ihsan, kami berkomitmen
                         untuk menciptakan lingkungan belajar yang positif dan inspiratif, di mana setiap santri dapat
                         mengembangkan potensi diri mereka secara maksimal.
                     </p>
-
                     <a href="#"
-                        class="inline-block w-full sm:w-auto text-center px-6 py-3 font-medium text-gray-800 border border-gray-800 rounded-lg hover:bg-gray-800 hover:text-white transition-colors duration-200 mt-auto">
+                        class="inline-block w-full sm:w-auto text-center px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-800 border border-gray-800 rounded-lg hover:bg-gray-800 hover:text-white transition-colors duration-200 mt-auto">
                         Selengkapnya &gt;
                     </a>
                 </div>
-
-
             </div>
         </div>
     </section>
 
-    <section id="video-profile" class="h-screen bg-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
-        <div class="w-full max-w-5xl text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-8">
+    <section id="video-profile"
+        class="h-auto min-h-[400px] bg-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div class="w-full max-w-2xl sm:max-w-5xl text-center">
+            <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-8">
                 Video Profile
             </h2>
             <div class="rounded-lg shadow-xl overflow-hidden">
@@ -64,25 +60,26 @@
         </div>
     </section>
 
-    <section id="lembaga-akademik" class="mx-20 py-16 sm:py-24 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="lembaga-akademik" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
             <div class="flex flex-col">
-                <p class="text-sm text-gray-500 mb-2">Lembaga Akademik</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mt-4">
+                <p class="text-xs sm:text-sm text-gray-500 mb-2">Lembaga Akademik</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 mt-4">
 
                     <!-- SMP -->
                     <a href="#" class="group no-underline">
-                        <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-2 sm:gap-3">
                             <div class="overflow-hidden rounded-xl">
                                 <img src="https://placehold.co/800x600/a5b4fc/1e293b?text=Gedung+SMP"
                                     alt="Gedung SMP Darul Ihsan"
-                                    class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-300">
+                                    class="w-full h-40 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-300">
                             </div>
-                            <div class="flex flex-col items-start gap-2">
-                                <h4 class="text-white bg-blue-800 px-6 py-2 rounded-full text-lg font-semibold">
+                            <div class="flex flex-col items-start gap-1 sm:gap-2">
+                                <h4
+                                    class="text-white bg-blue-800 px-4 sm:px-6 py-1 sm:py-2 rounded-full text-base sm:text-lg font-semibold">
                                     SMP
                                 </h4>
-                                <h4 class="text-xl font-semibold text-gray-900">
+                                <h4 class="text-lg sm:text-xl font-semibold text-gray-900">
                                     Darul Ihsan Muhammadiyah Sragen
                                 </h4>
                             </div>
@@ -91,17 +88,18 @@
 
                     <!-- MA -->
                     <a href="#" class="group no-underline">
-                        <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-2 sm:gap-3">
                             <div class="overflow-hidden rounded-xl">
                                 <img src="https://placehold.co/800x600/6ee7b7/1e293b?text=Gedung+MA"
                                     alt="Gedung MA Darul Ihsan"
-                                    class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-300">
+                                    class="w-full h-40 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-300">
                             </div>
-                            <div class="flex flex-col items-start gap-2">
-                                <h4 class="text-white bg-green-700 px-6 py-2 rounded-full text-lg font-semibold">
+                            <div class="flex flex-col items-start gap-1 sm:gap-2">
+                                <h4
+                                    class="text-white bg-green-700 px-4 sm:px-6 py-1 sm:py-2 rounded-full text-base sm:text-lg font-semibold">
                                     MA
                                 </h4>
-                                <h4 class="text-xl font-semibold text-gray-900">
+                                <h4 class="text-lg sm:text-xl font-semibold text-gray-900">
                                     Darul Ihsan Muhammadiyah Sragen
                                 </h4>
                             </div>
@@ -113,15 +111,17 @@
         </div>
     </section>
 
-    <section id="kerja-sama" class="py-16 sm:py-24 bg-gray-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-sm text-gray-500 mb-2 text-center">Kerja Sama</p>
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 text-center mb-12">
+    <section id="kerja-sama" class="py-8 sm:py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+            <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Kerja Sama</p>
+            <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center mb-6 sm:mb-12">
                 Dipercaya oleh Mitra Terkemuka
             </h2>
             <div class="relative w-full overflow-hidden group">
-                <div class="absolute top-0 left-0 z-10 w-24 h-full bg-gradient-to-r from-gray-50 to-transparent"></div>
-                <div class="absolute top-0 right-0 z-10 w-24 h-full bg-gradient-to-l from-gray-50 to-transparent"></div>
+                <div class="absolute top-0 left-0 z-10 w-12 sm:w-24 h-full bg-gradient-to-r from-gray-50 to-transparent">
+                </div>
+                <div class="absolute top-0 right-0 z-10 w-12 sm:w-24 h-full bg-gradient-to-l from-gray-50 to-transparent">
+                </div>
 
                 <div class="flex flex-nowrap scrolling-logos">
                     <!-- Set Logo Pertama (untuk di-loop) -->
@@ -156,17 +156,17 @@
         </div>
     </section>
 
-    <section id="agenda" class="px-20 bg-slate-900 text-white py-16 sm:py-24">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <header class="mb-8">
-                <h5 class="text-base font-semibold text-slate-300">Agenda DIMSA</h5>
+    <section id="agenda" class="px-4 sm:px-8 md:px-20 bg-slate-900 text-white py-8 sm:py-16 md:py-24">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+            <header class="mb-4 sm:mb-8">
+                <h5 class="text-sm sm:text-base font-semibold text-slate-300">Agenda DIMSA</h5>
             </header>
-            <main class="flex flex-col md:flex-row md:items-end md:justify-between gap-12">
+            <main class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12">
                 <!-- Kolom Teks -->
-                <article class="w-full md:w-1/2 flex flex-col gap-4">
-                    <h2 class="text-3xl sm:text-4xl font-bold">Dimsa Fantastic Show #4</h2>
-                    <p class="text-lg text-slate-300">25 Jan 2024 - 09:00 WIB</p>
-                    <p class="flex items-center gap-2 text-slate-200">
+                <article class="w-full md:w-1/2 flex flex-col gap-2 sm:gap-4">
+                    <h2 class="text-xl sm:text-3xl md:text-4xl font-bold">Dimsa Fantastic Show #4</h2>
+                    <p class="text-base sm:text-lg text-slate-300">25 Jan 2024 - 09:00 WIB</p>
+                    <p class="flex items-center gap-2 text-slate-200 text-sm sm:text-base">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                                 d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
@@ -178,33 +178,36 @@
                 <!-- Kolom Gambar -->
                 <article class="w-full md:w-1/2">
                     <img src="https://placehold.co/800x600/1e293b/ffffff?text=Acara+Agenda" alt="Foto Acara Agenda DIMSA"
-                        class="w-full h-96 object-cover rounded-xl shadow-lg">
+                        class="w-full h-48 sm:h-96 object-cover rounded-xl shadow-lg">
                 </article>
             </main>
         </div>
     </section>
 
     <!-- Section Berita Terbaru -->
-    <section id="berita" class="mx-20 py-16 sm:py-24 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <header class="flex justify-between items-center mb-8">
-                <h3 class="text-3xl sm:text-4xl font-bold text-gray-800">Apa yang terjadi di DIMSA</h3>
-                <a href="#" class="text-blue-600 hover:underline font-medium whitespace-nowrap">Selengkapnya
+    <section id="berita" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+            <header class="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-8 gap-2">
+                <h3 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800">Apa yang terjadi di DIMSA</h3>
+                <a href="#"
+                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base">Selengkapnya
                     &gt;</a>
             </header>
-            <main class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+            <main class="flex flex-col lg:flex-row gap-6 lg:gap-12">
                 <!-- Kolom Kiri: Artikel Utama -->
                 <article class="w-full lg:w-2/3 group cursor-pointer">
-                    <div class="overflow-hidden rounded-xl mb-4">
+                    <div class="overflow-hidden rounded-xl mb-2 sm:mb-4">
                         <img src="https://placehold.co/1200x800/94a3b8/1e293b?text=Berita+Utama" alt="Berita Utama"
-                            class="w-full h-[500px] object-cover transition-transform duration-300 group-hover:scale-105">
+                            class="w-full h-40 sm:h-[500px] object-cover transition-transform duration-300 group-hover:scale-105">
                     </div>
-                    <p class="text-sm text-gray-500 mb-2 select-none">Kabar Dimsa &bull; 06 Agu, 2025</p>
-                    <h3 class="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors select-none">
+                    <p class="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2 select-none">Kabar Dimsa &bull; 06 Agu, 2025
+                    </p>
+                    <h3
+                        class="text-lg sm:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors select-none">
                         Judul Berita Utama yang Menarik Perhatian Pembaca</h3>
                 </article>
                 <!-- Kolom Kanan: Daftar Artikel Lainnya -->
-                <article class="w-full lg:w-1/3 flex flex-col gap-y-6">
+                <article class="w-full lg:w-1/3 flex flex-col gap-y-4 sm:gap-y-6">
                     <!-- Berita 1 -->
                     <div class="flex gap-4 w-full group cursor-pointer">
                         <img src="https://placehold.co/400x400/bbf7d0/1e293b?text=Info" alt="Berita 1"
@@ -255,14 +258,15 @@
     </section>
 
     <!-- Section Testimoni Alumni -->
-    <section id="testimoni" class="mx-20 py-16 sm:py-24 bg-gray-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <header class="flex justify-between items-center mb-8">
-                <h3 class="text-3xl sm:text-4xl font-bold text-gray-800">Testimoni Alumni</h3>
-                <a href="#" class="text-blue-600 hover:underline font-medium whitespace-nowrap">Selengkapnya
+    <section id="testimoni" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+            <header class="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-8 gap-2">
+                <h3 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800">Testimoni Alumni</h3>
+                <a href="#"
+                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base">Selengkapnya
                     &gt;</a>
             </header>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
                 <!-- Testimoni 1 -->
                 <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
                     <p class="text-gray-600 italic flex-grow">"Pendidikan di DIMSA tidak hanya membentuk akademis, tetapi
@@ -309,9 +313,9 @@
     </section>
 
     <!-- Section Penerimaan & Literasi -->
-    <section class="py-16 sm:py-24">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+    <section class="py-8 sm:py-16 md:py-24">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 sm:gap-8">
                 <!-- Kartu Penerimaan Santri Baru -->
                 <div
                     class="group relative w-full md:w-[450px] h-[550px] bg-green-800 hover:bg-green-900 rounded-2xl p-8 text-white flex flex-col justify-end overflow-hidden cursor-pointer transition-colors duration-300">
@@ -355,17 +359,19 @@
     </section>
 
     <!-- Section Donasi -->
-    <section class="pb-16 sm:pb-24">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="pb-8 sm:pb-16 md:pb-24">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
             <div class="flex justify-center">
                 <div
                     class="flex flex-col md:flex-row items-center bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl shadow-lg w-full max-w-4xl overflow-hidden">
-                    <div class="p-8 md:p-12 text-left w-full md:w-7/12">
-                        <img src="https://placehold.co/50x50/ffffff/000000?text=L" alt="Logo Lazismu" class="w-12 mb-4">
-                        <h2 class="text-2xl md:text-3xl font-bold text-black">Salurkan Harta Terbaikmu,<br>Raih Berkah
+                    <div class="p-4 sm:p-8 md:p-12 text-left w-full md:w-7/12">
+                        <img src="https://placehold.co/50x50/ffffff/000000?text=L" alt="Logo Lazismu"
+                            class="w-12 mb-2 sm:mb-4">
+                        <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-black">Salurkan Harta Terbaikmu,<br>Raih
+                            Berkah
                             Ilahi.</h2>
                         <button
-                            class="mt-6 bg-black text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-800 transition-colors">Donasi
+                            class="mt-4 sm:mt-6 bg-black text-white font-semibold py-2 sm:py-3 px-4 sm:px-8 rounded-lg hover:bg-gray-800 transition-colors">Donasi
                             Sekarang</button>
                     </div>
                     <div class="hidden md:block w-full md:w-5/12">
