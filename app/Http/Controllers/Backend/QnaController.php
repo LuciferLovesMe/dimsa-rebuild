@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\QnaInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class QnaController extends Controller
 {
@@ -21,21 +24,38 @@ class QnaController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.qna.index');
-        }
-
         try {
             $qnas = $this->qnaRepository->index();
+            $datatable = datatables()
+                ->of($qnas)
+                ->addColumn('question',function ($qna) {
+                    return $qna->pertanyaan;
+                })
+                ->addColumn('answer',function ($qna) {
+                    return $qna->jawaban;
+                })
+                ->addColumn('status',function ($qna) {
+                    $statusBadge = new StatusPublish($qna->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($qna) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addIndexColumn()
+                ->make(true);
+
             $response = [
                 'message' => 'Q&A data retrieved successfully',
-                'data' => $qnas,
+                'data' => $datatable,
             ];
-            return response()->json($response, 200);
+            return response()->json($response, Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to retrieve Q&A data. ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to retrieve Q&A data. ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (QueryException $e) {
-            return response()->json(['error' => 'Database query error. ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Database query error. ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
