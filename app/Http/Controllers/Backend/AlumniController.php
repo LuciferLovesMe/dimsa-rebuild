@@ -40,6 +40,7 @@ class AlumniController extends Controller
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
+                ->addIndexColumn()
                 ->make(true);
 
             return response()->json($datatable, Response::HTTP_OK);

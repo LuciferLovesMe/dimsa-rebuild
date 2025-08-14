@@ -42,7 +42,9 @@ class LowonganKerjaController extends Controller
                         '#', '#', '#'
                     );
                     return $actionButton->render()->with($actionButton->data());
-                });
+                })
+                ->addIndexColumn()
+                ->make(true);
 
             $response = [
                 'status' => 'success',

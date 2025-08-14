@@ -9,12 +9,12 @@ class TestimoniRepository implements TestimoniInterface
 {
     public function getAll()
     {
-        return Testimoni::all();
+        return Testimoni::with('alumni')->get();
     }
 
     public function getById($id)
     {
-        return Testimoni::find($id);
+        return Testimoni::with('alumni')->find($id);
     }
 
     public function create($data)

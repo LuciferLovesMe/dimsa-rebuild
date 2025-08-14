@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\TestimoniInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,14 +24,35 @@ class TestimoniController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.testimoni.index');
-        }
-
         try {
+            $testimoni = $this->testimoniRepository->getAll();
+            $datatable = datatables()
+                ->of($testimoni)
+                ->addColumn('nama', function ($item) {
+                    return $item->alumni->nama_alumni;
+                })
+                ->addColumn('tahun_lulus', function ($item) {
+                    return $item->alumni->tahun_lulus;
+                })
+                ->addColumn('testimoni', function ($item) {
+                    return $item->testimoni;
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addIndexColumn()
+                ->make(true);
+
             $response = [
                 'status' => 'success',
-                'data' => $this->testimoniRepository->getAll()
+                'data' => $datatable
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {
