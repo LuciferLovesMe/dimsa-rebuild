@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\View\Components\ActionButton;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AlumniController extends Controller
 {
@@ -19,17 +21,32 @@ class AlumniController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.alumni.index');
-        }
-
         try {
             $alumni = $this->alumniRepository->index($request);
-            return response()->json($alumni, 200);
+            $datatable = datatables()
+                ->of($alumni)
+                ->addColumn('nama_alumni', function ($item) {
+                    return $item->nama_alumni;
+                })
+                ->addColumn('tahun_lulus', function ($item) {
+                    return $item->tahun_lulus;
+                })
+                ->addColumn('lembaga', function ($item) {
+                    return $item->lembaga;
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->make(true);
+
+            return response()->json($datatable, Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to retrieve alumni data. ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to retrieve alumni data. ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (QueryException $e) {
-            return response()->json(['error' => 'Database query error. ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Database query error. ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
     /**
