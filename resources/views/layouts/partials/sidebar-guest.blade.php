@@ -21,7 +21,8 @@
 
     {{-- Header Sidebar dengan Tombol Close untuk Mobile --}}
     <div class="flex flex-col-reverse gap-y-4 lg:flex-row lg:items-center lg:justify-between mb-10">
-        <a href="#" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900">
+        <a href="{{ route('landing-page') }}"
+            class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                     d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
