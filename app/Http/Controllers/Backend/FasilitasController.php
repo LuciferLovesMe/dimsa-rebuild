@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\FasilitasInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,14 +24,32 @@ class FasilitasController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.fasilitas.index');
-        }
-
         try {
+            $fasilitas = $this->fasilitasRepository->index();
+            $datatable = datatables()
+                ->of($fasilitas)
+                ->addColumn('judul', function ($item) {
+                    return $item->judul;
+                })
+                ->addColumn('jumlah_gambar', function ($item) {
+                    return count($item->files);
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addIndexColumn()
+                ->make(true);
+
             $response = [
                 'status' => 'success',
-                'data' => $this->fasilitasRepository->index()
+                'data' => $datatable
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {
