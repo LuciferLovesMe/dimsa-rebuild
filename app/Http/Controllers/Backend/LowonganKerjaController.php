@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\LowonganKerjaInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -21,14 +23,30 @@ class LowonganKerjaController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.lowongan_kerja.index');
-        }
-
         try {
+            $lowonganKerja = $this->lowonganKerjaRepository->getAll();
+            $datatable = datatables()
+                ->of($lowonganKerja)
+                ->addColumn('posisi', function ($item) {
+                    return $item->posisi;
+                })
+                ->addColumn('batas_waktu', function ($item) {
+                    return $item->batas_waktu ? date('d M Y', strtotime($item->batas_waktu)) : '-';
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->status);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                });
+
             $response = [
                 'status' => 'success',
-                'data' => $this->lowonganKerjaRepository->getAll(),
+                'data' => $datatable,
             ];
             
             return response()->json($response, 200);
