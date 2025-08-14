@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\PublikasiInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use GuzzleHttp\Psr7\Query;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -23,14 +25,39 @@ class MajalahController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.publikasi.majalah.index');
-        }
-
         try {
+            $majalah = $this->publikasiRepository->getMajalah();
+            $datatable = datatables()
+                ->of($majalah)
+                ->addColumn('judul', function ($item) {
+                    return $item->judul;
+                })
+                ->addColumn('penulis', function ($item) {
+                    return $item->penulis;
+                })
+                ->addColumn('tanggal', function ($item) {
+                    return $item->tanggal_terbit ? date('d M Y', strtotime($item->tanggal_terbit)) : '-';
+                })
+                ->addColumn('image', function ($item) {
+                    $filePath = public_path('uploads/majalah/' . $item->image);
+                    return '<img src="' . $filePath . '" alt="' . $item->judul . '">';
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addIndexColumn()
+                ->make(true);
+
             $response = [
                 'status' => 'success',
-                'data' => $this->publikasiRepository->getMajalah()
+                'data' => $datatable
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {
