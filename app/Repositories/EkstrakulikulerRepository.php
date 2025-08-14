@@ -16,7 +16,7 @@ class EkstrakulikulerRepository implements EkstrakulikulerInterface
 
     public function getAll()
     {
-        return $this->ekstrakulikuler;
+        return $this->ekstrakulikuler->get();
     }
 
     public function getById($id)

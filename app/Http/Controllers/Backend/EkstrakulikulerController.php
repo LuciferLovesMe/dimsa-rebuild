@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\EkstrakulikulerInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,9 +25,35 @@ class EkstrakulikulerController extends Controller
     public function index()
     {
         try {
+            $ekstrakulikuler = $this->ekstrakulikulerRepository->getAll();
+            $datatable = datatables()
+                ->of($ekstrakulikuler)
+                ->addColumn('thumbnail', function ($item) {
+                    $filePath = public_path('uploads/ekstrakulikuler/' . $item->image);
+                    return '<img src="' . $filePath . '" alt="' . $item->judul . '">';
+                })
+                ->addColumn('judul', function ($item) {
+                    return $item->judul;
+                })
+                ->addColumn('link', function ($item) {
+                    return $item->link;
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addIndexColumn()
+                ->make(true);
+
             $response = [
                 'status' => 'success',
-                'data' => $this->ekstrakulikulerRepository->getAll()
+                'data' => $datatable
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {
