@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\AgendaInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,14 +24,39 @@ class AgendaController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.agenda.index');
-        }
-
         try {
+            $agenda = $this->agendaRepository->get();
+            $datatable = datatables()
+                ->of($agenda)
+                ->addColumn('nama', function ($item) {
+                    return $item->nama;
+                })
+                ->addColumn('datetime', function ($item) {
+                    return $item->datetime ? date('d M Y H:i', strtotime($item->datetime)) : '-';
+                })
+                ->addColumn('alamat', function ($item) {
+                    return $item->alamat ?: '-';
+                })
+                ->addColumn('image', function ($item) {
+                    $filePath = public_path('uploads/agenda/' . $item->image);
+                    return '<img src="' . $filePath . '" alt="' . $item->nama . '">';
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addIndexColumn()
+                ->make(true);
+
             $response = [
                 'status' => 'success',
-                'data' => $this->agendaRepository->get()
+                'data' => $datatable
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {
