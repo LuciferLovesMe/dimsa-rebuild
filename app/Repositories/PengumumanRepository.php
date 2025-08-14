@@ -21,7 +21,7 @@ class PengumumanRepository implements PengumumanInterface
      */
     public function index($request)
     {
-        return $this->pengumuman->orderBy('id', 'desc')->paginate(10);
+        return $this->pengumuman->orderBy('id', 'desc')->get();
     }
     
     /**

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PengumumanController extends Controller
 {
@@ -20,27 +23,42 @@ class PengumumanController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            return view('backend.pengumuman.index');
-        }
-        
         try {
-            $data = $this->pengumumanRepository->index($request);
+            $data = $this->pengumumanRepository->index($request->all());
+            $datatable = datatables()
+                ->of($data)
+                ->addColumn('judul', function ($item){
+                    return $item->judul;
+                })
+                ->addColumn('tanggal', function ($item) {
+                    return $item->tanggal ? date('d-m-Y', strtotime($item->tanggal)) : '-';
+                })
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#', '#', '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addIndexColumn()
+                ->make(true);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengumuman retrieved successfully',
-                'data' => $data,
-            ], 200);
+                'data' => $datatable,
+            ], Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve pengumuman: ' . $e->getMessage(),
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
