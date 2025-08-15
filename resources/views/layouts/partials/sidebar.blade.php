@@ -62,9 +62,9 @@
                         <i class="fa fa-trophy"></i>
                         <span>Program Unggulan</span>
                     </a></li>
-                <li><a href="{{ route('tatib') }}"
+                <li><a href="{{ route('admin.tata-tertib') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('tatib') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->routeIs('admin.tata-tertib') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-warning"></i>
                         <span>Tata Tertib</span>
                     </a></li>
