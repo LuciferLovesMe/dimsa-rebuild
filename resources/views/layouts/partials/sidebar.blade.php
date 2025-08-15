@@ -44,21 +44,21 @@
                         <i class="fa fa-users"></i>
                         <span>Dewan Yayasan</span>
                     </a></li>
-                <li><a href="{{ route('staff') }}"
+                <li><a href="{{ route('admin.staff') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('staff') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->routeIs('admin.staff') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-graduation-cap"></i>
                         <span>Guru & Staff</span>
                     </a></li>
-                <li><a href="{{ route('partner') }}"
+                <li><a href="{{ route('admin.partner') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('partner') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->routeIs('admin.partner') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-handshake"></i>
                         <span>Partner Lembaga</span>
                     </a></li>
-                <li><a href="{{ route('program') }}"
+                <li><a href="{{ route('admin.program') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('program') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->routeIs('admin.program') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-trophy"></i>
                         <span>Program Unggulan</span>
                     </a></li>
