@@ -262,9 +262,9 @@
                 <a href="#" class="text-blue-600 hover:underline font-medium whitespace-nowrap">Selengkapnya
                     &gt;</a>
             </header>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimoni-card">
                 <!-- Testimoni 1 -->
-                <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
+                {{-- <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
                     <p class="text-gray-600 italic flex-grow">"Pendidikan di DIMSA tidak hanya membentuk akademis, tetapi
                         juga karakter. Saya belajar banyak tentang kepemimpinan, kemandirian, dan nilai-nilai Islam yang
                         kuat."</p>
@@ -276,9 +276,9 @@
                             <p class="text-sm text-gray-500">Alumni 2020</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- Testimoni 2 -->
-                <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
+                {{-- <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
                     <p class="text-gray-600 italic flex-grow">"Lingkungan yang sangat mendukung untuk menghafal Al-Quran
                         dan mendalami ilmu agama. Guru-gurunya sangat sabar dan berdedikasi. Pengalaman yang tak
                         terlupakan."</p>
@@ -290,9 +290,9 @@
                             <p class="text-sm text-gray-500">Alumni 2021</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- Testimoni 3 -->
-                <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
+                {{-- <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
                     <p class="text-gray-600 italic flex-grow">"Saya mendapatkan bekal ilmu dunia dan akhirat yang seimbang.
                         Program ekstrakurikulernya juga sangat beragam dan membantu mengembangkan bakat."</p>
                     <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-200">
@@ -303,7 +303,7 @@
                             <p class="text-sm text-gray-500">Alumni 2019</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -378,4 +378,59 @@
     </section>
 
     @include('components.footer')
+
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                fetchTestimoni()
+                fetchAgenda()
+
+                function fetchTestimoni () 
+                {
+                    let url = "{{ url('api/testimoni') }}";
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        success: function(data) {
+                            let response = data.data;
+                            console.log(response);
+                            $('#testimoni-card').empty(); // Clear existing cards
+                            $.each(response, function(index, testimoni) {
+                                let testimoniCard = `
+                                <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
+                                    <p class="text-gray-600 italic flex-grow">"${testimoni.testimoni}".</p>
+                                    <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-200">
+                                        <img src="{{ asset('uploads/alumni/') }}/${testimoni.alumni.image}" alt="Foto Alumni 1"
+                                            class="w-16 h-16 object-cover rounded-full">
+                                        <div>
+                                            <h6 class="font-semibold text-gray-900">${testimoni.alumni.nama_alumni}</h6>
+                                            <p class="text-sm text-gray-500">Alumni ${testimoni.alumni.tahun_lulus}</p>
+                                        </div>
+                                    </div>
+                                </div>`;
+
+                                $('#testimoni-card').append(testimoniCard);
+                            });
+                        }
+                    });
+                }
+
+                function fetchAgenda ()
+                {
+                    let url = "{{ url('api/agenda') }}";
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        success: function(data) {
+                            let response = data.data;
+                            console.log(response);
+                            
+                            $.each(response, function(index, agenda) {                                
+                            });
+                        }
+                    });
+                }
+            });
+        </script>
+    @endpush
 @endsection
