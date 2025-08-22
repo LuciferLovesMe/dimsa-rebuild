@@ -18,55 +18,105 @@ Route::get('/admin/slideshow', function () {
 // Grup Rute untuk semua halaman di bawah "admin"
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    // Grup Rute untuk semua halaman di bawah "dewan"
     Route::prefix('dewan')->name('dewan.')->group(function () {
-
-        // Rute untuk /admin/dewan/pimpinan
         Route::get('/pimpinan', function () {
-            // Data ini nantinya bisa datang dari database
+
             $data = [
                 ['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1],
             ];
-            // Mengirim data ke view 'dewan.show'
-            return view('pages.admin.dewan.show', [
+
+            return view('pages.admin.dewan.index', [
                 'title' => 'Pimpinan',
                 'breadcrumb3' => 'Data Pimpinan',
                 'dewanData' => $data,
             ]);
         })->name('pimpinan');
 
-        // Rute untuk /admin/dewan/pengasuh
         Route::get('/pengasuh', function () {
-            // Data ini nantinya bisa datang dari database
+
             $data = [
                 ['id' => 1, 'nama' => 'Ahmad Subarjo', 'jabatan' => 'Pengasuh Putra', 'status' => 1],
                 ['id' => 2, 'nama' => 'Siti Aminah', 'jabatan' => 'Pengasuh Putri', 'status' => 0],
             ];
-            // Mengirim data ke view 'dewan.show'
-            return view('pages.admin.dewan.show', [
+
+            return view('pages.admin.dewan.index', [
                 'title' => 'Pengasuh',
                 'breadcrumb3' => 'Data Pengasuh',
                 'dewanData' => $data,
             ]);
         })->name('pengasuh');
     });
+
+    Route::prefix('staff')->name('staff')->group(function () {
+        Route::get('/', function () {
+
+            $data = [
+                ['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1],
+                ['id' => 2, 'nama' => 'Siti Aminah', 'jabatan' => 'Pengasuh Putri', 'status' => 0],
+                ['id' => 3, 'nama' => 'Ahmad Subarjo', 'jabatan' => 'Pengasuh Putra', 'status' => 1],
+            ];
+
+            return view('pages.admin.staff.index', [
+                'title' => 'Guru & Staff',
+                'breadcrumb3' => 'Guru & Staff',
+                'staffData' => $data,
+            ]);
+        });
+
+
+        Route::get('/add-staff', function () {
+            return view('pages.admin.staff.add');
+        })->name('.add-staff');
+    });
+
+    Route::prefix('partner')->name('partner')->group(function () {
+        Route::get('/', function () {
+
+            $data = [
+                ['id' => 1, 'nama_mitra' => 'Google', 'logo' => 'logo-google.png', 'status' => 1],
+                ['id' => 2, 'nama_mitra' => 'Microsoft', 'logo' => 'logo-microsoft.png', 'status' => 0],
+                ['id' => 3, 'nama_mitra' => 'Apple', 'logo' => 'logo-apple.png', 'status' => 1],
+                ['id' => 4, 'nama_mitra' => 'Oracle', 'logo' => 'logo-oracle.png', 'status' => 0],
+            ];
+
+            return view('pages.admin.partner.index', [
+                'title' => 'Partner Lembaga',
+                'breadcrumb3' => 'Partner Lembaga',
+                'partnerData' => $data,
+            ]);
+        });
+    });
+    Route::prefix('program')->name('program')->group(function () {
+        Route::get('/', function () {
+
+            $data = [
+                ['id' => 1, 'gambar_header' => 'gambar.png', 'nama_program' => 'Ngaji Bersama', 'deskripsi' => 'Program Studi Ngaji Bersama', 'status' => 1],
+
+            ];
+
+            return view('pages.admin.program.index', [
+                'title' => 'Program Unggulan',
+                'breadcrumb3' => 'Program Unggulan',
+                'programData' => $data,
+            ]);
+        });
+    });
+
+    Route::prefix('tata-tertib')->name('tata-tertib')->group(function () {
+        Route::get('/', function () {
+
+
+            return view('pages.admin.tata_tertib.index', [
+                'title' => 'Tata Tertib',
+                'breadcrumb3' => 'Tata Tertib',
+            ]);
+        });
+    });
 });
 
-Route::get('/admin/staff', function () {
-    return view('pages.admin.staff.index');
-})->name('staff');
-Route::get('/admin/partner', function () {
-    return view('pages.admin.partner.index');
-})->name('partner');
 Route::get('/admin/berita', function () {
     return view('pages.admin.berita.index');
 })->name('berita');
-Route::get('/admin/program', function () {
-    return view('pages.admin.program.index');
-})->name('program');
-Route::get('/admin/tatib', function () {
-    return view('pages.admin.tata_tertib.index');
-})->name('tatib');
 Route::get('/admin/karya-ilmiah', function () {
     return view('pages.admin.karya_ilmiah.index');
 })->name('karya-ilmiah');

@@ -8,7 +8,7 @@
         <!-- Isi konten lainnya -->
         <div class="flex flex-row justify-between">
             <p>Data {{ $title }}</p>
-            <a href="#"
+            <a href="{{ route('admin.staff.add-staff') }}"
                 class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg text-sm shadow-md transition-all duration-200">
                 <i class="fa-regular fa-plus text-base"></i>
                 <span class="font-semibold">Tambah Data</span>
