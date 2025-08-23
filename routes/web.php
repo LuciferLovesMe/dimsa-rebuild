@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 Route::get('/login', function () {
     return view('pages.auth.login');
@@ -192,22 +193,6 @@ Route::get('/akademik-ma', function () {
     return view('pages.guest.akademik.ma');
 })->name('ma');
 
-// program
-Route::get('kelas-cyber', function () {
-    return view('pages.guest.program.kelas-cyber');
-})->name('kelas-cyber');
-
-Route::get('kelas-tahfidz', function () {
-    return view('pages.guest.program.kelas-tahfidz');
-})->name('kelas-tahfidz');
-
-Route::get('kurikulum-pondok', function () {
-    return view('pages.guest.program.kurikulum-pondok');
-})->name('kurikulum-pondok');
-
-Route::get('ekstrakurikuler', function () {
-    return view('pages.guest.program.ekstrakurikuler');
-})->name('ekstrakurikuler');
 
 // fasilitas
 Route::get('sarana-prasarana', function () {
@@ -251,3 +236,48 @@ Route::get('alumni', function () {
 Route::get('lowongan-kerja', function () {
     return view('pages.guest.berita.lowogan-kerja');
 })->name('lowongan-kerja');
+
+
+// --- 1. ROUTE DINAMIS UNTUK HALAMAN PROGRAM ---
+// Route ini sekarang mengambil data global dari AppServiceProvider
+Route::get('/program/{slug}', function ($slug) {
+    // Mengambil data global yang sudah kita siapkan di AppServiceProvider
+    $allPrograms = View::shared('allPrograms', []);
+
+    $currentProgram = null;
+    foreach ($allPrograms as $program) {
+        if ($program['slug'] === $slug) {
+            $currentProgram = $program;
+            break;
+        }
+    }
+
+    // Jika program tidak ditemukan, tampilkan halaman 404
+    if (!$currentProgram) {
+        abort(404);
+    }
+
+    // Kirim data lengkap dari program yang ditemukan ke view
+    return view('pages.guest.program.program-unggulan', ['program' => $currentProgram]);
+})->name('program.show');
+
+
+// --- 2. BAGIKAN DATA NAVIGASI KE SEMUA VIEW ---
+// Kode ini aman karena dieksekusi setelah semua route terdaftar
+View::composer('*', function ($view) {
+    $allPrograms = View::shared('allPrograms', []);
+    $programNavItems = [];
+
+    // Pastikan route 'program.show' ada sebelum membuat URL
+    if (Route::has('program.show')) {
+        foreach ($allPrograms as $program) {
+            $programNavItems[] = [
+                'text' => $program['heroTitle'],
+                'url' => route('program.show', ['slug' => $program['slug']]),
+            ];
+        }
+    }
+
+    // Kirim data navigasi ke semua view
+    $view->with('programNavItems', $programNavItems);
+});

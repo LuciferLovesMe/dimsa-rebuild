@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,33 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $allPrograms = [
+            [
+                'slug' => 'kelas-khusus-cyber',
+                'heroTitle' => 'Kelas Khusus Cyber',
+                'heroDesc' => 'Kelas Khusus Cyber di Pondok Pesantren Darul Ihsan Muhammadiyah Sragen adalah salah satu program inovatif yang dirancang untuk memberikan keterampilan teknologi informasi kepada santri di era digital...',
+                'heroImage' => asset('images/cyber-bg.webp'),
+                'videoUrl' => 'https://www.youtube.com/embed/I1L_KWsHvDs',
+                'videoTitle' => 'Video Profil Kelas Cyber',
+            ],
+            [
+                'slug' => 'kelas-khusus-tahfidz',
+                'heroTitle' => 'Kelas Khusus Tahfidz',
+                'heroDesc' => 'Program ini difokuskan untuk mencetak para penghafal Al-Qur\'an yang mutqin, dengan metode pembelajaran yang terstruktur dan lingkungan yang kondusif untuk menghafal.',
+                'heroImage' => 'https://placehold.co/1920x1080/16a34a/ffffff?text=Tahfidz',
+                'videoUrl' => 'https://www.youtube.com/embed/VIDEO_ID_TAHFIDZ',
+                'videoTitle' => 'Video Profil Kelas Tahfidz',
+            ],
+            [
+                'slug' => 'kelas-khusus-programmer',
+                'heroTitle' => 'Kelas Khusus Programmer',
+                'heroDesc' => 'Program ini dirancang untuk mencetak para programmer handal yang siap menghadapi tantangan di dunia digital.',
+                'heroImage' => 'https://placehold.co/1920x1080/16a34a/ffffff?text=Programmer',
+                'videoUrl' => 'https://www.youtube.com/embed/VIDEO_ID_PROGRAMMER',
+                'videoTitle' => 'Video Profil Kelas Programmer',
+            ],
+        ];
+
+        View::share('allPrograms', $allPrograms);
     }
 }
