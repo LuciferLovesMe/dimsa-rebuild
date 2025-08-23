@@ -9,14 +9,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "cviebrock/eloquent-sluggable": "11.0",
         "intervention/image": "^3.11",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "league/flysystem": "^3.30",
         "yajra/laravel-datatables": "11.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/breeze": "^2.3",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
@@ -26,6 +29,7 @@
     },
     "autoload": {
         "files": [
+            "app/Helpers/CoreHelper.php",
             "app/helpers.php"
         ],
         "psr-4": {

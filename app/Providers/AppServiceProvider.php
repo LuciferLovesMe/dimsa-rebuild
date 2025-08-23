@@ -2,6 +2,28 @@
 
 namespace App\Providers;
 
+use App\Interfaces\Berita\BeritaInterface;
+use App\Interfaces\Berita\KategoriBeritaInterface;
+use App\Interfaces\DewanYayasan\PengasuhInterface;
+use App\Interfaces\DewanYayasan\PimpinanInterface;
+use App\Interfaces\Profile\ChangePassInterface;
+use App\Interfaces\GuruStaffInterface;
+use App\Interfaces\KaryaIlmiahInterface;
+use App\Interfaces\PartnerInterface;
+use App\Interfaces\Profile\ProfileInterface;
+use App\Interfaces\ProgramUnggulanInterface;
+use App\Interfaces\SlideshowInterface;
+use App\Repositories\Berita\BeritaRepository;
+use App\Repositories\Berita\KategoriBeritaRepository;
+use App\Repositories\Profiles\ChangePassRepository;
+use App\Repositories\DewanYayasan\PimpinanRepository;
+use App\Repositories\GuruStaffRepository;
+use App\Repositories\KaryaIlmiahRepository;
+use App\Repositories\PartnerRepository;
+use App\Repositories\DewanYayasan\PengasuhRepository;
+use App\Repositories\Profiles\ProfileRepository;
+use App\Repositories\ProgramUnggulanRepository;
+use App\Repositories\SlideshowRepository;
 use App\Interfaces\AgendaInterface;
 use App\Interfaces\AlumniInterface;
 use App\Interfaces\EkstrakulikulerInterface;
@@ -31,16 +53,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(GaleriInterface::class, GaleriRepository::class);
-        $this->app->bind(PengumumanInterface::class, PengumumanRepository::class);
-        $this->app->bind(QnaInterface::class, QnaRepository::class);
-        $this->app->bind(AlumniInterface::class, AlumniRepository::class);
-        $this->app->bind(LowonganKerjaInterface::class, LowonganKerjaRepository::class);
-        $this->app->bind(TestimoniInterface::class, TestimoniRepository::class);
-        $this->app->bind(EkstrakulikulerInterface::class, EkstrakulikulerRepository::class);
-        $this->app->bind(AgendaInterface::class, AgendaRepository::class);
-        $this->app->bind(PublikasiInterface::class, PublikasiRepository::class);
-        $this->app->bind(FasilitasInterface::class, FasilitasRepository::class);
+        //
     }
 
     /**
