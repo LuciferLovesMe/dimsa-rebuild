@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Partner;
+namespace App\Http\Controllers\API\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\AddPartnerRequest;

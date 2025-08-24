@@ -36,6 +36,12 @@ class KategoriBeritaRepository implements KategoriBeritaInterface
     {
         return KategoriBerita::orderBy('created_at', 'desc')->paginate($perPage);
     }
+    
+    public function getAllWithoutPaginate()
+    {
+        return KategoriBerita::orderBy('created_at', 'desc')->get();
+    }
+
 
     public function delete($id)
     {

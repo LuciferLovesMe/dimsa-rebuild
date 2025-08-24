@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\GuruStaff;
+namespace App\Http\Controllers\API\GuruStaff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GuruStaff\AddGuruStaffRequest;

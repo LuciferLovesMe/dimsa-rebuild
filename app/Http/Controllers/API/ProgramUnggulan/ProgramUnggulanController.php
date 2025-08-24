@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\ProgramUnggulan;
+namespace App\Http\Controllers\API\ProgramUnggulan;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProgramUnggulan\ProgramUnggulanRequest;

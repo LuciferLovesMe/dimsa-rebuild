@@ -10,4 +10,5 @@ interface KategoriBeritaInterface
     public function getById($id);
     public function getAll(int $perPage = 10);
     public function delete($id);
+    public function getAllWithoutPaginate();
 }

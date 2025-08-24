@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Slideshow;
+namespace App\Http\Controllers\API\Slideshow;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Slideshow\SlideshowRequest;

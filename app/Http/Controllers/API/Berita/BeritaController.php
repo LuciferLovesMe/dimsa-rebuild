@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Berita;
+namespace App\Http\Controllers\API\Berita;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Berita\BeritaRequest;
@@ -96,7 +96,7 @@ class BeritaController extends Controller
     {
         DB::beginTransaction();
         try {
-            $berita = $this->beritaRepo->getBySlug($id); // kalau id, sebaiknya buat `getById` di repo
+            $berita = $this->beritaRepo->getByID($id); // kalau id, sebaiknya buat `getById` di repo
 
             $this->deleteImage($berita->cover);
             $this->deleteCKEditorImages($berita->isi);

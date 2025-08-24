@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\SlideShow;
+namespace App\Http\Requests\Slideshow;
 
 use Illuminate\Foundation\Http\FormRequest;
 

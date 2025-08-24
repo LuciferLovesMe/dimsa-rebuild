@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api\Berita;
+namespace App\Http\Controllers\API\Berita;
+
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Berita\KategoriBeritaRequest;

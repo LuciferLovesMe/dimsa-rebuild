@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\KaryaIlmiah;
+namespace App\Http\Controllers\API\KaryaIlmiah;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KaryaIlmiah\KaryaIlmiahRequest;
