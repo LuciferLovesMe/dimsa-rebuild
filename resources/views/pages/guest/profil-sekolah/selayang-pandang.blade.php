@@ -4,8 +4,8 @@
     <div class="flex flex-col">
 
         <div class="flex justify-center mb-8">
-            <img src="https://placehold.co/1200x300/e2e8f0/334155?text=Foto+Mudir" alt="Placeholder Selayang Pandang"
-                class="w-full rounded-lg shadow-md">
+            <img src="{{ asset('images/pimpinan.webp') }}" alt="Placeholder Selayang Pandang"
+                class="w-full h-[600px] object-cover rounded-lg shadow-md">
         </div>
         <h1 class="font-bold text-2xl md:text-4xl text-gray-900">Selayang Pandang</h1>
         <div class="flex flex-col gap-y-5 text-justify mt-5 text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
