@@ -124,7 +124,7 @@
 
         <!-- Overlay and Content -->
         <div
-            class="relative flex flex-col justify-end h-full bg-gradient-to-t from-black/60 via-black/20 to-transparent p-4 sm:p-8 lg:p-12">
+            class="relative flex flex-col justify-end h-full bg-gradient-to-t from-black/60 via-black/20 to-transparent p-4 sm:p-8 lg:p-20">
 
             {{-- Wrapper untuk konten bawah --}}
             <div class="flex w-full items-end justify-between">
@@ -182,8 +182,8 @@
         </div>
     </section>
 
-    <section id="tentang" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24">
-        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+    <section id="tentang" class="py-16 sm:py-20 md:py-24">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20">
             <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
                 <div class="w-full lg:w-1/3 self-start">
                     <div class="lg:sticky top-24">
@@ -212,13 +212,12 @@
         </div>
     </section>
 
-    <section id="video-profile"
-        class="h-auto min-h-[400px] bg-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
-        <div class="w-full max-w-2xl sm:max-w-5xl text-center">
+    <section id="video-profile" class="bg-gray-100 py-16 sm:py-20 md:py-24">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20 text-center">
             <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-8">
                 Video Profile
             </h2>
-            <div class="rounded-lg shadow-xl overflow-hidden">
+            <div class="max-w-5xl mx-auto rounded-lg shadow-xl overflow-hidden">
                 <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/U25Nbeyfn8A?start=2"
                     title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -228,58 +227,56 @@
         </div>
     </section>
 
-    <section id="lembaga-akademik" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
-            <div class="flex flex-col">
-                <p class="text-xs sm:text-sm text-gray-500 mb-2">Lembaga Akademik</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 mt-4">
+    <section id="lembaga-akademik" class="py-16 sm:py-20 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20">
+            <p class="text-xs sm:text-sm text-gray-500 mb-2">Lembaga Akademik</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 mt-4">
 
-                    <!-- SMP -->
-                    <a href="#" class="group no-underline">
-                        <div class="flex flex-col gap-2 sm:gap-3">
-                            <div class="overflow-hidden rounded-xl">
-                                <img src="{{ asset('images/smp-bg.webp') }}" alt="Gedung SMP Darul Ihsan"
-                                    class="w-full h-40 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-300">
-                            </div>
-                            <div class="flex flex-col items-start gap-1 sm:gap-2">
-                                <h4
-                                    class="text-white bg-blue-800 px-4 sm:px-6 py-1 sm:py-2 rounded-full text-base sm:text-lg font-semibold">
-                                    SMP
-                                </h4>
-                                <h4 class="text-lg sm:text-xl font-semibold text-gray-900">
-                                    Darul Ihsan Muhammadiyah Sragen
-                                </h4>
-                            </div>
+                <!-- SMP -->
+                <a href="#" class="group no-underline">
+                    <div class="flex flex-col gap-2 sm:gap-3">
+                        <div class="overflow-hidden rounded-xl">
+                            <img src="{{ asset('images/smp-bg.webp') }}" alt="Gedung SMP Darul Ihsan"
+                                class="w-full h-40 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-300">
                         </div>
-                    </a>
-
-                    <!-- MA -->
-                    <a href="#" class="group no-underline">
-                        <div class="flex flex-col gap-2 sm:gap-3">
-                            <div class="overflow-hidden rounded-xl">
-                                <img src="{{ asset('images/ma-bg.webp') }}" alt="Gedung MA Darul Ihsan"
-                                    class="w-full h-40 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-300">
-                            </div>
-                            <div class="flex flex-col items-start gap-1 sm:gap-2">
-                                <h4
-                                    class="text-white bg-green-700 px-4 sm:px-6 py-1 sm:py-2 rounded-full text-base sm:text-lg font-semibold">
-                                    MA
-                                </h4>
-                                <h4 class="text-lg sm:text-xl font-semibold text-gray-900">
-                                    Darul Ihsan Muhammadiyah Sragen
-                                </h4>
-                            </div>
+                        <div class="flex flex-col items-start gap-1 sm:gap-2">
+                            <h4
+                                class="text-white bg-blue-800 px-4 sm:px-6 py-1 sm:py-2 rounded-full text-base sm:text-lg font-semibold">
+                                SMP
+                            </h4>
+                            <h4 class="text-lg sm:text-xl font-semibold text-gray-900">
+                                Darul Ihsan Muhammadiyah Sragen
+                            </h4>
                         </div>
-                    </a>
+                    </div>
+                </a>
 
-                </div>
+                <!-- MA -->
+                <a href="#" class="group no-underline">
+                    <div class="flex flex-col gap-2 sm:gap-3">
+                        <div class="overflow-hidden rounded-xl">
+                            <img src="{{ asset('images/ma-bg.webp') }}" alt="Gedung MA Darul Ihsan"
+                                class="w-full h-40 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="flex flex-col items-start gap-1 sm:gap-2">
+                            <h4
+                                class="text-white bg-green-700 px-4 sm:px-6 py-1 sm:py-2 rounded-full text-base sm:text-lg font-semibold">
+                                MA
+                            </h4>
+                            <h4 class="text-lg sm:text-xl font-semibold text-gray-900">
+                                Darul Ihsan Muhammadiyah Sragen
+                            </h4>
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </div>
     </section>
 
     @if (!empty($mitraData))
-        <section id="kerja-sama" class="py-8 sm:py-16 md:py-24 bg-gray-50">
-            <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+        <section id="kerja-sama" class="py-16 sm:py-20 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-8 lg:px-20">
                 <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Kerja Sama</p>
                 <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center mb-6 sm:mb-12">
                     Dipercaya oleh Mitra Terkemuka
@@ -314,8 +311,8 @@
     @endif
 
     {{-- Agenda --}}
-    <section id="agenda" class="px-4 sm:px-8 md:px-20 bg-slate-900 text-white py-8 sm:py-16 md:py-24">
-        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+    <section id="agenda" class="bg-slate-900 text-white py-16 sm:py-20 md:py-24">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20">
             <header class="mb-4 sm:mb-8">
                 <h5 class="text-sm sm:text-base font-semibold text-slate-300">Agenda DIMSA</h5>
             </header>
@@ -344,12 +341,12 @@
     </section>
 
     <!-- Section Berita Terbaru -->
-    <section id="berita" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
-            <header class="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-8 gap-2">
+    <section id="berita" class="py-16 sm:py-20 md:py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20">
+            <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 gap-2">
                 <h3 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800">Apa yang terjadi di DIMSA</h3>
                 <a href="#"
-                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base">Selengkapnya
+                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base hidden sm:block">Selengkapnya
                     &gt;</a>
             </header>
             <main class="flex flex-col lg:flex-row gap-6 lg:gap-12">
@@ -371,28 +368,36 @@
                 <article class="w-full lg:w-1/3 flex flex-col gap-y-4 sm:gap-y-6">
                     @foreach ($news as $new)
                         <div class="flex gap-4 w-full group cursor-pointer">
-                            <img src="{{ $new['image'] }}" alt="Berita 1" class="w-1/3 h-32 object-cover rounded-xl">
+                            <img src="{{ $new['image'] }}" alt="Berita 1"
+                                class="w-1/3 h-24 sm:h-32 object-cover rounded-xl">
                             <div class="w-2/3 flex flex-col justify-center">
                                 <p class="text-xs text-gray-500 mb-1 select-none">Kabar Dimsa &bull;
                                     {{ $new['date'] }}</p>
                                 <h6
-                                    class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors select-none">
+                                    class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-blue-600 transition-colors select-none">
                                     {{ $new['title'] }}</h6>
                             </div>
                         </div>
                     @endforeach
                 </article>
             </main>
+            <!-- Tombol Selengkapnya untuk Mobile -->
+            <div class="mt-8 text-center sm:hidden">
+                <a href="#"
+                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base">Selengkapnya
+                    &gt;</a>
+            </div>
         </div>
     </section>
 
     <!-- Section Testimoni Alumni -->
-    <section id="testimoni" class="px-4 sm:px-8 md:mx-20 py-8 sm:py-16 md:py-24 bg-gray-50">
-        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+    <section id="testimoni" class="py-16 sm:py-20 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20">
             <header class="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-8 gap-2">
-                <h3 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800">Testimoni Alumni</h3>
+                <h3 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center sm:text-left">Testimoni
+                    Alumni</h3>
                 <a href="#"
-                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base">Selengkapnya
+                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base hidden sm:block">Selengkapnya
                     &gt;</a>
             </header>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
@@ -411,11 +416,17 @@
                     </div>
                 @endforeach
             </div>
+            <!-- Tombol Selengkapnya untuk Mobile -->
+            <div class="mt-8 text-center sm:hidden">
+                <a href="#"
+                    class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base">Selengkapnya
+                    &gt;</a>
+            </div>
         </div>
     </section>
 
-    <section class="py-8 sm:py-16 md:py-24">
-        <div class="container mx-auto px-2 sm:px-4 lg:px-8">
+    <section class="py-16 sm:py-20 md:py-24">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
                 <!-- Kartu Penerimaan Santri Baru -->
                 <a href="#"
@@ -458,7 +469,7 @@
                     <div
                         class="flex flex-col md:flex-row items-center bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl shadow-lg w-full overflow-hidden">
                         <div class="p-8 md:p-12 text-left w-full md:w-7/12">
-                            <img src="{{ asset('images/logo lazizmu.svg') }}" alt="Logo Lazismu" class="w-12 mb-4">
+                            <img src="{{ asset('images/lazismu.svg') }}" alt="Logo Lazismu" class="w-12 mb-4">
                             <h2 class="text-2xl md:text-3xl font-bold text-black">Salurkan Harta Terbaikmu,<br>Raih
                                 Berkah
                                 Ilahi.</h2>
