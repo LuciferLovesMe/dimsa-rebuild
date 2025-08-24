@@ -60,3 +60,20 @@
         Menghasilkan budaya Himmatu at Ta’allum, Leadership dan Uswah Hasnah di lingkungan Madrasah.
     </li>
 @endsection
+
+@section('stepper')
+    <hr class="my-10 border-t-2 border-gray-200">
+    <div class="flex flex-row justify-between md:flex-row lg:justify-between">
+        <div class="flex flex-col cursor-pointer md:w-1/2 lg:w-auto lg:mr-10" onclick="location.href='{{ route('smp') }}'">
+            <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800"><i
+                    class="fa-solid fa-arrow-left mr-2"></i>Sebelumnya</p>
+            <h1 class="font-bold text-sm md:text-base lg:text-lg">SMP Darul Ihsan Muhammadiyah</h1>
+        </div>
+        <div class="flex flex-col items-end cursor-pointer md:w-1/2 lg:w-auto lg:ml-10"
+            onclick="location.href='{{ route('landing-page') }}'">
+            <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800">Berikutnya<i
+                    class="fa-solid fa-arrow-right ml-2"></i></p>
+            <h1 class="font-bold text-sm md:text-base lg:text-lg">Kembali ke Beranda</h1>
+        </div>
+    </div>
+@endsection

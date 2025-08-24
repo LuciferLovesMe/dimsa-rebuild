@@ -57,3 +57,14 @@
     <li>Membekali santri dengan berbagai keterampilan seperti bahasa, komputer, seni baca Al-Qur’an dan
         jurnalistik.</li>
 @endsection
+
+@section('stepper')
+    <hr class="my-10 border-t-2 border-gray-200">
+    <div class="flex flex-row justify-end">
+        <div class="flex flex-col cursor-pointer items-end" onclick="location.href='{{ route('ma') }}'">
+            <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800">Berikutnya<i
+                    class="fa-solid fa-arrow-right ml-2"></i></p>
+            <h1 class="font-bold text-lg md:text-xl">MA Darul Ihsan Muhammadiyah</h1>
+        </div>
+    </div>
+@endsection

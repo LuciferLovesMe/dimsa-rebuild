@@ -29,10 +29,9 @@
         </div>
     </div>
 
-    <main>
-
+    <main class="px-4 sm:px-8 lg:px-20">
         {{-- Section Tentang  --}}
-        <div class="bg-white py-12 md:py-20 px-4 sm:px-8 lg:px-20">
+        <div class="bg-white py-12 md:py-20">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800">@yield('tentang_title')</h2>
                 <p class="text-base md:text-lg text-gray-600 mt-6 text-justify leading-relaxed">
@@ -42,7 +41,7 @@
         </div>
 
         {{-- Section Visi Misi --}}
-        <div class="bg-gray-50 py-12 md:py-20 px-4 sm:px-8 lg:px-20">
+        <div class="bg-gray-50 py-12 md:py-20">
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {{-- Visi --}}
                 <div class="p-6">
@@ -62,7 +61,7 @@
         </div>
 
         {{-- Section Tujuan --}}
-        <div class="bg-white py-12 md:py-20 px-4 sm:px-8 lg:px-20">
+        <div class="bg-white py-12 md:py-20">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-10">Tujuan Sekolah</h2>
                 <div class="space-y-4">
@@ -72,8 +71,9 @@
                 </div>
             </div>
         </div>
+        @yield('stepper')
     </main>
-
-
-    @include('components.footer')
+    <div class="my-6">
+        @include('components.footer')
+    </div>
 @endsection
