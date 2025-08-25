@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- Hero Section --}}
-    <div class="relative h-64 md:h-80 lg:h-[50vh]  bg-cover bg-center" style="background-image: url('@yield('heroImage', 'https://placehold.co/1920x1080/2d3748/e2e8f0?text=Background')');">
+    <div class="relative h-64 md:h-80 lg:h-[50vh] bg-cover bg-center" style="background-image: url('@yield('heroImage', 'https://placehold.co/1920x1080/2d3748/e2e8f0?text=Background')');">
         <div class="absolute inset-0 bg-black opacity-50"></div>
 
         <div class="relative h-full flex items-end justify-between p-4 sm:p-8 lg:p-20">
@@ -17,6 +17,7 @@
             </div>
         </div>
     </div>
+
 
     {{-- Main Content Slot --}}
     <main>
