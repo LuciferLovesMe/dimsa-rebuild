@@ -19,7 +19,8 @@ class AlumniFactory extends Factory
         return [
             'nama_alumni' => $this->faker->name(),
             'tahun_lulus' => $this->faker->year(),
-            'lembaga' => $this->faker->company(),
+            'lembaga' => $this->faker->boolean(),
+            'pekerjaan' => $this->faker->jobTitle() . ' ' . $this->faker->company(),
             'image' => $this->faker->imageUrl(),
         ];
     }
