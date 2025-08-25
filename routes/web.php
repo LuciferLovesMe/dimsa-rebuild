@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\PengumumanController;
 use App\Http\Controllers\Backend\QnaController;
 use App\Http\Controllers\Backend\TestimoniController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 Route::get('/', function () {
     return view('welcome');
@@ -111,55 +112,105 @@ Route::get('/admin/slideshow', function () {
 // Grup Rute untuk semua halaman di bawah "admin"
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    // Grup Rute untuk semua halaman di bawah "dewan"
     Route::prefix('dewan')->name('dewan.')->group(function () {
-
-        // Rute untuk /admin/dewan/pimpinan
         Route::get('/pimpinan', function () {
-            // Data ini nantinya bisa datang dari database
+
             $data = [
                 ['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1],
             ];
-            // Mengirim data ke view 'dewan.show'
-            return view('pages.admin.dewan.show', [
+
+            return view('pages.admin.dewan.index', [
                 'title' => 'Pimpinan',
                 'breadcrumb3' => 'Data Pimpinan',
                 'dewanData' => $data,
             ]);
         })->name('pimpinan');
 
-        // Rute untuk /admin/dewan/pengasuh
         Route::get('/pengasuh', function () {
-            // Data ini nantinya bisa datang dari database
+
             $data = [
                 ['id' => 1, 'nama' => 'Ahmad Subarjo', 'jabatan' => 'Pengasuh Putra', 'status' => 1],
                 ['id' => 2, 'nama' => 'Siti Aminah', 'jabatan' => 'Pengasuh Putri', 'status' => 0],
             ];
-            // Mengirim data ke view 'dewan.show'
-            return view('pages.admin.dewan.show', [
+
+            return view('pages.admin.dewan.index', [
                 'title' => 'Pengasuh',
                 'breadcrumb3' => 'Data Pengasuh',
                 'dewanData' => $data,
             ]);
         })->name('pengasuh');
     });
+
+    Route::prefix('staff')->name('staff')->group(function () {
+        Route::get('/', function () {
+
+            $data = [
+                ['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1],
+                ['id' => 2, 'nama' => 'Siti Aminah', 'jabatan' => 'Pengasuh Putri', 'status' => 0],
+                ['id' => 3, 'nama' => 'Ahmad Subarjo', 'jabatan' => 'Pengasuh Putra', 'status' => 1],
+            ];
+
+            return view('pages.admin.staff.index', [
+                'title' => 'Guru & Staff',
+                'breadcrumb3' => 'Guru & Staff',
+                'staffData' => $data,
+            ]);
+        });
+
+
+        Route::get('/add-staff', function () {
+            return view('pages.admin.staff.add');
+        })->name('.add-staff');
+    });
+
+    Route::prefix('partner')->name('partner')->group(function () {
+        Route::get('/', function () {
+
+            $data = [
+                ['id' => 1, 'nama_mitra' => 'Google', 'logo' => 'logo-google.png', 'status' => 1],
+                ['id' => 2, 'nama_mitra' => 'Microsoft', 'logo' => 'logo-microsoft.png', 'status' => 0],
+                ['id' => 3, 'nama_mitra' => 'Apple', 'logo' => 'logo-apple.png', 'status' => 1],
+                ['id' => 4, 'nama_mitra' => 'Oracle', 'logo' => 'logo-oracle.png', 'status' => 0],
+            ];
+
+            return view('pages.admin.partner.index', [
+                'title' => 'Partner Lembaga',
+                'breadcrumb3' => 'Partner Lembaga',
+                'partnerData' => $data,
+            ]);
+        });
+    });
+    Route::prefix('program')->name('program')->group(function () {
+        Route::get('/', function () {
+
+            $data = [
+                ['id' => 1, 'gambar_header' => 'gambar.png', 'nama_program' => 'Ngaji Bersama', 'deskripsi' => 'Program Studi Ngaji Bersama', 'status' => 1],
+
+            ];
+
+            return view('pages.admin.program.index', [
+                'title' => 'Program Unggulan',
+                'breadcrumb3' => 'Program Unggulan',
+                'programData' => $data,
+            ]);
+        });
+    });
+
+    Route::prefix('tata-tertib')->name('tata-tertib')->group(function () {
+        Route::get('/', function () {
+
+
+            return view('pages.admin.tata_tertib.index', [
+                'title' => 'Tata Tertib',
+                'breadcrumb3' => 'Tata Tertib',
+            ]);
+        });
+    });
 });
 
-Route::get('/admin/staff', function () {
-    return view('pages.admin.staff.index');
-})->name('staff');
-Route::get('/admin/partner', function () {
-    return view('pages.admin.partner.index');
-})->name('partner');
 Route::get('/admin/berita', function () {
     return view('pages.admin.berita.index');
 })->name('berita');
-Route::get('/admin/program', function () {
-    return view('pages.admin.program.index');
-})->name('program');
-Route::get('/admin/tatib', function () {
-    return view('pages.admin.tata_tertib.index');
-})->name('tatib');
 Route::get('/admin/karya-ilmiah', function () {
     return view('pages.admin.karya_ilmiah.index');
 })->name('karya-ilmiah');
@@ -235,22 +286,6 @@ Route::get('/akademik-ma', function () {
     return view('pages.guest.akademik.ma');
 })->name('ma');
 
-// program
-Route::get('kelas-cyber', function () {
-    return view('pages.guest.program.kelas-cyber');
-})->name('kelas-cyber');
-
-Route::get('kelas-tahfidz', function () {
-    return view('pages.guest.program.kelas-tahfidz');
-})->name('kelas-tahfidz');
-
-Route::get('kurikulum-pondok', function () {
-    return view('pages.guest.program.kurikulum-pondok');
-})->name('kurikulum-pondok');
-
-Route::get('ekstrakurikuler', function () {
-    return view('pages.guest.program.ekstrakurikuler');
-})->name('ekstrakurikuler');
 
 // fasilitas
 Route::get('sarana-prasarana', function () {
@@ -294,3 +329,48 @@ Route::get('alumni', function () {
 Route::get('lowongan-kerja', function () {
     return view('pages.guest.berita.lowogan-kerja');
 })->name('lowongan-kerja');
+
+
+// --- 1. ROUTE DINAMIS UNTUK HALAMAN PROGRAM ---
+// Route ini sekarang mengambil data global dari AppServiceProvider
+Route::get('/program/{slug}', function ($slug) {
+    // Mengambil data global yang sudah kita siapkan di AppServiceProvider
+    $allPrograms = View::shared('allPrograms', []);
+
+    $currentProgram = null;
+    foreach ($allPrograms as $program) {
+        if ($program['slug'] === $slug) {
+            $currentProgram = $program;
+            break;
+        }
+    }
+
+    // Jika program tidak ditemukan, tampilkan halaman 404
+    if (!$currentProgram) {
+        abort(404);
+    }
+
+    // Kirim data lengkap dari program yang ditemukan ke view
+    return view('pages.guest.program.program-unggulan', ['program' => $currentProgram]);
+})->name('program.show');
+
+
+// --- 2. BAGIKAN DATA NAVIGASI KE SEMUA VIEW ---
+// Kode ini aman karena dieksekusi setelah semua route terdaftar
+View::composer('*', function ($view) {
+    $allPrograms = View::shared('allPrograms', []);
+    $programNavItems = [];
+
+    // Pastikan route 'program.show' ada sebelum membuat URL
+    if (Route::has('program.show')) {
+        foreach ($allPrograms as $program) {
+            $programNavItems[] = [
+                'text' => $program['heroTitle'],
+                'url' => route('program.show', ['slug' => $program['slug']]),
+            ];
+        }
+    }
+
+    // Kirim data navigasi ke semua view
+    $view->with('programNavItems', $programNavItems);
+});
