@@ -234,7 +234,7 @@ Route::get('alumni', function () {
 })->name('alumni');
 
 Route::get('lowongan-kerja', function () {
-    return view('pages.guest.berita.lowogan-kerja');
+    return view('pages.guest.berita.lowongan-kerja');
 })->name('lowongan-kerja');
 
 
