@@ -6,12 +6,8 @@
         "build": "vite build"
     },
     "devDependencies": {
-<<<<<<< HEAD
         "autoprefixer": "^10.4.21",
-=======
         "@tailwindcss/forms": "^0.5.2",
-        "autoprefixer": "^10.4.2",
->>>>>>> 649a1bf (add CRUD auth, tentang kami)
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.5.6",
