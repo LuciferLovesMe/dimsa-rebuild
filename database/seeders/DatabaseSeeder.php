@@ -16,10 +16,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@inagata.com',
-            'password' => Hash::make('12345678'),
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@inagata.com',
+        //     'password' => Hash::make('12345678'),
+        // ]);
+
+        $this->call([
+            KategoriBeritaSeeder::class,
+            BeritaSeeder::class,
+            LowonganKerjaSeeder::class,
+            PengumumanSeeder::class,
+            PublikasiSeeder::class,
+            QnaSeeder::class,
+            AlumniSeeder::class,
+            GaleriSeeder::class,
+            FileSeeder::class,
         ]);
     }
 }

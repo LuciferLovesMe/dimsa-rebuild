@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Berita extends Model
 {
-    use Sluggable;
+    use Sluggable, HasFactory;
 
     protected $fillable = [
         'judul',
