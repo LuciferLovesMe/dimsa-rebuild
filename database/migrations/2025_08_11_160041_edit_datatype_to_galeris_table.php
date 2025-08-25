@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Pastikan doctrine/dbal sudah terinstall: composer require doctrine/dbal
         Schema::table('galeris', function (Blueprint $table) {
-            DB::statement('ALTER TABLE galeris MODIFY COLUMN url varchar(255) null');
+            $table->string('url')->nullable()->change();
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('galeris', function (Blueprint $table) {
-            //
+            $table->string('url')->nullable(false)->change();
         });
     }
 };
