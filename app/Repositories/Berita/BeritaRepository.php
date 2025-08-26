@@ -18,12 +18,16 @@ class BeritaRepository implements BeritaInterface
     }
      public function getByID($id)
       {
-        return Berita::with('kategori')->findOrFail($id);
+        return Berita::with('kategori')->where('is_publish', 1)->findOrFail($id);
     }
   
     public function getAllWithoutPaginate()
     {
         return Berita::with('kategori')->latest()->get();
+    }
+
+    public function getAllLimit() {
+        return Berita::with('kategori')->where('is_publish', 1)->orderBy('created_at', 'desc')->limit(5)->get();
     }
 
     public function create(array $data)

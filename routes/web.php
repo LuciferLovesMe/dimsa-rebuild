@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 Route::prefix('/admin/api')->group(function () {
     Route::prefix('/pengumuman')->group(function () {
         Route::get('/', [PengumumanController::class, 'index']);
@@ -248,7 +249,7 @@ Route::get('kurikulum-pondok', function () {
 
 Route::get('ekstrakurikuler', function () {
     return view('pages.guest.program.ekstrakurikuler');
-})->name('ekstrakurikuler');
+})->name('guest.ekstrakurikuler');
 
 // fasilitas
 Route::get('sarana-prasarana', function () {
@@ -263,32 +264,32 @@ Route::get('tata-tertib', function () {
 // berita
 Route::get('kabar', function () {
     return view('pages.guest.berita.kabar');
-})->name('kabar');
+})->name('guest.kabar');
 
 Route::get('karya-ilmiah', function () {
     return view('pages.guest.berita.karya-ilmiah');
-})->name('karya-ilmiah');
+})->name('guest.karya-ilmiah');
 
 Route::get('majalah', function () {
     return view('pages.guest.berita.majalah');
-})->name('majalah');
+})->name('guest.majalah');
 
 Route::get('galeri', function () {
     return view('pages.guest.berita.galeri');
-})->name('galeri');
+})->name('guest.galeri');
 
 Route::get('pengumuman', function () {
     return view('pages.guest.berita.pengumuman');
-})->name('pengumuman');
+})->name('guest.pengumuman');
 
 Route::get('qna', function () {
     return view('pages.guest.berita.qna');
-})->name('qna');
+})->name('guest.qna');
 
 Route::get('alumni', function () {
     return view('pages.guest.berita.alumni');
-})->name('alumni');
+})->name('guest.alumni');
 
 Route::get('lowongan-kerja', function () {
     return view('pages.guest.berita.lowogan-kerja');
-})->name('lowongan-kerja');
+})->name('guest.lowongan-kerja');

@@ -5,19 +5,19 @@ namespace App\Http\Controllers\Backend\DewanYayasan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GuruStaff\AddGuruStaffRequest;
 use App\Http\Requests\GuruStaff\UpdateGuruStaffRequest;
-use App\Interfaces\DewanYayasan\PengasuhInterface;
+use App\Interfaces\DewanYayasan\PimpinanInterface;
 use App\View\Components\ActionButton;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\QueryException;
 
-class PengasuhController extends Controller
+class PimpinanController extends Controller
 {
-    protected $pengasuhRepo;
+    protected $PimpinanRepo;
 
-    public function __construct(PengasuhInterface $pengasuhRepo)
+    public function __construct(PimpinanInterface $PimpinanRepo)
     {
-        $this->pengasuhRepo = $pengasuhRepo;
+        $this->PimpinanRepo = $PimpinanRepo;
     }
 
     /**
@@ -26,11 +26,11 @@ class PengasuhController extends Controller
     public function index(Request $request)
     {
         try {
-            $perPage = $request->input('per_page', 10); // Bisa untuk paginasi
-            $pengasuh = $this->pengasuhRepo->showAll($perPage);
+            $perPage = $request->input('per_page', 10); 
+            $Pimpinan = $this->PimpinanRepo->showAll($perPage);
 
             $datatable = datatables()
-                ->of($pengasuh)
+                ->of($Pimpinan)
                 ->addIndexColumn() // No
                 ->addColumn('thumbnail', function ($item) {
                     $img = $item->image;
@@ -61,7 +61,7 @@ class PengasuhController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve pengasuh: '.$e->getMessage()
+                'message' => 'Failed to retrieve Pimpinan: '.$e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -72,17 +72,17 @@ class PengasuhController extends Controller
     public function store(AddGuruStaffRequest $request)
     {
         try {
-            $pengasuh = $this->pengasuhRepo->store($request->all());
+            $Pimpinan = $this->PimpinanRepo->store($request->all());
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengasuh berhasil dibuat',
-                'data' => $pengasuh
+                'message' => 'Pimpinan berhasil dibuat',
+                'data' => $Pimpinan
             ], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal membuat pengasuh: '.$e->getMessage()
+                'message' => 'Gagal membuat Pimpinan: '.$e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -93,22 +93,22 @@ class PengasuhController extends Controller
     public function show($id)
     {
         try {
-            $pengasuh = $this->pengasuhRepo->show($id);
-            if (!$pengasuh) {
+            $Pimpinan = $this->PimpinanRepo->show($id);
+            if (!$Pimpinan) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Pengasuh tidak ditemukan'
+                    'message' => 'Pimpinan tidak ditemukan'
                 ], Response::HTTP_NOT_FOUND);
             }
 
             return response()->json([
                 'status' => 'success',
-                'data' => $pengasuh
+                'data' => $Pimpinan
             ], Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal menampilkan pengasuh: '.$e->getMessage()
+                'message' => 'Gagal menampilkan Pimpinan: '.$e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -119,25 +119,25 @@ class PengasuhController extends Controller
     public function update(UpdateGuruStaffRequest $request, $id)
     {
         try {
-            $pengasuh = $this->pengasuhRepo->update($request->all(), $id);
+            $Pimpinan = $this->PimpinanRepo->update($request->all(), $id);
 
-            if (!$pengasuh) {
+            if (!$Pimpinan) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Pengasuh tidak ditemukan'
+                    'message' => 'Pimpinan tidak ditemukan'
                 ], Response::HTTP_NOT_FOUND);
             }
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengasuh berhasil diperbarui',
-                'data' => $pengasuh
+                'message' => 'Pimpinan berhasil diperbarui',
+                'data' => $Pimpinan
             ], Response::HTTP_OK);
 
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal memperbarui pengasuh: '.$e->getMessage()
+                'message' => 'Gagal memperbarui Pimpinan: '.$e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -148,22 +148,22 @@ class PengasuhController extends Controller
     public function destroy($id)
     {
         try {
-            $pengasuh = $this->pengasuhRepo->destroy($id);
-            if (!$pengasuh) {
+            $Pimpinan = $this->PimpinanRepo->destroy($id);
+            if (!$Pimpinan) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Pengasuh tidak ditemukan'
+                    'message' => 'Pimpinan tidak ditemukan'
                 ], Response::HTTP_NOT_FOUND);
             }
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengasuh berhasil dihapus'
+                'message' => 'Pimpinan berhasil dihapus'
             ], Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal menghapus pengasuh: '.$e->getMessage()
+                'message' => 'Gagal menghapus Pimpinan: '.$e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

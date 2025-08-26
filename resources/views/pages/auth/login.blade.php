@@ -24,7 +24,7 @@
                     </h2>
 
                     <!-- Login Form -->
-                    <form class="mt-8 space-y-6" action="#" method="POST">
+                    <form class="mt-8 space-y-6" action="{{route('login.store')}}" method="POST">
                         <!-- Username Input -->
                         <div class="text-sm">
                             <label for="username" class="block text-xs font-medium text-gray-700">Username</label>

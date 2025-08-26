@@ -11,6 +11,10 @@ class PartnerRepository implements PartnerInterface
     {
         return Partner::all();
     }
+    public function getAllPublished()
+    {
+        return Partner::where('is_publish', 1)->get();
+    }
 
     public function getById($id)
     {

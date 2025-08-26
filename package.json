@@ -1,25 +1,21 @@
 {
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build"
-    },
-    "devDependencies": {
-<<<<<<< HEAD
-        "autoprefixer": "^10.4.21",
-=======
-        "@tailwindcss/forms": "^0.5.2",
-        "autoprefixer": "^10.4.2",
->>>>>>> 649a1bf (add CRUD auth, tentang kami)
-        "axios": "^1.6.4",
-        "laravel-vite-plugin": "^1.0",
-        "postcss": "^8.5.6",
-        "tailwindcss": "^3.4.17",
-        "vite": "^5.0"
-    },
-    "dependencies": {
-        "chart.js": "^4.5.0",
-        "tailwind-scrollbar-hide": "^4.0.0"
-    }
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.2",
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.6.4",
+    "laravel-vite-plugin": "^1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "vite": "^5.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.0",
+    "tailwind-scrollbar-hide": "^4.0.0"
+  }
 }
