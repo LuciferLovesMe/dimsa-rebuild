@@ -11,6 +11,6 @@ interface PublikasiInterface
     public function deleteMajalah($id);
 
     public function getMajalahById($id);
-    
-    public function getMajalah();
+
+    public function getMajalah($type = 'all', $limit = null);
 }
