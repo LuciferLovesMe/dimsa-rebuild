@@ -12,63 +12,63 @@
         $galleryData = [
             [
                 'image' => 'https://placehold.co/600x400/3b82f6/ffffff?text=Pembelajaran+1',
-                'category' => 'Pembelajaran',
-                'title' => 'Diskusi Kelompok di Kelas',
+                'category' => 'Video',
+                'title' => 'VideoFoto  Diskusi Kelompok di Kelas',
             ],
             [
                 'image' => 'https://placehold.co/600x400/16a34a/ffffff?text=Ekskul+1',
-                'category' => 'Ekstrakurikuler',
-                'title' => 'Latihan Pramuka',
+                'category' => 'Foto',
+                'title' => 'Foto Latihan Pramuka',
             ],
             [
                 'image' => 'https://placehold.co/600x400/ef4444/ffffff?text=Event+1',
-                'category' => 'Event',
-                'title' => 'Peringatan Hari Kemerdekaan',
+                'category' => 'Video',
+                'title' => 'Video Peringatan Hari Kemerdekaan',
             ],
             [
                 'image' => 'https://placehold.co/600x400/3b82f6/ffffff?text=Pembelajaran+2',
-                'category' => 'Pembelajaran',
-                'title' => 'Praktikum di Laboratorium',
+                'category' => 'Foto',
+                'title' => 'Foto Praktikum di Laboratorium',
             ],
             [
                 'image' => 'https://placehold.co/600x400/16a34a/ffffff?text=Ekskul+2',
-                'category' => 'Ekstrakurikuler',
-                'title' => 'Pertandingan Futsal',
+                'category' => 'Video',
+                'title' => 'Video Pertandingan Futsal',
             ],
             [
                 'image' => 'https://placehold.co/600x400/ef4444/ffffff?text=Event+2',
-                'category' => 'Event',
-                'title' => 'Dimsa Fantastic Show',
+                'category' => 'Video',
+                'title' => 'Video Dimsa Fantastic Show',
             ],
             [
                 'image' => 'https://placehold.co/600x400/3b82f6/ffffff?text=Pembelajaran+3',
-                'category' => 'Pembelajaran',
-                'title' => 'Kegiatan di Perpustakaan',
+                'category' => 'Foto',
+                'title' => 'Foto Kegiatan di Perpustakaan',
             ],
             [
                 'image' => 'https://placehold.co/600x400/16a34a/ffffff?text=Ekskul+3',
-                'category' => 'Ekstrakurikuler',
-                'title' => 'Lomba Pidato 3 Bahasa',
+                'category' => 'Video',
+                'title' => 'Video Lomba Pidato 3 Bahasa',
             ],
             [
                 'image' => 'https://placehold.co/600x400/ef4444/ffffff?text=Event+3',
-                'category' => 'Event',
-                'title' => 'Wisuda Santri',
+                'category' => 'Video',
+                'title' => 'Video Wisuda Santri',
             ],
             [
                 'image' => 'https://placehold.co/600x400/3b82f6/ffffff?text=Pembelajaran+4',
-                'category' => 'Pembelajaran',
-                'title' => 'Belajar Mengajar di Luar Kelas',
+                'category' => 'Foto',
+                'title' => 'Foto Belajar Mengajar di Luar Kelas',
             ],
             [
                 'image' => 'https://placehold.co/600x400/16a34a/ffffff?text=Ekskul+4',
-                'category' => 'Ekstrakurikuler',
-                'title' => 'Pentas Seni Santri',
+                'category' => 'Foto',
+                'title' => 'Foto Pentas Seni Santri',
             ],
             [
                 'image' => 'https://placehold.co/600x400/ef4444/ffffff?text=Event+4',
-                'category' => 'Event',
-                'title' => 'Idul Adha di Pesantren',
+                'category' => 'Video',
+                'title' => 'Video Idul Adha di Pesantren',
             ],
         ];
     @endphp
@@ -104,20 +104,18 @@
             }
         }">
 
+            <p class="mb-3">Filter Kategori</p>
             <!-- Filter Kategori -->
             <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-8">
                 <button @click="changeCategory('Semua')"
                     :class="{ 'bg-blue-600 text-white': activeCategory === 'Semua', 'bg-white text-gray-700 hover:bg-gray-100': activeCategory !== 'Semua' }"
                     class="px-4 py-2 text-sm font-semibold rounded-md border transition-colors">Semua</button>
-                <button @click="changeCategory('Pembelajaran')"
-                    :class="{ 'bg-blue-600 text-white': activeCategory === 'Pembelajaran', 'bg-white text-gray-700 hover:bg-gray-100': activeCategory !== 'Pembelajaran' }"
-                    class="px-4 py-2 text-sm font-semibold rounded-md border transition-colors">Pembelajaran</button>
-                <button @click="changeCategory('Ekstrakurikuler')"
-                    :class="{ 'bg-blue-600 text-white': activeCategory === 'Ekstrakurikuler', 'bg-white text-gray-700 hover:bg-gray-100': activeCategory !== 'Ekstrakurikuler' }"
-                    class="px-4 py-2 text-sm font-semibold rounded-md border transition-colors">Ekstrakurikuler</button>
-                <button @click="changeCategory('Event')"
-                    :class="{ 'bg-blue-600 text-white': activeCategory === 'Event', 'bg-white text-gray-700 hover:bg-gray-100': activeCategory !== 'Event' }"
-                    class="px-4 py-2 text-sm font-semibold rounded-md border transition-colors">Event</button>
+                <button @click="changeCategory('Foto')"
+                    :class="{ 'bg-blue-600 text-white': activeCategory === 'Foto', 'bg-white text-gray-700 hover:bg-gray-100': activeCategory !== 'Foto' }"
+                    class="px-4 py-2 text-sm font-semibold rounded-md border transition-colors">Foto</button>
+                <button @click="changeCategory('Video')" lter
+                    :class="{ 'bg-blue-600 text-white': activeCategory === 'Video', 'bg-white text-gray-700 hover:bg-gray-100': activeCategory !== 'Video' }"
+                    class="px-4 py-2 text-sm font-semibold rounded-md border transition-colors">Video</button>
             </div>
 
             <!-- Galeri Gambar -->
