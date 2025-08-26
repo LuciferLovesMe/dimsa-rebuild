@@ -100,9 +100,14 @@ Route::get('/login', function () {
     return view('pages.auth.login');
 })->name('login');
 
+Route::get('/admin', function () {
+    return redirect()->route('dashboard');
+})->name('admin');
+
 Route::get('/admin/dashboard', function () {
     return view('pages.admin.dashboard.index');
 })->name('dashboard');
+
 Route::get('/admin/slideshow', function () {
     return view('pages.admin.slideshow.index');
 })->name('slideshow');
