@@ -7,9 +7,21 @@ use App\Models\Testimoni;
 
 class TestimoniRepository implements TestimoniInterface
 {
-    public function getAll()
+    public function getAll($type = 'all', $limit = null)
     {
-        return Testimoni::with('alumni')->get();
+        if ($type === 'published') {
+            $testimoni = Testimoni::with('alumni')->where('is_publish', true);
+        } else {
+            $testimoni = Testimoni::with('alumni');
+        }
+
+        if ($limit) {
+            $testimoni->limit($limit);
+        }
+
+        return $testimoni
+            ->orderBy('id', 'desc')
+            ->get();
     }
 
     public function getById($id)

@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             GaleriSeeder::class,
             FileSeeder::class,
             AgendaSeeder::class,
+            TestimoniSeeder::class
         ]);
     }
 }

@@ -22,7 +22,7 @@ class TestimoniController extends Controller
         try {
             $response = [
                 'status' => 'success',
-                'data' => $this->testimoniRepository->getAll()
+                'data' => $this->testimoniRepository->getAll($type = 'published', $request->query('limit', null))
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {
