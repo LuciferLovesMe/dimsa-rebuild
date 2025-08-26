@@ -15,9 +15,19 @@ class AlumniRepository implements AlumniInterface
         $this->alumni = $alumni;
     }
 
-    public function index($request)
+    public function index($type = 'all', $limit = null)
     {
-        return $this->alumni->all();
+        if ($type === 'published') {
+            $alumni = $this->alumni->where('is_publish', true);
+        } else {
+            $alumni = $this->alumni->query();
+        }
+
+        if ($limit) {
+            $alumni = $alumni->limit($limit);
+        }
+
+        return $alumni->orderBy('id', 'desc')->get();
     }
 
     public function show($id)
