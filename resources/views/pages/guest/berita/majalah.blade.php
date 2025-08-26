@@ -9,7 +9,6 @@
 @section('main-content')
 
     @php
-        // --- DATA DUMMY (Nantinya ini akan Anda ambil dari database/CMS) ---
         $majalahData = [
             [
                 'image' => 'https://placehold.co/400x550/0284c7/ffffff?text=Majalah+Edisi+12',

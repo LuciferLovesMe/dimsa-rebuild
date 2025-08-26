@@ -11,7 +11,6 @@
             [
                 'title' => 'Jadwal Ujian Akhir Semester (UAS) Genap TP 2024/2025',
                 'date' => '20 Agustus 2025',
-                'category' => 'Akademik',
                 'content' =>
                     'Diberitahukan kepada seluruh santri bahwa Ujian Akhir Semester (UAS) Genap akan dilaksanakan mulai tanggal 1 s.d. 10 September 2025. Harap mempersiapkan diri dengan baik dan menjaga kesehatan.',
                 'url' => '#',
@@ -19,7 +18,6 @@
             [
                 'title' => 'Informasi Perizinan Pulang Idul Adha 1446 H',
                 'date' => '18 Agustus 2025',
-                'category' => 'Penting',
                 'content' =>
                     'Perizinan pulang dalam rangka Hari Raya Idul Adha akan dibuka mulai tanggal 15 September 2025. Informasi detail mengenai jadwal dan prosedur akan disampaikan melalui wali asrama masing-masing.',
                 'url' => '#',
@@ -27,7 +25,6 @@
             [
                 'title' => 'Pendaftaran Lomba Cerdas Cermat Antar Kelas',
                 'date' => '15 Agustus 2025',
-                'category' => 'Kegiatan',
                 'content' =>
                     'Segera daftarkan tim kelasmu untuk mengikuti Lomba Cerdas Cermat tahunan. Pendaftaran dibuka hingga tanggal 25 Agustus 2025 di kantor kesantrian.',
                 'url' => '#',
@@ -35,7 +32,6 @@
             [
                 'title' => 'Pengambilan Raport Semester Ganjil',
                 'date' => '10 Agustus 2025',
-                'category' => 'Akademik',
                 'content' =>
                     'Pengambilan raport hasil belajar semester ganjil akan dilaksanakan pada hari Sabtu, 16 Agustus 2025, pukul 08:00 s.d. 12:00 WIB di aula utama.',
                 'url' => '#',
@@ -43,7 +39,6 @@
             [
                 'title' => 'Kerja Bakti Massal "Jumat Bersih"',
                 'date' => '05 Agustus 2025',
-                'category' => 'Kegiatan',
                 'content' =>
                     'Dalam rangka menjaga kebersihan lingkungan pondok, akan diadakan kerja bakti massal pada hari Jumat, 8 Agustus 2025. Seluruh santri diwajibkan untuk berpartisipasi.',
                 'url' => '#',
@@ -51,7 +46,6 @@
             [
                 'title' => 'Pemberitahuan Pemadaman Listrik Terjadwal',
                 'date' => '01 Agustus 2025',
-                'category' => 'Penting',
                 'content' =>
                     'Akan ada pemadaman listrik terjadwal untuk pemeliharaan di seluruh area pondok pada hari Rabu, 6 Agustus 2025, dari pukul 09:00 hingga 14:00 WIB.',
                 'url' => '#',
@@ -88,14 +82,6 @@
                                 <h3 class="text-lg sm:text-xl font-bold text-gray-900" x-text="item.title"></h3>
                                 <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0" x-text="item.date"></p>
                             </div>
-                            <span
-                                :class="{
-                                    'bg-blue-100 text-blue-800': item.category === 'Akademik',
-                                    'bg-red-100 text-red-800': item.category === 'Penting',
-                                    'bg-green-100 text-green-800': item.category === 'Kegiatan'
-                                }"
-                                class="inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full mt-3"
-                                x-text="item.category"></span>
                             <p class="text-gray-600 mt-4 text-sm leading-relaxed" x-text="item.content"></p>
                         </div>
                         <div class="bg-gray-50 px-6 py-3">

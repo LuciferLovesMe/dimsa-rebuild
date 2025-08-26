@@ -12,10 +12,7 @@
                 'category' => 'Kabar Dimsa',
                 'title' => 'Judul Berita Utama yang Menarik Perhatian Pembaca',
                 'date' => '06 Agu, 2025',
-                'excerpt' =>
-                    'Ini adalah ringkasan singkat dari berita utama. Konten ini dirancang untuk memberikan gambaran umum kepada pembaca tentang apa yang dibahas dalam artikel lengkap...',
                 'url' => '#',
-                'featured' => true,
             ],
             [
                 'image' => 'https://placehold.co/400x300/bbf7d0/1e293b?text=Info',
@@ -23,7 +20,6 @@
                 'title' => 'Siswa DIMSA Raih Juara 1 Lomba Robotik Nasional',
                 'date' => '05 Agu, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/fecaca/1e293b?text=Info',
@@ -31,7 +27,6 @@
                 'title' => 'Kegiatan Bakti Sosial di Desa Binaan Berjalan Sukses',
                 'date' => '04 Agu, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/c7d2fe/1e293b?text=Info',
@@ -39,7 +34,6 @@
                 'title' => 'Kajian Rutin Membahas Pentingnya Akhlak dalam Islam',
                 'date' => '03 Agu, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/fde68a/1e293b?text=Info',
@@ -47,7 +41,6 @@
                 'title' => 'Tips Menghafal Al-Quran dengan Metode Terkini',
                 'date' => '02 Agu, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/e9d5ff/1e293b?text=Info',
@@ -55,7 +48,6 @@
                 'title' => 'Jadwal Ujian Akhir Semester Genap Telah Dirilis',
                 'date' => '01 Agu, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/fed7aa/1e293b?text=Info',
@@ -63,7 +55,6 @@
                 'title' => 'Tim Futsal DIMSA Menjuarai Turnamen Antar Sekolah',
                 'date' => '31 Jul, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/a7f3d0/1e293b?text=Info',
@@ -71,7 +62,6 @@
                 'title' => 'Pameran Kaligrafi Karya Santri DIMSA Dibuka untuk Umum',
                 'date' => '30 Jul, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/f9a8d4/1e293b?text=Info',
@@ -79,7 +69,6 @@
                 'title' => 'Penyuluhan Kesehatan Gigi dan Mulut untuk Santri',
                 'date' => '29 Jul, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
             [
                 'image' => 'https://placehold.co/400x300/facc15/1e293b?text=Info',
@@ -87,19 +76,13 @@
                 'title' => 'Workshop Coding untuk Santri Kelas Cyber',
                 'date' => '28 Jul, 2025',
                 'url' => '#',
-                'featured' => false,
             ],
         ];
 
-        $featuredNews = null;
-        $otherNews = [];
-        foreach ($allNews as $newsItem) {
-            if ($newsItem['featured']) {
-                $featuredNews = $newsItem;
-            } else {
-                $otherNews[] = $newsItem;
-            }
-        }
+        // Ambil berita pertama sebagai berita utama
+        $featuredNews = array_shift($allNews);
+        // Sisa beritanya untuk daftar di bawah
+        $otherNews = $allNews;
     @endphp
 
     <div class="p-4 sm:p-8 lg:p-20 bg-white">
@@ -133,7 +116,6 @@
                             <p class="text-sm font-semibold text-blue-600">{{ $featuredNews['category'] }}</p>
                             <h2 class="text-3xl font-bold text-gray-900 mt-2 group-hover:text-blue-600 transition-colors">
                                 {{ $featuredNews['title'] }}</h2>
-                            <p class="text-gray-600 mt-4">{{ $featuredNews['excerpt'] }}</p>
                             <p class="text-xs text-gray-500 mt-4">{{ $featuredNews['date'] }}</p>
                         </div>
                     </a>
@@ -164,22 +146,22 @@
             <div class="mt-16 flex justify-center">
                 <nav class="flex items-center space-x-2">
                     <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1"
-                        class="px-4 py-2 text-gray-500 bg-white rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="px-4 py-2 text-gray-500 bg-white rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed border">
                         Previous
                     </button>
                     <template x-for="i in totalPages" :key="i">
                         <button @click="changePage(i)"
                             :class="{
-                                'bg-blue-600 text-white': currentPage ===
+                                'bg-blue-600 text-white border-blue-600': currentPage ===
                                     i,
-                                'bg-white text-gray-700 hover:bg-gray-100': currentPage !== i
+                                'bg-white text-gray-700 hover:bg-gray-100 border': currentPage !== i
                             }"
                             class="px-4 py-2 rounded-md">
                             <span x-text="i"></span>
                         </button>
                     </template>
                     <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages"
-                        class="px-4 py-2 text-gray-500 bg-white rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="px-4 py-2 text-gray-500 bg-white rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed border">
                         Next
                     </button>
                 </nav>
