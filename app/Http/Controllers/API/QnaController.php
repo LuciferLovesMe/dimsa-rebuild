@@ -19,7 +19,7 @@ class QnaController extends Controller
     public function index(Request $request)
     {
         try {
-            $qnas = $this->qnaRepository->index($request);
+            $qnas = $this->qnaRepository->index('published', $request->query('limit', null));
             $response = [
                 'data' => $qnas,
                 'message' => 'QnAs retrieved successfully',

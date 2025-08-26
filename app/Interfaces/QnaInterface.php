@@ -5,7 +5,7 @@ use App\Models\Qna;
 
 interface QnaInterface
 {
-    public function index();
+    public function index($type = 'all', $limit = null);
 
     public function store(array $data): Qna;
 
