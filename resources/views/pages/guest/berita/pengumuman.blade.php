@@ -55,7 +55,14 @@
 
     <div class="p-4 sm:p-8 lg:p-20 bg-gray-50">
         <div class="max-w-4xl mx-auto" x-data="{
-            allItems: {{ json_encode($pengumumanData) }},
+            allItems: [],
+            fetchItems () {
+                fetch(`{{ url('api/pengumuman') }}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.allItems = data.data;
+                    });
+            },
             currentPage: 1,
             itemsPerPage: 4,
             get paginatedItems() {
@@ -71,16 +78,16 @@
                 this.currentPage = page;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        }">
+        }" x-init="fetchItems()">
 
             <!-- Daftar Pengumuman -->
             <div class="space-y-6">
-                <template x-for="item in paginatedItems" :key="item.title">
+                <template x-for="item in paginatedItems" :key="item.judul">
                     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                         <div class="p-6">
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <h3 class="text-lg sm:text-xl font-bold text-gray-900" x-text="item.title"></h3>
-                                <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0" x-text="item.date"></p>
+                                <h3 class="text-lg sm:text-xl font-bold text-gray-900" x-text="item.judul"></h3>
+                                <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0" x-text="item.tanggal"></p>
                             </div>
                             <p class="text-gray-600 mt-4 text-sm leading-relaxed" x-text="item.content"></p>
                         </div>
@@ -134,3 +141,19 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            function fetchItems() {
+                $.ajax({
+                    url: "{{ url('api/pengumuman') }}",
+                    success: function (response) {
+                        console.log(response);
+                        return response.data;
+                    }
+                });
+            }
+        })
+    </script>
+@endpush

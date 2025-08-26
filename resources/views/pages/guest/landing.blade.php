@@ -319,21 +319,20 @@
             <main class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12">
                 <!-- Kolom Teks -->
                 <article class="w-full md:w-1/2 flex flex-col gap-2 sm:gap-4">
-                    <h2 class="text-xl sm:text-3xl md:text-4xl font-bold">{{ $agendaData['title'] }}</h2>
-                    <p class="text-base sm:text-lg text-slate-300">{{ $agendaData['date'] }} - {{ $agendaData['time'] }}
-                    </p>
+                    <h2 id="agenda-title" class="text-xl sm:text-3xl md:text-4xl font-bold"></h2>
+                    <p id="agenda-date" class="text-base sm:text-lg text-slate-300"></p>
                     <p class="flex items-center gap-2 text-slate-200 text-sm sm:text-base">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                                 d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                                 clip-rule="evenodd" />
                         </svg>
-                        {{ $agendaData['location'] }}
+                        <span id="agenda-location"></span>
                     </p>
                 </article>
                 <!-- Kolom Gambar -->
                 <article class="w-full md:w-1/2">
-                    <img src="{{ $agendaData['image'] }}" alt="Foto Acara Agenda DIMSA"
+                    <img id="agenda-image" src="" alt="Foto Acara Agenda DIMSA"
                         class="w-full h-48 sm:h-96 object-cover rounded-xl shadow-lg">
                 </article>
             </main>
@@ -400,21 +399,7 @@
                     class="text-blue-600 hover:underline font-medium whitespace-nowrap text-sm sm:text-base hidden sm:block">Selengkapnya
                     &gt;</a>
             </header>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-
-                @foreach ($testimonials as $testi)
-                    <div class="flex flex-col bg-white p-8 rounded-xl shadow-lg">
-                        <p class="text-gray-600 italic flex-grow">"{{ $testi['testimoni'] }}"</p>
-                        <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-200">
-                            <img src="{{ $testi['profile']['image'] }}" alt="Foto Alumni"
-                                class="w-16 h-16 object-cover rounded-full">
-                            <div>
-                                <h6 class="font-semibold text-gray-900">{{ $testi['profile']['name'] }}</h6>
-                                <p class="text-sm text-gray-500">{{ $testi['profile']['graduate'] }}</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+            <div id="testimoni-card" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             </div>
             <!-- Tombol Selengkapnya untuk Mobile -->
             <div class="mt-8 text-center sm:hidden">
@@ -437,7 +422,7 @@
 
                 function fetchTestimoni () 
                 {
-                    let url = "{{ url('api/testimoni') }}";
+                    let url = "{{ url('api/testimoni') }}?limit=3";
                     $.ajax({
                         url: url,
                         method: "GET",
@@ -467,16 +452,23 @@
 
                 function fetchAgenda ()
                 {
-                    let url = "{{ url('api/agenda') }}";
+                    let url = "{{ url('api/agenda/latest') }}";
                     $.ajax({
                         url: url,
                         method: "GET",
-                        success: function(data) {
-                            let response = data.data;
-                            console.log(response);
-                            
-                            $.each(response, function(index, agenda) {                                
-                            });
+                        success: function(response) {
+                            let data = response.data;
+                            let date = new Date(data.datetime);
+                            let image = data.image ? data.image : 'https://placehold.co/400x250/e2e8f0/334155?text=Agenda+Dimsa';
+                            console.log([
+                                date.toLocaleDateString(),
+                                date.toLocaleTimeString()
+                            ]);
+
+                            $("#agenda-title").text(data.nama);
+                            $("#agenda-date").text(date.toLocaleDateString() + ' - ' + date.toLocaleTimeString());
+                            $("#agenda-location").text(data.alamat);
+                            $("#agenda-image").attr("src", image);
                         }
                     });
                 }

@@ -57,7 +57,15 @@
 
     <div class="p-4 sm:p-8 lg:p-20 bg-gray-50">
         <div class="max-w-7xl mx-auto" x-data="{
-            allItems: {{ json_encode($majalahData) }},
+            allItems: [],
+            fetchItems () {
+                fetch(`{{ url('api/majalah') }}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.data);
+                        this.allItems = data.data;
+                    });
+            },
             currentPage: 1,
             itemsPerPage: 6,
             get paginatedItems() {
@@ -73,18 +81,18 @@
                 this.currentPage = page;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        }">
+        }" x-init="fetchItems()">
 
             {{-- Daftar Majalah --}}
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-                <template x-for="item in paginatedItems" :key="item.title">
+                <template x-for="item in paginatedItems" :key="item.judul">
                     <div class="group flex flex-col">
                         <div
                             class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-2xl">
-                            <img :src="item.image" :alt="item.title" class="w-full h-full object-cover">
+                            <img :src="'{{ asset('uploads/publikasi/majalah') }}/' + item.image" :alt="item.judul" class="w-full h-full object-cover">
                             <div
                                 class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <a :href="item.downloadUrl" download
+                                <a :href="item.url" download
                                     class="bg-white/90 text-gray-800 font-semibold px-4 py-2 rounded-full text-sm flex items-center gap-2">
                                     <i class="fas fa-download"></i>
                                     <span>Unduh</span>
@@ -92,8 +100,8 @@
                             </div>
                         </div>
                         <div class="mt-4 text-center">
-                            <h3 class="font-bold text-gray-800" x-text="item.title"></h3>
-                            <p class="text-sm text-gray-500" x-text="item.date"></p>
+                            <h3 class="font-bold text-gray-800" x-text="item.judul"></h3>
+                            <p class="text-sm text-gray-500" x-text="`${(new Date(item.tanggal_terbit)).toLocaleDateString()}`"></p>
                         </div>
                     </div>
                 </template>

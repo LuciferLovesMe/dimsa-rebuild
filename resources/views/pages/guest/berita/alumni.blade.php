@@ -72,18 +72,26 @@
     <div class="p-4 sm:p-8 lg:p-20 bg-gray-50">
         <div class="max-w-7xl mx-auto" x-data="{
             search: '',
-            alumni: {{ json_encode($alumniData) }},
+            alumni: [],
+            fetchAlumni () {
+                fetch(`{{ url('api/alumni') }}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.data);
+                        this.alumni = data.data;
+                    });
+            },
             get filteredAlumni() {
                 if (this.search === '') {
                     return this.alumni;
                 }
                 return this.alumni.filter(item => {
-                    return item.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                    return item.nama_alumni.toLowerCase().includes(this.search.toLowerCase()) ||
                         item.pekerjaan.toLowerCase().includes(this.search.toLowerCase()) ||
-                        item.angkatan.toString().includes(this.search);
+                        item.tahun_lulus.toString().includes(this.search);
                 });
             }
-        }">
+        }" x-init="fetchAlumni()">
 
             <!-- Header dan Kolom Pencarian -->
             <div class="text-center mb-8">
@@ -103,13 +111,13 @@
 
             <!-- Daftar Kartu Alumni -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <template x-for="item in filteredAlumni" :key="item.name">
+                <template x-for="item in filteredAlumni" :key="item.nama_alumni">
                     <div
                         class="bg-white rounded-lg shadow-md text-center p-6 transition-transform hover:-translate-y-2 hover:shadow-xl">
-                        <img :src="item.foto" :alt="'Foto ' + item.name"
+                        <img :src="'{{ asset('uploads/alumni') }}/' + item.image" :alt="'Foto ' + item.nama_alumni"
                             class="w-24 h-24 mx-auto rounded-full object-cover mb-4 border-4 border-white shadow-lg">
-                        <h3 class="text-lg font-bold text-gray-900" x-text="item.name"></h3>
-                        <p class="text-sm text-gray-500" x-text="`Angkatan ${item.angkatan} - ${item.lembaga}`"></p>
+                        <h3 class="text-lg font-bold text-gray-900" x-text="item.nama_alumni"></h3>
+                        <p class="text-sm text-gray-500" x-text="`Angkatan ${item.tahun_lulus} - ${item.lembaga === 0 ? 'SMP' : 'MA'} Darul Ihsan`"></p>
                         <p class="text-sm text-gray-600 font-semibold mt-2" x-text="item.pekerjaan"></p>
                     </div>
                 </template>
