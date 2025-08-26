@@ -14,9 +14,19 @@ class EkstrakulikulerRepository implements EkstrakulikulerInterface
         $this->ekstrakulikuler = $ekstrakulikuler;
     }
 
-    public function getAll()
+    public function getAll($type = 'all', $limit = null)
     {
-        return $this->ekstrakulikuler->get();
+        $query = $this->ekstrakulikuler;
+
+        if ($type === 'published') {
+            $query = $query->where('is_publish', true);
+        }
+
+        if ($limit) {
+            $query = $query->limit($limit);
+        }
+
+        return $query->orderBy('id', 'desc')->get();
     }
 
     public function getById($id)
