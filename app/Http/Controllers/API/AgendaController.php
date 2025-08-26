@@ -22,7 +22,7 @@ class AgendaController extends Controller
         try {
             $response = [
                 'status' => 'success',
-                'data' => $this->agendaRepository->get()
+                'data' => $this->agendaRepository->get('published')
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {

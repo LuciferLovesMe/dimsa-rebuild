@@ -51,8 +51,22 @@ class AgendaRepository implements AgendaInterface
         return $this->agenda->findOrFail($id);
     }
 
-    public function get()
+    public function get($type = 'all')
     {
-        return $this->agenda->all();
+        if ($type === 'published') {
+            return $this->agenda
+                ->where('is_publish', true)
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
+        return $this->agenda->orderBy('id', 'desc')->get();
+    }
+
+    public function getLatest()
+    {
+        return $this->agenda->where('is_publish', true)
+            ->orderBy('datetime', 'desc')
+            ->first();
     }
 }

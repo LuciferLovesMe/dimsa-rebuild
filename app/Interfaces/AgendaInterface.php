@@ -12,5 +12,7 @@ interface AgendaInterface
 
     public function getById($id);
 
-    public function get();
+    public function get($type = 'all');
+
+    public function getLatest();
 }
