@@ -14,64 +14,48 @@
                 'title' => 'Analisis Pengaruh Metode Pembelajaran Berbasis Proyek terhadap Motivasi Belajar Santri',
                 'author' => 'Dr. Ahmad Fauzi, M.Pd.',
                 'year' => '2024',
-                'abstract' =>
-                    'Penelitian ini bertujuan untuk menganalisis sejauh mana metode pembelajaran berbasis proyek dapat meningkatkan motivasi belajar santri dalam mata pelajaran Sains di lingkungan pondok pesantren.',
                 'downloadUrl' => '#',
             ],
             [
                 'title' => 'Implementasi Teknologi Augmented Reality sebagai Media Pembelajaran Sejarah Islam',
                 'author' => 'Fatimah Az-Zahra (Santri Kelas XII)',
                 'year' => '2024',
-                'abstract' =>
-                    'Karya tulis ini membahas pengembangan dan implementasi aplikasi Augmented Reality untuk memvisualisasikan peristiwa-peristiwa penting dalam sejarah Islam, guna meningkatkan minat dan pemahaman siswa.',
                 'downloadUrl' => '#',
             ],
             [
                 'title' => 'Studi Komparatif Efektivitas Metode Menghafal Al-Qur\'an: Muraja\'ah vs. Tikrar',
                 'author' => 'Ust. Ibrahim Malik, Lc.',
                 'year' => '2023',
-                'abstract' =>
-                    'Sebuah studi perbandingan mendalam yang menguji efektivitas dua metode populer dalam menghafal Al-Qur\'an di kalangan santri tingkat menengah.',
                 'downloadUrl' => '#',
             ],
             [
                 'title' => 'Pemanfaatan Limbah Organik Asrama menjadi Pupuk Kompos untuk Kebun Pesantren',
                 'author' => 'Tim Adiwiyata DIMSA',
                 'year' => '2023',
-                'abstract' =>
-                    'Proyek inovatif yang mendokumentasikan proses pengolahan limbah organik dari dapur dan asrama menjadi pupuk kompos bernutrisi tinggi untuk mendukung program ketahanan pangan pondok.',
                 'downloadUrl' => '#',
             ],
             [
                 'title' => 'Pengembangan Sistem Informasi Perpustakaan Berbasis Web di Lingkungan Pesantren',
                 'author' => 'Tim Cyber DIMSA',
                 'year' => '2023',
-                'abstract' =>
-                    'Laporan pengembangan sistem informasi perpustakaan digital untuk memudahkan manajemen koleksi buku dan proses peminjaman oleh santri.',
                 'downloadUrl' => '#',
             ],
             [
                 'title' => 'Analisis Psikologis Dampak Kehidupan Berasrama terhadap Kemandirian Santri',
                 'author' => 'Aisyah Putri, S.Psi.',
                 'year' => '2022',
-                'abstract' =>
-                    'Penelitian ini mengkaji hubungan antara pengalaman hidup di asrama dengan tingkat kemandirian, tanggung jawab, dan kecerdasan emosional para santri.',
                 'downloadUrl' => '#',
             ],
             [
                 'title' => 'Kajian Fiqh Kontemporer: Hukum Jual Beli Online dalam Perspektif Syariah',
                 'author' => 'Ust. Abdullah Hakim, M.H.',
                 'year' => '2022',
-                'abstract' =>
-                    'Pembahasan mendalam mengenai berbagai aspek fiqh yang berkaitan dengan transaksi jual beli di platform digital dan e-commerce modern.',
                 'downloadUrl' => '#',
             ],
             [
                 'title' => 'Desain dan Prototyping Robot Pembersih Lantai Masjid Otomatis',
                 'author' => 'Klub Robotik DIMSA',
                 'year' => '2022',
-                'abstract' =>
-                    'Karya ilmiah ini merinci proses perancangan, pembuatan, dan pengujian prototipe robot yang dapat membersihkan lantai masjid secara otomatis.',
                 'downloadUrl' => '#',
             ],
         ];
@@ -109,9 +93,6 @@
                                 </h3>
                             </a>
                             <p class="text-xs sm:text-sm text-green-700 mt-1" x-text="`${item.author} - ${item.year}`"></p>
-                            <p class="text-gray-600 mt-2 sm:mt-3 text-sm leading-relaxed line-clamp-3"
-                                x-text="item.abstract">
-                            </p>
                         </div>
                         <div class="mt-3 sm:mt-4 flex justify-end">
                             <a :href="item.downloadUrl" download
