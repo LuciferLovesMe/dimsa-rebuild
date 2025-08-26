@@ -96,4 +96,30 @@ class TestimoniController extends Controller
 
         return response()->json($response, $responseCode);
     }
+
+    public function getLatest ()
+    {
+        try {
+            $testimoni = $this->testimoniRepository->getLatest();
+            $response = [
+                'status' => 'success',
+                'data' => $testimoni
+            ];
+            $responseCode = Response::HTTP_OK;
+        } catch (\Exception $e) {
+            $response = [
+                'status' => 'error',
+                'message' => 'Failed to retrieve latest testimony. ' . $e->getMessage()
+            ];
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e) {
+            $response = [
+                'status' => 'error',
+                'message' => 'Failed to retrieve latest testimony. ' . $e->getMessage()
+            ];
+            $responseCode = Response::HTTP_BAD_REQUEST;
+        }
+
+        return response()->json($response, $responseCode);
+    }
 }

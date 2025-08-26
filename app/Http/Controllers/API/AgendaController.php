@@ -67,4 +67,29 @@ class AgendaController extends Controller
 
         return response()->json($response, $responseCode);
     }
+
+    public function getLatest () 
+    {
+        try {
+            $agenda = $this->agendaRepository->getLatest();
+            $response = [
+                'status' => 'success',
+                'data' => $agenda
+            ];
+            $responseCode = Response::HTTP_OK;
+        } catch (\Exception $e) {
+            $response = [
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ];
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e) {
+            $response = [
+                'status' => 'error',
+                'message' => 'Database error occurred. ' . $e->getMessage()
+            ];
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        }
+        return response()->json($response, $responseCode);
+    }
 }

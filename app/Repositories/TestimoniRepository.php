@@ -53,4 +53,12 @@ class TestimoniRepository implements TestimoniInterface
         }
         return false;
     }
+
+    public function getLatest()
+    {
+        return Testimoni::with('alumni')
+            ->where('is_publish', true)
+            ->orderBy('id', 'desc')
+            ->first();
+    }
 }
