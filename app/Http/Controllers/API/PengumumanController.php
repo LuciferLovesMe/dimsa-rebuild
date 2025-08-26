@@ -19,7 +19,7 @@ class PengumumanController extends Controller
     public function index(Request $request)
     {
         try {
-            $pengumuman = $this->pengumumanRepository->index($request);
+            $pengumuman = $this->pengumumanRepository->index('published', $request->query('limit', null));
             $response = [
                 'data' => $pengumuman,
                 'message' => 'Pengumuman retrieved successfully',
