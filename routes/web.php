@@ -347,7 +347,7 @@ Route::get('alumni', function () {
 
 Route::get('lowongan-kerja', function () {
     return view('pages.guest.berita.lowongan-kerja');
-})->name('lowongan-kerja');
+})->name('guest.lowongan-kerja');
 
 
 // --- 1. ROUTE DINAMIS UNTUK HALAMAN PROGRAM ---
