@@ -183,7 +183,11 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('karyailmiah.update');
         Route::delete('/delete/{id}', 'destroy')->name('karyailmiah.destroy');
     });
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
+    
 });
+
 
 
 //guest
