@@ -6,9 +6,21 @@ use App\Models\Qna;
 
 class QnaRepository implements QnaInterface
 {
-    public function index()
+    public function index($type = 'all', $limit = null)
     {
-        return Qna::all();
+        if ($type === 'published') {
+            $qna = Qna::where('is_publish', true);
+        } else {
+            $qna = Qna::query();
+        }
+
+        if ($limit) {
+            $qna = $qna->limit($limit);
+        }
+
+        return $qna
+            ->orderBy('id', 'desc')
+            ->get();
     }
 
     public function store(array $data): Qna

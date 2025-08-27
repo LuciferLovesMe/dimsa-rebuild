@@ -28,7 +28,7 @@
 
     </div>
 
-    <div class="p-8 mt-4 h-96 rounded-lg shadow-lg bg-white">
+    <div class="p-8 mt-4 min-h-96 rounded-lg shadow-lg bg-white">
         {{ $slot }}
     </div>
 </div>

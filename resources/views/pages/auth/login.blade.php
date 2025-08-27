@@ -20,18 +20,25 @@
                 </div>
 
                 <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-semibold text-gray-900">Selamat Datang di Darul Ihsan Muhammadiyah Sragen👋
+                    <h2 class="text-2xl font-semibold text-gray-900">
+                        Selamat Datang di Darul Ihsan Muhammadiyah Sragen 👋
                     </h2>
 
                     <!-- Login Form -->
-                    <form class="mt-8 space-y-6" action="{{route('login.store')}}" method="POST">
-                        <!-- Username Input -->
+                    <form class="mt-8 space-y-6" method="POST" action="{{ route('login.store') }}">
+                        @csrf
+
+                        <!-- Email Input -->
                         <div class="text-sm">
-                            <label for="username" class="block text-xs font-medium text-gray-700">Username</label>
+                            <label for="email" class="block text-xs font-medium text-gray-700">Email</label>
                             <div class="mt-1">
-                                <input id="username" name="email" type="text" required placeholder="Username"
+                                <input id="email" name="email" type="email" value="{{ old('email') }}" required
+                                    placeholder="Email"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             </div>
+                            @error('email')
+                                <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Password Input with Toggle -->
@@ -58,7 +65,11 @@
                                     </svg>
                                 </button>
                             </div>
+                            @error('password')
+                                <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
+
                         <div class="pt-4">
                             <button type="submit"
                                 class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -66,6 +77,11 @@
                             </button>
                         </div>
 
+                        @if ($errors->has('email') || $errors->has('password'))
+                            <div class="mt-3 text-red-600 text-sm text-center">
+                                Email atau password salah.
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>

@@ -17,12 +17,12 @@ class EkstrakulikulerController extends Controller
         $this->ekstrakulikulerRepository = $ekstrakulikulerRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
             $response = [
                 'status' => 'success',
-                'data' => $this->ekstrakulikulerRepository->getAll()
+                'data' => $this->ekstrakulikulerRepository->getAll('published', $request->query('limit', null))
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {

@@ -9,20 +9,22 @@
 
     <!-- Navigation Links -->
     <nav class="flex-grow space-y-3 overflow-y-auto px-8 scrollbar-hide">
+        {{-- Tautan tunggal --}}
         <a href="{{ route('dashboard') }}"
             class="sidebar-subitem
-                {{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('dashboard*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-pie-chart"></i>
             <span>Dashboard</span>
         </a>
         <a href="{{ route('slideshow') }}"
             class="sidebar-subitem
-                {{ request()->routeIs('slideshow') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('slideshow*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa-regular fa-window-maximize"></i>
             <span>Slideshow</span>
         </a>
 
-        <div x-data="{ open: localStorage.getItem('tentangSekolahOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('tentangSekolahOpen', value))" class="mb-2">
+        {{-- Dropdown Tentang Sekolah --}}
+        <div x-data="{ open: {{ request()->is(['admin/dewan*', 'admin/staff*', 'admin/partner*', 'admin/program*', 'admin/tata-tertib*']) ? 'true' : 'false' }} || localStorage.getItem('tentangSekolahOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('tentangSekolahOpen', value))" class="mb-2">
             <button @click="open = !open"
                 class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
                 <span class="flex items-center gap-3">
@@ -40,38 +42,39 @@
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
                 <li><a href="{{ route('admin.dewan.pimpinan') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('admin.dewan.*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/dewan*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-users"></i>
                         <span>Dewan Yayasan</span>
                     </a></li>
-                <li><a href="{{ route('staff') }}"
+                <li><a href="{{ route('admin.staff') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('staff') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/staff*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-graduation-cap"></i>
                         <span>Guru & Staff</span>
                     </a></li>
-                <li><a href="{{ route('partner') }}"
+                <li><a href="{{ route('admin.partner') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('partner') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/partner*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-handshake"></i>
                         <span>Partner Lembaga</span>
                     </a></li>
-                <li><a href="{{ route('program') }}"
+                <li><a href="{{ route('admin.program') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('program') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/program*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-trophy"></i>
                         <span>Program Unggulan</span>
                     </a></li>
-                <li><a href="{{ route('tatib') }}"
+                <li><a href="{{ route('admin.tata-tertib') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('tatib') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/tata-tertib*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-warning"></i>
                         <span>Tata Tertib</span>
                     </a></li>
             </ul>
         </div>
 
-        <div x-data="{ open: localStorage.getItem('informasiOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('informasiOpen', value))" class="mb-2">
+        {{-- Dropdown Informasi --}}
+        <div x-data="{ open: {{ request()->is(['berita*', 'karya-ilmiah*', 'majalah*', 'galeri*', 'pengumuman*', 'qna*', 'alumni*', 'lowongan-kerja*', 'testimoni*']) ? 'true' : 'false' }} || localStorage.getItem('informasiOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('informasiOpen', value))" class="mb-2">
             <button @click="open = !open"
                 class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
                 <span class="flex items-center gap-3">
@@ -87,72 +90,74 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </button>
+
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
                 <li><a href="{{ route('berita') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('berita') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('berita*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-newspaper"></i>
                         <span>Berita</span>
                     </a></li>
                 <li><a href="{{ route('karya-ilmiah') }}"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('karya-ilmiah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-book"></i>
                         <span>Karya Ilmiah</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="#"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('majalah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-journal-whills"></i>
                         <span>Majalah</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="#"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('galeri*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
                         <span>Galeri</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="#"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('pengumuman*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-bullhorn"></i>
                         <span>Pengumuman</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="#"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('qna*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-question-circle"></i>
                         <span>QnA</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="#"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('alumni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-address-book"></i>
                         <span>Alumni</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="#"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-white' : '' }}">
+                            {{ request()->is('lowongan-kerja*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-briefcase"></i>
                         <span>Lowongan Kerja</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="#"
                         class="sidebar-subitem
-                            {{ request()->routeIs('karya-ilmiah') ? 'bg-gray-800 text-gray-500' : '' }}">
+                            {{ request()->is('testimoni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
                         <span>Testimoni</span>
                     </a></li>
             </ul>
         </div>
+
         <a href="{{ route('ekstrakurikuler') }}"
             class="sidebar-subitem
-                {{ request()->routeIs('ekstrakurikuler') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('ekstrakurikuler*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-star"></i>
             <span>Ekstrakurikuler</span>
         </a>
         <a href="{{ route('fasilitas') }}"
             class="sidebar-subitem
-                {{ request()->routeIs('fasilitas') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('fasilitas*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-building"></i>
             <span>Fasilitas</span>
         </a>

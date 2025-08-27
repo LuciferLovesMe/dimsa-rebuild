@@ -22,7 +22,7 @@ class MajalahController extends Controller
         try {
             $response = [
                 'status' => 'success',
-                'data' => $this->publikasiRepository->getMajalah()
+                'data' => $this->publikasiRepository->getMajalah('published', $request->query('limit', null))
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {

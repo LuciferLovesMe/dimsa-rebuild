@@ -40,19 +40,21 @@
                 :items="$akademikItems" />
         </div>
 
-        {{-- program --}}
+        {{-- program (DINAMIS) --}}
         <div x-show="activeTab === 'program'">
-            @php
-                $profilItems = [
-                    ['text' => 'Kelas Khusus Cyber', 'url' => route('kelas-cyber')],
-                    ['text' => 'Kelas Khusus Tahfidz', 'url' => route('kelas-tahfidz')],
-                    ['text' => 'Kurikulum Pondok', 'url' => route('kurikulum-pondok')],
-                    ['text' => 'Ekstrakurikuler', 'url' => route('ekstrakurikuler')],
-                ];
-            @endphp
-            <x-item-offcanvas title="Program"
-                description="Ragam pembelajaran unggulan DIMSA untuk pengembangan diri Siswa-siswi."
-                :items="$profilItems" />
+            {{-- Variabel $programNavItems sekarang datang dari AppServiceProvider melalui routes/web.php --}}
+            @if (!empty($programNavItems))
+                <x-item-offcanvas title="Program"
+                    description="Ragam pembelajaran unggulan DIMSA untuk pengembangan diri Siswa-siswi."
+                    :items="$programNavItems" />
+            @else
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Program</h2>
+                    <p class="mt-2 text-sm text-gray-500">Ragam pembelajaran unggulan DIMSA untuk pengembangan diri
+                        Siswa-siswi.</p>
+                    <p class="mt-6 text-sm text-gray-400">Belum ada program unggulan.</p>
+                </div>
+            @endif
         </div>
 
         {{-- fasilitas --}}

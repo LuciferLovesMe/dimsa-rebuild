@@ -9,14 +9,19 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LowonganKerjaRepository implements LowonganKerjaInterface
 {
-    /**
-     * Get all job vacancies.
-     *
-     * @return Collection|LowonganKerja[]
-     */
-    public function getAll(): Collection
+    public function getAll($type = 'all', $limit = null): Collection
     {
-        return LowonganKerja::with('kualifikasi')->get();
+        $query = LowonganKerja::with('kualifikasi');
+
+        if ($type === 'published') {
+            $query->where('is_publish', true);
+        }
+
+        if ($limit) {
+            $query->limit($limit);
+        }
+
+        return $query->orderBy('id', 'desc')->get();
     }
     /**
      * Get a job vacancy by its ID.

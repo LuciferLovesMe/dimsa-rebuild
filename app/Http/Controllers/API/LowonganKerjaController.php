@@ -16,12 +16,12 @@ class LowonganKerjaController extends Controller
         $this->lowonganKerjaRepository = $lowonganKerjaRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
             $response = [
                 'status' => 'success',
-                'data' => $this->lowonganKerjaRepository->getAll(),
+                'data' => $this->lowonganKerjaRepository->getAll('published',  $request->query('limit', null)),
             ];
         } catch (\Exception $e) {
             $response = [

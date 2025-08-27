@@ -53,6 +53,7 @@ Route::prefix('/lowongan-kerja')->group(function () {
 
 Route::prefix('/testimoni')->group(function () {
     Route::get('/', [TestimoniController::class, 'index']);
+    Route::get('/latest', [TestimoniController::class, 'getLatest']);
     Route::get('/{id}', [TestimoniController::class, 'show']);
 });
 
@@ -63,6 +64,7 @@ Route::prefix('/ekstrakulikuler')->group(function () {
 
 Route::prefix('/agenda')->group(function () {
     Route::get('/', [AgendaController::class, 'index']);
+    Route::get('/latest', [AgendaController::class, 'getLatest']);
     Route::get('/{id}', [AgendaController::class, 'show']);
 });
 

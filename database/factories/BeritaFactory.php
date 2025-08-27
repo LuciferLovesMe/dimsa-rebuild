@@ -1,0 +1,32 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\KategoriBerita;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Berita>
+ */
+class BeritaFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        $kategori = KategoriBerita::pluck('id')->toArray();
+        return [
+            'judul' => $this->faker->sentence(),
+            'slug' => $this->faker->slug(),
+            'penulis' => $this->faker->name(),
+            'tanggal' => $this->faker->date(),
+            'id_kategori_berita' => $this->faker->randomElement($kategori),
+            'cover' => $this->faker->imageUrl(),
+            'isi' => $this->faker->paragraph(),
+            'is_publish' => $this->faker->boolean()
+        ];
+    }
+}
