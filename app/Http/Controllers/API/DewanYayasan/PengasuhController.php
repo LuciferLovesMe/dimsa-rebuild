@@ -7,6 +7,7 @@ use App\Http\Requests\GuruStaff\AddGuruStaffRequest;
 use App\Http\Requests\GuruStaff\UpdateGuruStaffRequest;
 use App\Interfaces\DewanYayasan\PengasuhInterface;
 
+use function PHPUnit\Framework\isEmpty;
 
 class PengasuhController extends Controller
 {
@@ -56,16 +57,47 @@ class PengasuhController extends Controller
             return apiFailed("Failed to retrieve pengasuh.", null, 500, $th->getMessage());
         }
     }
+    
+    public function showIndexByID($id)
+    {
+        try {
+            $pengasuh = $this->pengasuhRepo->showGuestByID($id);
+            if (!$pengasuh) {
+                return apiFailed("Pengasuh tidak ditemukan.", null, 404);
+            }
+            return apiSuccess($pengasuh, "Pengasuh retrieved successfully.");
+        } catch (\Throwable $th) {
+            return apiFailed("Failed to retrieve pengasuh.", null, 500, $th->getMessage());
+        }
+    }
 
     public function showAll()
     {
         try {
             $pengasuh = $this->pengasuhRepo->showAll();
+            if (!$pengasuh) {
+                return apiFailed("Pengasuh tidak ditemukan.", null, 404);
+            }
             return apiSuccess($pengasuh, "All pengasuh retrieved successfully.");
         } catch (\Throwable $th) {
             return apiFailed("Failed to retrieve pengasuh list.", null, 500, $th->getMessage());
         }
     }
+
+    public function showIndex()
+    {
+        try {
+            $pengasuh = $this->pengasuhRepo->showGuest();
+
+            if (!$pengasuh || $pengasuh->isEmpty()) {
+                return apiFailed("Pengasuh not found.", null, 404);
+            }
+            return apiSuccess($pengasuh, "All pengasuh retrieved successfully.");
+        } catch (\Throwable $th) {
+            return apiFailed("Failed to retrieve pengasuh list.", null, 500, $th->getMessage());
+        }
+    }
+
 
     public function destroy($id)
     {

@@ -25,7 +25,7 @@ class AddGuruStaffRequest extends FormRequest
             'nama' => ['required', 'string', 'max:255'],
             'jabatan' => ['required', 'string', 'max:255'],
             'image' => ['required', 'image', 'mimes:png,jpg,jpeg'],
-            'is_publish' => ['required', 'boolean'],
+            'is_publish' => ['nullable', 'boolean'],
 
             'riwayat_pendidikan' => ['nullable', 'array'],
             'riwayat_pendidikan.*.tingkat_pendidikan' => ['required', 'string'],

@@ -289,6 +289,22 @@ Route::get('/akademik-ma', function () {
     return view('pages.guest.akademik.ma');
 })->name('ma');
 
+// program
+Route::get('kelas-cyber', function () {
+    return view('pages.guest.program.kelas-cyber');
+})->name('kelas-cyber');
+
+Route::get('kelas-tahfidz', function () {
+    return view('pages.guest.program.kelas-tahfidz');
+})->name('kelas-tahfidz');
+
+Route::get('kurikulum-pondok', function () {
+    return view('pages.guest.program.kurikulum-pondok');
+})->name('kurikulum-pondok');
+
+Route::get('ekstrakurikuler', function () {
+    return view('pages.guest.program.ekstrakurikuler');
+})->name('guest.ekstrakurikuler');
 
 // fasilitas
 Route::get('sarana-prasarana', function () {
@@ -303,31 +319,31 @@ Route::get('tata-tertib', function () {
 // berita
 Route::get('kabar', function () {
     return view('pages.guest.berita.kabar');
-})->name('kabar');
+})->name('guest.kabar');
 
 Route::get('karya-ilmiah', function () {
     return view('pages.guest.berita.karya-ilmiah');
-})->name('karya-ilmiah');
+})->name('guest.karya-ilmiah');
 
 Route::get('majalah', function () {
     return view('pages.guest.berita.majalah');
-})->name('majalah');
+})->name('guest.majalah');
 
 Route::get('galeri', function () {
     return view('pages.guest.berita.galeri');
-})->name('galeri');
+})->name('guest.galeri');
 
 Route::get('pengumuman', function () {
     return view('pages.guest.berita.pengumuman');
-})->name('pengumuman');
+})->name('guest.pengumuman');
 
 Route::get('qna', function () {
     return view('pages.guest.berita.qna');
-})->name('qna');
+})->name('guest.qna');
 
 Route::get('alumni', function () {
     return view('pages.guest.berita.alumni');
-})->name('alumni');
+})->name('guest.alumni');
 
 Route::get('lowongan-kerja', function () {
     return view('pages.guest.berita.lowongan-kerja');

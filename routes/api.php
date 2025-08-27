@@ -85,11 +85,13 @@ Route::prefix('/fasilitas')->group(function () {
 
 
 
-
-
+    
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
 
 Route::post('/register', [AuthController::class, 'register'])->name('api.register.store');
 Route::post('/login/api', [AuthController::class, 'login'])->name('api.login.store');
@@ -182,3 +184,47 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::delete('/delete/{id}', 'destroy')->name('karyailmiah.destroy');
     });
 });
+
+
+//guest
+Route::get('/slideshow/', [SlideshowController::class, 'showAll'])->name('slideshows.index');
+
+Route::prefix('berita')->controller(BeritaController::class)->group(function () {
+    Route::get('/', 'showLimit')->name('berita.index');
+    Route::get('/{id}', 'showById')->name('detail_berita.index');
+});
+
+
+Route::get('/partner/', [PartnerController::class, 'showAllPublished'])->name('partner.index');
+
+Route::prefix('/dewan-yayasan')->group(function () {
+    Route::prefix('/pengasuh')
+        ->controller(PengasuhController::class)
+        ->group(function () {
+            Route::get('/', 'showIndex')->name('pengasuh.index');
+            Route::get('/{id}', 'showIndexById')->name('detail_pengasuh.index');
+        });
+    Route::prefix('/pimpinan')
+        ->controller(PimpinanController::class)
+        ->group(function () {
+            Route::get('/', 'showIndex')->name('pimpinan.index');
+            Route::get('/{id}', 'showIndexById')->name('detail_pimpinan.index');
+        });
+});
+
+
+Route::prefix('/gurustaff')
+    ->controller(GuruStaffController::class)
+    ->group(function () {
+        Route::get('/', 'showIndex')->name('gurustaff.index');
+        Route::get('/{id}', 'showIndexById')->name('detail_gurustaff.index');
+    });
+
+
+Route::prefix('/program-unggulan')
+    ->controller(ProgramUnggulanController::class)
+    ->group(function () {
+        Route::get('/', 'showIndex')->name('program-unggulan.index');
+        Route::get('/{id}', 'showIndexById')->name('detail_program-unggulan.index');
+    });
+

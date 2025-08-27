@@ -36,6 +36,27 @@ class BeritaController extends Controller
         return apiSuccess($data, 'Detail berita');
     }
 
+    public function showById($id)
+    {
+        $data = $this->beritaRepo->getByID($id);
+
+        if (!$data) {
+            return apiFailed(null, 'Berita tidak ditemukan', 404);
+        }
+
+        return apiSuccess($data, 'Detail berita');
+    }
+
+    public function showLimit()
+    {
+        $data = $this->beritaRepo->getAllLimit();
+        if (!$data) {
+            return apiFailed(null, 'Berita tidak ditemukan', 404);
+        }
+
+        return apiSuccess($data, 'List Berita');
+    }
+
     public function store(BeritaRequest $request)
     {
         DB::beginTransaction();

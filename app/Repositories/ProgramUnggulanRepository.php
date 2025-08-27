@@ -17,6 +17,16 @@ class ProgramUnggulanRepository implements ProgramUnggulanInterface
         return ProgramUnggulan::findOrFail($id);
     }
 
+    public function getPublished()
+    {
+        return ProgramUnggulan::where('is_publish', 1)->orderBy('created_at', 'desc')->get();
+    }
+
+    public function getGuestById($id)
+    {
+        return ProgramUnggulan::where('id', $id)->where('is_publish', 1)->firstOrFail();
+    }
+
     public function create(array $data)
     {
         return ProgramUnggulan::create($data);

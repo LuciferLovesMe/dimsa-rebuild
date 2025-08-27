@@ -10,4 +10,8 @@ interface PengasuhInterface
     public function show(int $id);
     public function showAll(int $perPage = 10);
     public function destroy(int $id);
+    public function showGuest();
+    public function showGuestByID($id);
+
+
 }

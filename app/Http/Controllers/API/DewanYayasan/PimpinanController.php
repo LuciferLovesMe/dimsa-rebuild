@@ -55,6 +55,8 @@ class PimpinanController extends Controller
         }
     }
 
+
+
     public function showAll()
     {
         try {
@@ -62,6 +64,32 @@ class PimpinanController extends Controller
             return apiSuccess($data, "Show All Pimpinan Successful");
         } catch (\Throwable $th) {
             return apiFailed("Error show all pimpinan", null, 500, $th->getMessage());
+        }
+    }
+
+        public function showIndexByID($id)
+    {
+        try {
+            $pengasuh = $this->pimpinanRepository->showGuestByID($id);
+            if (!$pengasuh) {
+                return apiFailed("Pengasuh tidak ditemukan.", null, 404);
+            }
+            return apiSuccess($pengasuh, "Pengasuh retrieved successfully.");
+        } catch (\Throwable $th) {
+            return apiFailed("Failed to retrieve pengasuh.", null, 500, $th->getMessage());
+        }
+    }
+  public function showIndex()
+    {
+        try {
+            $pengasuh = $this->pimpinanRepository->showGuest();
+
+            if (!$pengasuh || $pengasuh->isEmpty()) {
+                return apiFailed("Pengasuh not found.", null, 404);
+            }
+            return apiSuccess($pengasuh, "All pengasuh retrieved successfully.");
+        } catch (\Throwable $th) {
+            return apiFailed("Failed to retrieve pengasuh list.", null, 500, $th->getMessage());
         }
     }
 

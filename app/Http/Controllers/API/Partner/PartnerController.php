@@ -74,6 +74,7 @@ class PartnerController extends Controller
     {
         try {
             $partner = $this->partnerRepository->getById($id);
+            
             return apiSuccess($partner, 'Show partner successful');
         } catch (\Throwable $th) {
             return apiFailed("Error show partner", null, 500, $th->getMessage());
@@ -84,9 +85,25 @@ class PartnerController extends Controller
     {
         try {
             $partners = $this->partnerRepository->getAll();
+            if ($partners->isEmpty()) {
+                return apiSuccess([], 'No partners found');
+            }
             return apiSuccess($partners, 'Show All partners successful');
         } catch (\Throwable $th) {
             return apiFailed("Error show partners", null, 500, $th->getMessage());
+        }
+    }
+
+    public function showAllPublished()
+    {
+        try {
+            $partners = $this->partnerRepository->getAllPublished();
+            if (!$partners || $partners->isEmpty()) {
+                return apiSuccess([], 'No published partners found');
+            }
+            return apiSuccess($partners, 'Show All published partners successful');
+        } catch (\Throwable $th) {
+            return apiFailed("Error show published partners", null, 500, $th->getMessage());
         }
     }
 
