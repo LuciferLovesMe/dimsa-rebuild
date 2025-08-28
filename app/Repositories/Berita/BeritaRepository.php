@@ -27,7 +27,7 @@ class BeritaRepository implements BeritaInterface
     }
 
     public function getAllLimit() {
-        return Berita::with('kategori')->where('is_publish', 1)->orderBy('created_at', 'desc')->limit(5)->get();
+        return Berita::with('kategori')->where('is_publish', 1)->orderBy('id', 'desc')->limit(5)->get();
     }
 
     public function create(array $data)
