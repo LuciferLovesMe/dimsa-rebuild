@@ -290,20 +290,20 @@
                     </div>
 
                     <div
-                        class="flex flex-nowrap @if (count($mitraData) > 6) animate-scroll @else justify-center @endif">
+                        class="flex flex-nowrap" id="mitra-logos">
                         {{-- Loop pertama untuk logo asli --}}
-                        @foreach ($mitraData as $mitra)
+                        {{-- @foreach ($mitraData as $mitra)
                             <img src="{{ $mitra['logo'] }}" alt="Logo {{ $mitra['name'] }}"
                                 class="h-12 sm:h-16 mx-8 flex-shrink-0">
-                        @endforeach
+                        @endforeach --}}
 
                         {{-- Loop kedua (duplikat) hanya jika animasi aktif --}}
-                        @if (count($mitraData) > 6)
+                        {{-- @if (count($mitraData) > 6)
                             @foreach ($mitraData as $mitra)
                                 <img src="{{ $mitra['logo'] }}" alt="Logo {{ $mitra['name'] }}"
                                     class="h-12 sm:h-16 mx-8 flex-shrink-0">
                             @endforeach
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>
@@ -419,6 +419,7 @@
             $(document).ready(function() {
                 fetchTestimoni()
                 fetchAgenda()
+                fetchMitra()
 
                 function fetchTestimoni () 
                 {
@@ -471,6 +472,42 @@
                             $("#agenda-image").attr("src", image);
                         }
                     });
+                }
+
+                function fetchMitra ()
+                {
+                    let url = "{{ url('/api/partner') }}"
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        success: function(response) {
+                            let data = response.data
+                            $("#mitra-logos").empty();
+                            $("#mitra-logos").removeClass("animate-scroll")
+                            $("#mitra-logos").removeClass("justify-center")
+
+                            $.each(data, function (index, value) {
+                                let logo = `
+                                        <img src="${value.logo}" alt="Logo ${value.nama_mitra}"
+                                        class="h-12 sm:h-16 mx-8 flex-shrink-0">
+                                `
+                                $("#mitra-logos").append(logo)
+                            })
+
+                            if (data.length > 6) {
+                                $("#mitra-logos").addClass("animate-scroll")
+                                $.each(data, function (index, value) {
+                                    let logo = `
+                                            <img src="${value.logo}" alt="Logo ${value.nama_mitra}"
+                                            class="h-12 sm:h-16 mx-8 flex-shrink-0">
+                                    `
+                                    $("#mitra-logos").append(logo)
+                                })
+                            } else {
+                                $("#mitra-logos").addClass("justify-center")
+                            }
+                        }
+                    })
                 }
             });
         </script>
