@@ -92,31 +92,31 @@
             </button>
 
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
-                <li><a href="{{ route('agenda') }}"
+                <li><a href="{{ route('admin.agenda') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/agenda*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-calendar"></i>
                         <span>Agenda</span>
                     </a></li>
-                <li><a href="{{ route('berita') }}"
+                <li><a href="{{ route('admin.berita') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/berita*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-newspaper"></i>
                         <span>Berita</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="{{ route('admin.karya-ilmiah') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/karya-ilmiah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-book"></i>
                         <span>Karya Ilmiah</span>
                     </a></li>
-                <li><a href="{{ route('majalah') }}"
+                <li><a href="{{ route('admin.majalah') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/majalah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-journal-whills"></i>
                         <span>Majalah</span>
                     </a></li>
-                <li><a href="{{ route('galeri') }}"
+                <li><a href="{{ route('admin.galeri') }}"
                         class="sidebar-subitem
                             {{ request()->is(patterns: 'admin/galeri*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
@@ -128,25 +128,25 @@
                         <i class="fa fa-bullhorn"></i>
                         <span>Pengumuman</span>
                     </a></li>
-                <li><a href="{{ route('qna') }}"
+                <li><a href="{{ route('admin.qna') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/qna*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-question-circle"></i>
                         <span>QnA</span>
                     </a></li>
-                <li><a href="{{ route('alumni') }}"
+                <li><a href="{{ route('admin.alumni') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/alumni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-address-book"></i>
                         <span>Alumni</span>
                     </a></li>
-                <li><a href="{{ route('lowongan-kerja') }}"
+                <li><a href="{{ route('admin.lowongan-kerja') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/lowongan-kerja*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-briefcase"></i>
                         <span>Lowongan Kerja</span>
                     </a></li>
-                <li><a href="{{ route('testimoni') }}"
+                <li><a href="{{ route('admin.testimoni') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/testimoni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
@@ -155,13 +155,13 @@
             </ul>
         </div>
 
-        <a href="{{ route('ekstrakurikuler') }}"
+        <a href="{{ route('admin.ekstrakurikuler') }}"
             class="sidebar-subitem
                 {{ request()->is('admin/ekstrakurikuler*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-star"></i>
             <span>Ekstrakurikuler</span>
         </a>
-        <a href="{{ route('fasilitas') }}"
+        <a href="{{ route('admin.fasilitas') }}"
             class="sidebar-subitem
                 {{ request()->is('admin/fasilitas*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-building"></i>
