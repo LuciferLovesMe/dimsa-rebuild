@@ -18,10 +18,11 @@ class SlideshowFactory extends Factory
      */
     public function definition(): array
     {
-      
+
+        $headline = $this->faker->sentence(6, true);
         return [
-            'file' => $this->faker->imageUrl(200, 200, 'business', true, 'logo'),
-            'headline' => $this->faker->sentence(6, true),
+            'headline' => $headline,
+            'file' => 'https://placehold.co/150x100?text=' . urlencode($headline),
         ];
     }
 }
