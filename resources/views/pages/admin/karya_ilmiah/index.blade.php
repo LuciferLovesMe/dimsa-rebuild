@@ -56,7 +56,7 @@
                 const loadingSpinner = $('#loading-spinner');
 
                 $.ajax({
-                    url: "/api/admin/karya-ilmiah/showAll", // Endpoint untuk Karya Ilmiah
+                    url: "/api/admin/karya-ilmiah/showAll",
                     method: 'GET',
                     success: function(response) {
                         tableBody.empty();
