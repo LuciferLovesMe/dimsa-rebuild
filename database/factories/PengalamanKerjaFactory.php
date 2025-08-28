@@ -20,13 +20,13 @@ class PengalamanKerjaFactory extends Factory
      */
     public function definition(): array
     {
-         return [
+        return [
             'id_guru_staff' => GuruStaff::factory(),
             'posisi' => $this->faker->jobTitle,
             'perusahaan' => $this->faker->company,
             'tahun_mulai' => $this->faker->year,
             'tahun_akhir' => $this->faker->optional()->year,
-         
+
         ];
     }
 }
