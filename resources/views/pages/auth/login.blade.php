@@ -14,7 +14,6 @@
         <div class="w-full lg:w-1/2 flex items-center justify-center p-6">
             <div class="w-full max-w-md">
 
-                <!-- Mobile Logo -->
                 <div class="lg:hidden text-center mb-8">
                     <img src="{{ asset('images/dimsa_white.png') }}" alt="Logo DIMSA Mobile" class="mx-auto w-40">
                 </div>
@@ -24,24 +23,30 @@
                         Selamat Datang di Darul Ihsan Muhammadiyah Sragen 👋
                     </h2>
 
-                    <!-- Login Form -->
-                    <form class="mt-8 space-y-6" method="POST" action="{{ route('login.store') }}">
+                    @if ($errors->any())
+                        <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg"
+                            role="alert">
+                            <strong class="font-bold">Oops! Terjadi kesalahan.</strong>
+                            <ul class="mt-2 list-disc list-inside text-sm">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('login.store') }}" class="mt-8 space-y-6">
                         @csrf
 
-                        <!-- Email Input -->
                         <div class="text-sm">
                             <label for="email" class="block text-xs font-medium text-gray-700">Email</label>
                             <div class="mt-1">
-                                <input id="email" name="email" type="email" value="{{ old('email') }}" required
-                                    placeholder="Email"
+                                <input id="email" name="email" type="email" required placeholder="Email"
+                                    value="{{ old('email') }}"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             </div>
-                            @error('email')
-                                <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
-                            @enderror
                         </div>
 
-                        <!-- Password Input with Toggle -->
                         <div x-data="{ showPassword: false }" class="text-sm">
                             <label for="password" class="block text-xs font-medium text-gray-700">Password</label>
                             <div class="mt-1 relative">
@@ -65,9 +70,6 @@
                                     </svg>
                                 </button>
                             </div>
-                            @error('password')
-                                <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
-                            @enderror
                         </div>
 
                         <div class="pt-4">
@@ -77,15 +79,9 @@
                             </button>
                         </div>
 
-                        @if ($errors->has('email') || $errors->has('password'))
-                            <div class="mt-3 text-red-600 text-sm text-center">
-                                Email atau password salah.
-                            </div>
-                        @endif
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
