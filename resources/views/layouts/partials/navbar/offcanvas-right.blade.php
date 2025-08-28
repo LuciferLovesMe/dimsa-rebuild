@@ -17,13 +17,13 @@
         <div x-show="activeTab === 'profil'">
             @php
                 $profilItems = [
-                    ['text' => 'Selayang Pandang', 'url' => route('selayang-pandang')],
-                    ['text' => 'Sejarah', 'url' => route('sejarah-pondok')],
-                    ['text' => 'Visi & Misi', 'url' => route('visi-misi')],
-                    ['text' => 'Struktur Organisasi', 'url' => route('struktur-organisasi')],
-                    ['text' => 'Akreditasi', 'url' => route('akreditasi')],
-                    ['text' => 'Logo & Brand', 'url' => route('logo')],
-                    ['text' => 'Pimpinan & Dewan Guru', 'url' => route('pimpinan')],
+                    ['text' => 'Selayang Pandang', 'url' => route('guest.selayang-pandang')],
+                    ['text' => 'Sejarah', 'url' => route('guest.sejarah-pondok')],
+                    ['text' => 'Visi & Misi', 'url' => route('guest.visi-misi')],
+                    ['text' => 'Struktur Organisasi', 'url' => route('guest.struktur-organisasi')],
+                    ['text' => 'Akreditasi', 'url' => route('guest.akreditasi')],
+                    ['text' => 'Logo & Brand', 'url' => route('guest.logo')],
+                    ['text' => 'Pimpinan & Dewan Guru', 'url' => route('guest.pimpinan')],
                 ];
             @endphp
             <x-item-offcanvas title="Tentang Dimsa"
@@ -34,7 +34,10 @@
         {{-- akademik --}}
         <div x-show="activeTab === 'akademik'" style="display: none;">
             @php
-                $akademikItems = [['text' => 'SMP', 'url' => route('smp')], ['text' => 'MA', 'url' => route('ma')]];
+                $akademikItems = [
+                    ['text' => 'SMP', 'url' => route('guest.smp')],
+                    ['text' => 'MA', 'url' => route('guest.ma')],
+                ];
             @endphp
             <x-item-offcanvas title="Akademik" description="Ragam informasi akademik lembaga pendidikan di DIMSA."
                 :items="$akademikItems" />
@@ -42,7 +45,6 @@
 
         {{-- program (DINAMIS) --}}
         <div x-show="activeTab === 'program'">
-            {{-- Variabel $programNavItems sekarang datang dari AppServiceProvider melalui routes/web.php --}}
             @if (!empty($programNavItems))
                 <x-item-offcanvas title="Program"
                     description="Ragam pembelajaran unggulan DIMSA untuk pengembangan diri Siswa-siswi."
@@ -73,14 +75,14 @@
         <div x-show="activeTab === 'berita'">
             @php
                 $profilItems = [
-                    ['text' => 'Dimsa dalam berita', 'url' => route('berita')],
-                    ['text' => 'Karya Ilmiah', 'url' => route('karya-ilmiah')],
-                    ['text' => 'Majalah', 'url' => route('majalah')],
-                    ['text' => 'Galeri', 'url' => route('galeri')],
-                    ['text' => 'Pengumuman', 'url' => route('pengumuman')],
-                    ['text' => 'QnA', 'url' => route('qna')],
-                    ['text' => 'Alumni', 'url' => route('alumni')],
-                    ['text' => 'Lowongan Kerja', 'url' => route('lowongan-kerja')],
+                    ['text' => 'Dimsa dalam berita', 'url' => route('guest.kabar')],
+                    ['text' => 'Karya Ilmiah', 'url' => route('guest.karya-ilmiah')],
+                    ['text' => 'Majalah', 'url' => route('guest.majalah')],
+                    ['text' => 'Galeri', 'url' => route('guest.galeri')],
+                    ['text' => 'Pengumuman', 'url' => route('guest.pengumuman')],
+                    ['text' => 'QnA', 'url' => route('guest.qna')],
+                    ['text' => 'Alumni', 'url' => route('guest.alumni')],
+                    ['text' => 'Lowongan Kerja', 'url' => route('guest.lowongan-kerja')],
                 ];
             @endphp
             <x-item-offcanvas title="Berita" description="Kumpulan informasi update DIMSA." :items="$profilItems" />
