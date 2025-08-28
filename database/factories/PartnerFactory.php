@@ -18,10 +18,11 @@ class PartnerFactory extends Factory
      */
     public function definition(): array
     {
+        $company = $this->faker->company;
         return [
-            'nama_mitra' => $this->faker->company,
-            'logo' => $this->faker->imageUrl(200, 200, 'business', true, 'logo'),
-            'is_publish' => $this->faker->boolean(80), // 80% kemungkinan true
+            'nama_mitra' => $company,
+            'logo' => 'https://placehold.co/150x100?text=' . urlencode($company),
+            'is_publish' => $this->faker->boolean(80),
         ];
     }
 }

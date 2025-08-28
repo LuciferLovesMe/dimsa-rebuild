@@ -18,7 +18,7 @@ class QnaFactory extends Factory
     {
         return [
             'pertanyaan' => $this->faker->sentence(),
-            'jawaban' => $this->faker->paragraph(),
+            'jawaban' => $this->faker->sentence(),
             'is_publish' => $this->faker->boolean()
         ];
     }

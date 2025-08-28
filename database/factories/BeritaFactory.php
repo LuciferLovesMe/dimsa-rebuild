@@ -18,13 +18,15 @@ class BeritaFactory extends Factory
     public function definition(): array
     {
         $kategori = KategoriBerita::pluck('id')->toArray();
+
+        $judul = $this->faker->sentence();
+
         return [
-            'judul' => $this->faker->sentence(),
-            'slug' => $this->faker->slug(),
+            'judul' => $judul,
             'penulis' => $this->faker->name(),
             'tanggal' => $this->faker->date(),
             'id_kategori_berita' => $this->faker->randomElement($kategori),
-            'cover' => $this->faker->imageUrl(),
+            'cover' => 'https://placehold.co/150x100?text=' . urlencode($judul),
             'isi' => $this->faker->paragraph(),
             'is_publish' => $this->faker->boolean()
         ];
