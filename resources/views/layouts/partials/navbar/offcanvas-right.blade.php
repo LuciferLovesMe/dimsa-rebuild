@@ -73,7 +73,7 @@
         <div x-show="activeTab === 'berita'">
             @php
                 $profilItems = [
-                    ['text' => 'Dimsa dalam berita', 'url' => route('kabar')],
+                    ['text' => 'Dimsa dalam berita', 'url' => route('berita')],
                     ['text' => 'Karya Ilmiah', 'url' => route('karya-ilmiah')],
                     ['text' => 'Majalah', 'url' => route('majalah')],
                     ['text' => 'Galeri', 'url' => route('galeri')],
