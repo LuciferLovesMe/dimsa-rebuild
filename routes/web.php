@@ -193,14 +193,14 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/majalah', function () {
             Route::get('/', function () {
                 return view('pages.admin.majalah.index');
-            });
+            })->name('index');
             Route::get('/create', function () {
                 return view('pages.admin.majalah.create');
-            });
+            })->name('create');
             Route::get('/edit', function () {
                 return view('pages.admin.majalah.edit');
-            });
-        });
+            })->name('edit');
+        })->name('admin.majalah.');
 
         // 
     });
