@@ -188,6 +188,22 @@ Route::get('/program/{slug}', function ($slug) {
 
 Route::middleware('auth')->group(function () {
 
+    Route::prefix('/admin', function () {
+        // Route Majalah
+        Route::prefix('/majalah', function () {
+            Route::get('/', function () {
+                return view('pages.admin.majalah.index');
+            });
+            Route::get('/create', function () {
+                return view('pages.admin.majalah.create');
+            });
+            Route::get('/edit', function () {
+                return view('pages.admin.majalah.edit');
+            });
+        });
+
+        // 
+    });
 
     Route::get('/admin', function () {
         return redirect()->route('dashboard');
