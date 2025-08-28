@@ -122,31 +122,31 @@
                         <i class="fa fa-image"></i>
                         <span>Galeri</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('pengumuman') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/pengumuman*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-bullhorn"></i>
                         <span>Pengumuman</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('qna') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/qna*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-question-circle"></i>
                         <span>QnA</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('alumni') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/alumni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-address-book"></i>
                         <span>Alumni</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('lowongan-kerja') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/lowongan-kerja*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-briefcase"></i>
                         <span>Lowongan Kerja</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('testimoni') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/testimoni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
