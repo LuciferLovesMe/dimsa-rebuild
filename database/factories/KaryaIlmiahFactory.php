@@ -16,10 +16,12 @@ class KaryaIlmiahFactory extends Factory
      */
     public function definition(): array
     {
+        $judul = $this->faker->sentence();
+
         return [
-            'judul' => $this->faker->sentence(),
+            'judul' => $judul,
             'penulis' => $this->faker->name(),
-            'image' => $this->faker->imageUrl(),
+            'image' =>  'https://placehold.co/150x100?text=' . urlencode($judul),
             'url' => $this->faker->url(),
             'tanggal_terbit' => $this->faker->date(),
             'type' => 'karya ilmiah',

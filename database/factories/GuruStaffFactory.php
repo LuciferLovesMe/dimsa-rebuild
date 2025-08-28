@@ -18,12 +18,13 @@ class GuruStaffFactory extends Factory
      */
     public function definition(): array
     {
+        $name =  $this->faker->name();
         return [
-            'nama'       => $this->faker->name(),
+            'nama'       => $name,
             'role'       => $this->faker->randomElement(['gurustaff', 'pengasuh', 'pimpinan']),
             'is_publish' => $this->faker->boolean(80), // 80% true
-            'jabatan'    => $this->faker->jobTitle(),        
-            'image'      => $this->faker->imageUrl(300, 300, 'people', true, 'profile'),
+            'jabatan'    => $this->faker->jobTitle(),
+            'image'      => 'https://placehold.co/150x100?text=' . urlencode($name),
         ];
     }
 }

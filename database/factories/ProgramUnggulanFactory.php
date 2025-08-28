@@ -18,10 +18,11 @@ class ProgramUnggulanFactory extends Factory
      */
     public function definition(): array
     {
+        $program_name = $this->faker->sentence(3);
         return [
-            'nama_program' => $this->faker->sentence(3),
+            'nama_program' => $program_name,
             'deskripsi'   => $this->faker->paragraph(),
-            'image'       => $this->faker->imageUrl(640, 480, 'business', true, 'program'),
+            'image'       =>  'https://placehold.co/150x100?text=' . urlencode($program_name),
             'url'         => $this->faker->url(),
             'is_publish'  => $this->faker->boolean(80), // 80% kemungkinan true
         ];
