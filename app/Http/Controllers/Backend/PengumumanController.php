@@ -45,10 +45,7 @@ class PengumumanController extends Controller
                 })
                 ->addIndexColumn()
                 ->make(true);
-            return response()->json([
-                'status' => 'success',
-                'data' => $datatable,
-            ], Response::HTTP_OK);
+                return $datatable;
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',

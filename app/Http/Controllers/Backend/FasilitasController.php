@@ -47,11 +47,7 @@ class FasilitasController extends Controller
                 ->addIndexColumn()
                 ->make(true);
 
-            $response = [
-                'status' => 'success',
-                'data' => $datatable
-            ];
-            $responseCode = Response::HTTP_OK;
+            return $datatable;
         } catch (\Exception $e) {
             $response = [
                 'status' => 'error',
