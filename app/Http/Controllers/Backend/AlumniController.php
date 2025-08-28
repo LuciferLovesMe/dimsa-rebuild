@@ -43,7 +43,7 @@ class AlumniController extends Controller
                 ->addIndexColumn()
                 ->make(true);
 
-            return response()->json($datatable, Response::HTTP_OK);
+            return $datatable;
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to retrieve alumni data. ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (QueryException $e) {

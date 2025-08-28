@@ -54,10 +54,7 @@ class GaleriController extends Controller
             $datatable->addIndexColumn()
                 ->make(true);
 
-            return response()->json([
-                'status' => 'success',
-                'data' => $datatable
-            ], 200);
+            return $datatable;
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
