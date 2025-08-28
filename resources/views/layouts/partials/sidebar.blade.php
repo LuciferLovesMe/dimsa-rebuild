@@ -94,13 +94,13 @@
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
                 <li><a href="{{ route('berita') }}"
                         class="sidebar-subitem
-                            {{ request()->is('berita*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/berita*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-newspaper"></i>
                         <span>Berita</span>
                     </a></li>
                 <li><a href="{{ route('karya-ilmiah') }}"
                         class="sidebar-subitem
-                            {{ request()->is('karya-ilmiah*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/karya-ilmiah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-book"></i>
                         <span>Karya Ilmiah</span>
                     </a></li>
