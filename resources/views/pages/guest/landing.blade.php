@@ -145,8 +145,8 @@
                     </div>
 
                     {{-- Widget Berita Terbaru (Statis) --}}
-                    <div
-                        class="bg-slate-900/30 backdrop-blur-lg text-white p-4 rounded-xl shadow-lg flex items-center gap-4" id="latest-news-widget">
+                    <div class="bg-slate-900/30 backdrop-blur-lg text-white p-4 rounded-xl shadow-lg flex items-center gap-4"
+                        id="latest-news-widget">
                         {{-- <img src="{{ $lastNews['image'] }}" alt="Berita Terbaru"
                             class="w-32 h-24 object-cover rounded-lg flex-shrink-0">
                         <div class="flex flex-col">
@@ -203,7 +203,7 @@
                         untuk menciptakan lingkungan belajar yang positif dan inspiratif, di mana setiap santri dapat
                         mengembangkan potensi diri mereka secara maksimal.
                     </p>
-                    <a href="{{ route('selayang-pandang') }}"
+                    <a href="{{ route('guest.selayang-pandang') }}"
                         class="inline-block w-full sm:w-auto text-center px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-800 border border-gray-800 rounded-lg hover:bg-gray-800 hover:text-white transition-colors duration-200 mt-auto">
                         Selengkapnya &gt;
                     </a>
@@ -275,39 +275,36 @@
     </section>
 
     {{-- @if (!empty($mitraData)) --}}
-        <section id="kerja-sama" class="py-16 sm:py-20 md:py-24 bg-gray-50">
-            <div class="container mx-auto px-4 sm:px-8 lg:px-20">
-                <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Kerja Sama</p>
-                <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center mb-6 sm:mb-12">
-                    Dipercaya oleh Mitra Terkemuka
-                </h2>
-                <div class="relative w-full overflow-hidden group">
-                    <div
-                        class="absolute top-0 left-0 z-10 w-12 sm:w-24 h-full bg-gradient-to-r from-gray-50 to-transparent">
-                    </div>
-                    <div
-                        class="absolute top-0 right-0 z-10 w-12 sm:w-24 h-full bg-gradient-to-l from-gray-50 to-transparent">
-                    </div>
+    <section id="kerja-sama" class="py-16 sm:py-20 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-8 lg:px-20">
+            <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Kerja Sama</p>
+            <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center mb-6 sm:mb-12">
+                Dipercaya oleh Mitra Terkemuka
+            </h2>
+            <div class="relative w-full overflow-hidden group">
+                <div class="absolute top-0 left-0 z-10 w-12 sm:w-24 h-full bg-gradient-to-r from-gray-50 to-transparent">
+                </div>
+                <div class="absolute top-0 right-0 z-10 w-12 sm:w-24 h-full bg-gradient-to-l from-gray-50 to-transparent">
+                </div>
 
-                    <div
-                        class="flex flex-nowrap" id="mitra-logos">
-                        {{-- Loop pertama untuk logo asli --}}
-                        {{-- @foreach ($mitraData as $mitra)
+                <div class="flex flex-nowrap" id="mitra-logos">
+                    {{-- Loop pertama untuk logo asli --}}
+                    {{-- @foreach ($mitraData as $mitra)
                             <img src="{{ $mitra['logo'] }}" alt="Logo {{ $mitra['name'] }}"
                                 class="h-12 sm:h-16 mx-8 flex-shrink-0">
                         @endforeach --}}
 
-                        {{-- Loop kedua (duplikat) hanya jika animasi aktif --}}
-                        {{-- @if (count($mitraData) > 6)
+                    {{-- Loop kedua (duplikat) hanya jika animasi aktif --}}
+                    {{-- @if (count($mitraData) > 6)
                             @foreach ($mitraData as $mitra)
                                 <img src="{{ $mitra['logo'] }}" alt="Logo {{ $mitra['name'] }}"
                                     class="h-12 sm:h-16 mx-8 flex-shrink-0">
                             @endforeach
                         @endif --}}
-                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
     {{-- @endif --}}
 
     {{-- Agenda --}}
@@ -422,8 +419,7 @@
                 fetchMitra()
                 fetchBerita()
 
-                function fetchTestimoni () 
-                {
+                function fetchTestimoni() {
                     let url = "{{ url('api/testimoni') }}?limit=3";
                     $.ajax({
                         url: url,
@@ -451,8 +447,7 @@
                     });
                 }
 
-                function fetchAgenda ()
-                {
+                function fetchAgenda() {
                     let url = "{{ url('api/agenda/latest') }}";
                     $.ajax({
                         url: url,
@@ -460,18 +455,19 @@
                         success: function(response) {
                             let data = response.data;
                             let date = new Date(data.datetime);
-                            let image = data.image ? data.image : 'https://placehold.co/400x250/e2e8f0/334155?text=Agenda+Dimsa';
+                            let image = data.image ? data.image :
+                                'https://placehold.co/400x250/e2e8f0/334155?text=Agenda+Dimsa';
 
                             $("#agenda-title").text(data.nama);
-                            $("#agenda-date").text(getIndonesianDate(date) + ' - ' + date.toLocaleTimeString());
+                            $("#agenda-date").text(getIndonesianDate(date) + ' - ' + date
+                                .toLocaleTimeString());
                             $("#agenda-location").text(data.alamat);
                             $("#agenda-image").attr("src", image);
                         }
                     });
                 }
 
-                function fetchMitra ()
-                {
+                function fetchMitra() {
                     let url = "{{ url('/api/partner') }}"
                     $.ajax({
                         url: url,
@@ -482,7 +478,7 @@
                             $("#mitra-logos").removeClass("animate-scroll")
                             $("#mitra-logos").removeClass("justify-center")
 
-                            $.each(data, function (index, value) {
+                            $.each(data, function(index, value) {
                                 let logo = `
                                         <img src="${value.logo}" alt="Logo ${value.nama_mitra}"
                                         class="h-12 sm:h-16 mx-8 flex-shrink-0">
@@ -492,7 +488,7 @@
 
                             if (data.length > 6) {
                                 $("#mitra-logos").addClass("animate-scroll")
-                                $.each(data, function (index, value) {
+                                $.each(data, function(index, value) {
                                     let logo = `
                                             <img src="${value.logo}" alt="Logo ${value.nama_mitra}"
                                             class="h-12 sm:h-16 mx-8 flex-shrink-0">
@@ -506,8 +502,7 @@
                     })
                 }
 
-                function fetchBerita ()
-                {
+                function fetchBerita() {
                     let url = `{{ url('api/berita') }}`
                     $.ajax({
                         url: url,
@@ -515,10 +510,11 @@
                         success: function(response) {
                             let data = response.data
                             console.log(data);
-                            
-                            $.each(data, function (index, value) {
+
+                            $.each(data, function(index, value) {
                                 let formattedDate = getIndonesianDate(value.tanggal)
-                                let kategori = value.kategori !== null ? value.kategori.nama_kategori : 'Berita'
+                                let kategori = value.kategori !== null ? value.kategori
+                                    .nama_kategori : 'Berita'
                                 if (index === 0) {
                                     $("#main-berita").append(
                                         `
