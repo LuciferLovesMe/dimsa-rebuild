@@ -188,21 +188,18 @@ Route::get('/program/{slug}', function ($slug) {
 
 Route::middleware('auth')->group(function () {
 
-    Route::prefix('/admin', function () {
-        // Route Majalah
-        Route::prefix('/majalah', function () {
+    Route::group(['prefix' => '/admin'], function () {
+        Route::group(['prefix' => '/majalah'], function () {
             Route::get('/', function () {
                 return view('pages.admin.majalah.index');
-            })->name('index');
+            })->name('admin.majalah');
             Route::get('/create', function () {
                 return view('pages.admin.majalah.create');
-            })->name('create');
+            })->name('admin.majalah.create');
             Route::get('/edit', function () {
                 return view('pages.admin.majalah.edit');
-            })->name('edit');
-        })->name('admin.majalah.');
-
-        // 
+            })->name('admin.majalah.edit');
+        });
     });
 
     Route::get('/admin', function () {
@@ -222,9 +219,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/karya-ilmiah', function () {
         return view('pages.admin.karya_ilmiah.index');
     })->name('admin.karya-ilmiah');
-    Route::get('/admin/majalah', function () {
-        return view('pages.admin.majalah.index');
-    })->name('admin.majalah');
+    // Route::get('/admin/majalah', function () {
+    //     return view('pages.admin.majalah.index');
+    // })->name('admin.majalah');
     Route::get('/admin/galeri', function () {
         return view('pages.admin.galeri.index');
     })->name('admin.galeri');
