@@ -8,10 +8,8 @@ interface PengasuhInterface
     public function store(array $data);
     public function update(array $data, int $id);
     public function show(int $id);
-    public function showAll(int $perPage = 10);
+    public function showAll();
     public function destroy(int $id);
     public function showGuest();
     public function showGuestByID($id);
-
-
 }

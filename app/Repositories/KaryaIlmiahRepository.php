@@ -63,11 +63,13 @@ class KaryaIlmiahRepository implements KaryaIlmiahInterface
         return Publikasi::findOrFail($id);
     }
 
-    public function showAll(int $perPage = 10)
+    public function showAll()
     {
+
         return Publikasi::where('type', 'karya ilmiah')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
+
     }
 
     public function destroy(int $id)

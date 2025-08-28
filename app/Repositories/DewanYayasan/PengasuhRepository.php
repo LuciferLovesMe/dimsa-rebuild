@@ -79,11 +79,10 @@ class PengasuhRepository implements PengasuhInterface
         return  $pengasuh;
     }
 
-    public function showAll(int $perPage = 10)
+    public function showAll()
     {
-        return GuruStaff::with(['riwayatPendidikans', 'pengalamanKerjas', 'prestasis'])
-            ->where('role', 'pengasuh')
-            ->paginate($perPage);
+        return GuruStaff::where('role', 'pengasuh')->orderBy('created_at', 'desc')
+            ->get();
     }
 
     public function showGuest()

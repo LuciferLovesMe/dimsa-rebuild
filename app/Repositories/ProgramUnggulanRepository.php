@@ -7,9 +7,9 @@ use App\Models\ProgramUnggulan;
 
 class ProgramUnggulanRepository implements ProgramUnggulanInterface
 {
-    public function getAll(int $perPage = 10)
+    public function getAll()
     {
-        return ProgramUnggulan::orderBy('created_at', 'desc')->paginate($perPage);
+        return ProgramUnggulan::orderBy('created_at', 'desc')->get();
     }
 
     public function getById($id)

@@ -7,6 +7,7 @@ use App\Http\Requests\GuruStaff\AddGuruStaffRequest;
 use App\Http\Requests\GuruStaff\UpdateGuruStaffRequest;
 use App\Interfaces\DewanYayasan\PimpinanInterface;
 use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\QueryException;
@@ -23,49 +24,52 @@ class PimpinanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         try {
-            $perPage = $request->input('per_page', 10); 
-            $Pimpinan = $this->PimpinanRepo->showAll($perPage);
+
+            $pengasuh = $this->PimpinanRepo->showAll();
 
             $datatable = datatables()
-                ->of($Pimpinan)
+                ->of($pengasuh)
                 ->addIndexColumn() // No
-                ->addColumn('thumbnail', function ($item) {
+                ->addColumn('image', function ($item) {
                     $img = $item->image;
-                    return '<img src="'.$img.'" alt="Thumbnail" style="width:80px; height:50px; object-fit:cover">';
+                    return '<img src="' . $img . '" alt="' . $item->nama . '">';
                 })
                 ->addColumn('nama', fn($item) => $item->nama)
                 ->addColumn('jabatan', fn($item) => $item->jabatan)
-                ->addColumn('status', fn($item) => $item->is_publish ? 'Published' : 'Draft')
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->status);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                       '#', '#', '#',
+                        '#',
+                        '#',
+                        '#',
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
-                ->rawColumns(['thumbnail','aksi'])
+                ->rawColumns(['image', 'status', 'aksi'])
                 ->make(true);
 
             return response()->json([
                 'status' => 'success',
                 'data' => $datatable
             ], Response::HTTP_OK);
-
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Database query error: '.$e->getMessage()
+                'message' => 'Database query error: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve Pimpinan: '.$e->getMessage()
+                'message' => 'Failed to retrieve pengasuh: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-
     /**
      * Store a newly created resource.
      */
@@ -82,7 +86,7 @@ class PimpinanController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal membuat Pimpinan: '.$e->getMessage()
+                'message' => 'Gagal membuat Pimpinan: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -108,7 +112,7 @@ class PimpinanController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal menampilkan Pimpinan: '.$e->getMessage()
+                'message' => 'Gagal menampilkan Pimpinan: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -133,11 +137,10 @@ class PimpinanController extends Controller
                 'message' => 'Pimpinan berhasil diperbarui',
                 'data' => $Pimpinan
             ], Response::HTTP_OK);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal memperbarui Pimpinan: '.$e->getMessage()
+                'message' => 'Gagal memperbarui Pimpinan: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -163,7 +166,7 @@ class PimpinanController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal menghapus Pimpinan: '.$e->getMessage()
+                'message' => 'Gagal menghapus Pimpinan: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

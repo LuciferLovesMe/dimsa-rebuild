@@ -83,13 +83,11 @@ class PimpinanRepository implements PimpinanInterface
         return  $pimpinan;
     }
 
-    public function showAll(int $perPage = 10)
+    public function showAll()
     {
-        return GuruStaff::with(['riwayatPendidikans', 'pengalamanKerjas', 'prestasis'])
-            ->where('role', 'pimpinan')
-            ->paginate($perPage);
+        return GuruStaff::where('role', 'pimpinan')->orderBy('created_at', 'desc')->get();
     }
-        public function showGuest()
+    public function showGuest()
     {
         return GuruStaff::where('role', 'pimpinan')->where('is_publish', 1)->get();
     }
