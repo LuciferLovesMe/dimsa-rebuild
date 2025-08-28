@@ -87,7 +87,7 @@
                         <div class="p-6">
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                                 <h3 class="text-lg sm:text-xl font-bold text-gray-900" x-text="item.judul"></h3>
-                                <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0" x-text="item.tanggal"></p>
+                                <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0" x-text="`${getIndonesianDate(item.tanggal)}`"></p>
                             </div>
                             <p class="text-gray-600 mt-4 text-sm leading-relaxed" x-text="item.content"></p>
                         </div>
