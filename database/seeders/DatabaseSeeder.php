@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@inagata.com',
         //     'password' => Hash::make('12345678'),
         // ]);
-         $this->call([
+        $this->call([
             GuruStaffSeeder::class,
             UserSeeder::class,
             PartnerSeeder::class,
@@ -39,8 +39,7 @@ class DatabaseSeeder extends Seeder
             AgendaSeeder::class,
             TestimoniSeeder::class,
             EkstrakulikulerSeeder::class,
-        ]);
 
-       
+        ]);
     }
 }

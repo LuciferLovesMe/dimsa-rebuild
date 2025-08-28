@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend\KaryaIlmiah;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\KaryaIlmiahInterface;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Http\Request;
 
 class KaryaIlmiahController extends Controller
@@ -17,16 +19,29 @@ class KaryaIlmiahController extends Controller
 
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 10); 
-        $karyaIlmiah = $this->karyaIlmiahRepo->showAll($perPage);
+
+        $karyaIlmiah = $this->karyaIlmiahRepo->showAll();
 
         $datatable = datatables()
             ->of($karyaIlmiah)
-            ->addIndexColumn()
+
             ->addColumn('judul', fn($item) => $item->judul)
             ->addColumn('penulis', fn($item) => $item->penulis)
             ->addColumn('tahun', fn($item) => $item->tahun)
-            ->addColumn('status', fn($item) => $item->is_publish ? 'Published' : 'Draft')
+            ->addColumn('status', function ($item) {
+                $statusBadge = new StatusPublish($item->status);
+                return $statusBadge->render()->with($statusBadge->data());
+            })
+            ->addColumn('aksi', function ($item) {
+                $actionButton = new ActionButton(
+                    '#',
+                    '#',
+                    '#',
+                );
+                return $actionButton->render()->with($actionButton->data());
+            })
+            ->addIndexColumn()
+            ->rawColumns(['status', 'aksi'])
             ->make(true);
 
         return response()->json([

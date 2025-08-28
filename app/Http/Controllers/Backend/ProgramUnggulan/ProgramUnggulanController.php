@@ -1,41 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Backend\GuruStaff;
+namespace App\Http\Controllers\Backend\ProgramUnggulan;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GuruStaff\AddGuruStaffRequest;
-use App\Http\Requests\GuruStaff\UpdateGuruStaffRequest;
-use App\Interfaces\GuruStaffInterface;
-use App\View\Components\ActionButton;
-use App\View\Components\StatusPublish;
+use App\Interfaces\ProgramUnggulanInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 
-class GuruStaffController extends Controller
+class ProgramUnggulanController extends Controller
 {
-    protected $guruStaffRepo;
-
-    public function __construct(GuruStaffInterface $guruStaffRepo)
+    private $programUnggulanRepo;
+    public function __construct(ProgramUnggulanInterface $programUnggulanRepo)
     {
-        $this->guruStaffRepo = $guruStaffRepo;
+        $this->programUnggulanRepo = $programUnggulanRepo;
     }
-
     public function index()
     {
         try {
-
-            $pengasuh = $this->guruStaffRepo->showAll();
+            $slides = $this->programUnggulanRepo->getAll();
 
             $datatable = datatables()
-                ->of($pengasuh)
-                ->addIndexColumn() // No
-                ->addColumn('image', function ($item) {
-                    $img = $item->image;
-                    return '<img src="' . $img . '" alt="' . $item->nama . '">';
-                })
-                ->addColumn('nama', fn($item) => $item->nama)
-                ->addColumn('jabatan', fn($item) => $item->jabatan)
+                ->of($slides)
+                ->addColumn('cover', fn($item) => '<img src="' . asset($item->image) . '" alt="' . $item->nama_program . '">')
+                ->addColumn('nama_program', fn($item) => $item->nama_program ?? '-')
+                ->addColumn('deskripsi', fn($item) => $item->deskripsi ?? '-')
+
                 ->addColumn('status', function ($item) {
                     $statusBadge = new StatusPublish($item->status);
                     return $statusBadge->render()->with($statusBadge->data());
@@ -44,10 +36,11 @@ class GuruStaffController extends Controller
                     $actionButton = new ActionButton(
                         '#',
                         '#',
-                        '#',
+                        '#'
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
+                ->addIndexColumn()
                 ->rawColumns(['image', 'status', 'aksi'])
                 ->make(true);
 
@@ -58,12 +51,12 @@ class GuruStaffController extends Controller
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Database query error: ' . $e->getMessage()
+                'message' => 'Database query error'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve pengasuh: ' . $e->getMessage()
+                'message' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

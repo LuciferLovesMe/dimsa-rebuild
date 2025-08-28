@@ -1,54 +1,48 @@
 <?php
 
-namespace App\Http\Controllers\Backend\GuruStaff;
+namespace App\Http\Controllers\Backend\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GuruStaff\AddGuruStaffRequest;
-use App\Http\Requests\GuruStaff\UpdateGuruStaffRequest;
-use App\Interfaces\GuruStaffInterface;
+use App\Interfaces\PartnerInterface;
 use App\View\Components\ActionButton;
 use App\View\Components\StatusPublish;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Database\QueryException;
 
-class GuruStaffController extends Controller
+
+class PartnerController extends Controller
 {
-    protected $guruStaffRepo;
+    protected $partnerRepo;
 
-    public function __construct(GuruStaffInterface $guruStaffRepo)
+    public function __construct(PartnerInterface $partnerRepo)
     {
-        $this->guruStaffRepo = $guruStaffRepo;
+        $this->partnerRepo = $partnerRepo;
     }
-
-    public function index()
+    public function index(Request $request)
     {
         try {
-
-            $pengasuh = $this->guruStaffRepo->showAll();
+            $partner = $this->partnerRepo->getAll();
 
             $datatable = datatables()
-                ->of($pengasuh)
-                ->addIndexColumn() // No
-                ->addColumn('image', function ($item) {
-                    $img = $item->image;
-                    return '<img src="' . $img . '" alt="' . $item->nama . '">';
+                ->of($partner)
+
+                ->addColumn('logo', function ($item) {
+                    $img = $item->logo;
+                    return '<img src="' . $img . '" alt="' . $item->nama_mitra . '">';
                 })
-                ->addColumn('nama', fn($item) => $item->nama)
-                ->addColumn('jabatan', fn($item) => $item->jabatan)
+                ->addColumn('nama_mitra', fn($item) => $item->nama_mitra)
                 ->addColumn('status', function ($item) {
                     $statusBadge = new StatusPublish($item->status);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
-                    $actionButton = new ActionButton(
-                        '#',
-                        '#',
-                        '#',
-                    );
+                    $actionButton = new ActionButton('#', '#', '#');
                     return $actionButton->render()->with($actionButton->data());
                 })
-                ->rawColumns(['image', 'status', 'aksi'])
+                ->addIndexColumn()
+                ->rawColumns(['logo', 'status', 'aksi'])
+
                 ->make(true);
 
             return response()->json([
@@ -63,7 +57,7 @@ class GuruStaffController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve pengasuh: ' . $e->getMessage()
+                'message' => 'Failed to retrieve GuruStaff: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

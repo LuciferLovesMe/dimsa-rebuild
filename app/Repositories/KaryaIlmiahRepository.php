@@ -61,9 +61,9 @@ class KaryaIlmiahRepository implements KaryaIlmiahInterface
         return KaryaIlmiah::findOrFail($id);
     }
 
-    public function showAll(int $perPage = 10)
+    public function showAll()
     {
-        return KaryaIlmiah::orderBy('created_at', 'desc')->paginate($perPage);
+        return KaryaIlmiah::orderBy('created_at', 'desc')->get();
     }
 
     public function destroy(int $id)

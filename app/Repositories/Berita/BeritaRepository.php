@@ -8,25 +8,26 @@ use App\Models\Berita;
 class BeritaRepository implements BeritaInterface
 {
     public function getAll(int $perPage = 10)
-    {
-        return Berita::with('kategori')->latest()->paginate($perPage);
-    }
+        {
+            return Berita::with('kategori')->latest()->paginate($perPage);
+        }
 
     public function getBySlug(string $slug)
     {
         return Berita::with('kategori')->where('slug', $slug)->first();
     }
-     public function getByID($id)
-      {
+    public function getByID($id)
+    {
         return Berita::with('kategori')->where('is_publish', 1)->findOrFail($id);
     }
-  
+
     public function getAllWithoutPaginate()
     {
-        return Berita::with('kategori')->latest()->get();
+        return Berita::with('kategori')->orderBy('created_at', 'desc')->get();
     }
 
-    public function getAllLimit() {
+    public function getAllLimit()
+    {
         return Berita::with('kategori')->where('is_publish', 1)->orderBy('created_at', 'desc')->limit(5)->get();
     }
 

@@ -76,7 +76,7 @@ class GuruStaffRepository implements GuruStaffInterface
         return  $guru_staff;
     }
 
-  
+
     public function showGuestByID($id)
     {
         return GuruStaff::with(['riwayatPendidikans', 'pengalamanKerjas', 'prestasis'])
@@ -85,14 +85,13 @@ class GuruStaffRepository implements GuruStaffInterface
             ->findOrFail($id);
     }
 
-    public function showAll(int $perPage = 10)
+    public function showAll()
     {
-        return GuruStaff::with(['riwayatPendidikans', 'pengalamanKerjas', 'prestasis'])
-            ->where('role', 'gurustaff')
+        return GuruStaff::where('role', 'gurustaff')
             ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
+            ->get();
     }
-      public function showGuest()
+    public function showGuest()
     {
         return GuruStaff::where('role', 'gurustaff')->where('is_publish', 1)->get();
     }

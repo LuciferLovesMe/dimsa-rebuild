@@ -9,7 +9,7 @@ interface GuruStaffInterface
     public function store(array $data, $image = null);
     public function update(int $id, array $data, $image = null);
     public function show(int $id);
-    public function showAll(int $perPage = 10);
+    public function showAll();
     public function destroy(int $id);
     public function showGuest();
     public function showGuestByID($id);
