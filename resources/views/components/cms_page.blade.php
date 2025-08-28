@@ -1,4 +1,4 @@
-{{-- page indicator --}}
+{{-- components/cms_page.blade.php --}}
 
 @props([
     'title' => 'Default Title',
@@ -19,16 +19,16 @@
         </div>
 
         {{-- Slot untuk Aksi di Kanan (misalnya, tombol tab) --}}
-        @if (isset($actions))
+        @if (isset($action))
             <div class="mt-4 md:mt-0 md:ml-4">
-                {{ $actions }}
+                {{ $action }}
             </div>
         @endif
 
 
     </div>
 
-    <div class="p-8 mt-4 min-h-96 rounded-lg shadow-lg bg-white">
+    <div class="p-8 mt-4 min-h-96 rounded-lg shadow-lg bg-white overflow-x-auto">
         {{ $slot }}
     </div>
 </div>

@@ -12,13 +12,13 @@
         {{-- Tautan tunggal --}}
         <a href="{{ route('dashboard') }}"
             class="sidebar-subitem
-                {{ request()->is('dashboard*') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('admin/dashboard*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-pie-chart"></i>
             <span>Dashboard</span>
         </a>
         <a href="{{ route('slideshow') }}"
             class="sidebar-subitem
-                {{ request()->is('slideshow*') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('admin/slideshow*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa-regular fa-window-maximize"></i>
             <span>Slideshow</span>
         </a>
@@ -92,72 +92,78 @@
             </button>
 
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
-                <li><a href="{{ route('berita') }}"
+                <li><a href="{{ route('admin.agenda') }}"
                         class="sidebar-subitem
-                            {{ request()->is('berita*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/agenda*') ? 'bg-blue-600 text-white' : '' }}">
+                        <i class="fa fa-calendar"></i>
+                        <span>Agenda</span>
+                    </a></li>
+                <li><a href="{{ route('admin.berita') }}"
+                        class="sidebar-subitem
+                            {{ request()->is('admin/berita*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-newspaper"></i>
                         <span>Berita</span>
                     </a></li>
-                <li><a href="{{ route('karya-ilmiah') }}"
+                <li><a href="{{ route('admin.karya-ilmiah') }}"
                         class="sidebar-subitem
-                            {{ request()->is('karya-ilmiah*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/karya-ilmiah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-book"></i>
                         <span>Karya Ilmiah</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('admin.majalah') }}"
                         class="sidebar-subitem
-                            {{ request()->is('majalah*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/majalah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-journal-whills"></i>
                         <span>Majalah</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('admin.galeri') }}"
                         class="sidebar-subitem
-                            {{ request()->is('galeri*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is(patterns: 'admin/galeri*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
                         <span>Galeri</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('pengumuman') }}"
                         class="sidebar-subitem
-                            {{ request()->is('pengumuman*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/pengumuman*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-bullhorn"></i>
                         <span>Pengumuman</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('admin.qna') }}"
                         class="sidebar-subitem
-                            {{ request()->is('qna*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/qna*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-question-circle"></i>
                         <span>QnA</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('admin.alumni') }}"
                         class="sidebar-subitem
-                            {{ request()->is('alumni*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/alumni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-address-book"></i>
                         <span>Alumni</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('admin.lowongan-kerja') }}"
                         class="sidebar-subitem
-                            {{ request()->is('lowongan-kerja*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/lowongan-kerja*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-briefcase"></i>
                         <span>Lowongan Kerja</span>
                     </a></li>
-                <li><a href="#"
+                <li><a href="{{ route('admin.testimoni') }}"
                         class="sidebar-subitem
-                            {{ request()->is('testimoni*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/testimoni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
                         <span>Testimoni</span>
                     </a></li>
             </ul>
         </div>
 
-        <a href="{{ route('ekstrakurikuler') }}"
+        <a href="{{ route('admin.ekstrakurikuler') }}"
             class="sidebar-subitem
-                {{ request()->is('ekstrakurikuler*') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('admin/ekstrakurikuler*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-star"></i>
             <span>Ekstrakurikuler</span>
         </a>
-        <a href="{{ route('fasilitas') }}"
+        <a href="{{ route('admin.fasilitas') }}"
             class="sidebar-subitem
-                {{ request()->is('fasilitas*') ? 'bg-blue-600 text-white' : '' }}">
+                {{ request()->is('admin/fasilitas*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-building"></i>
             <span>Fasilitas</span>
         </a>

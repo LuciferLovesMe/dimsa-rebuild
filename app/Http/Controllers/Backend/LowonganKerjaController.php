@@ -51,7 +51,7 @@ class LowonganKerjaController extends Controller
                 'data' => $datatable,
             ];
             
-            return response()->json($response, 200);
+            return $datatable;
         } catch (\Exception $e) {
             $response = [
                 'status' => 'error',
