@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\View\Components\ActionButton;
+use App\View\Components\StatusLembaga;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -32,11 +33,14 @@ class AlumniController extends Controller
                     return $item->tahun_lulus;
                 })
                 ->addColumn('lembaga', function ($item) {
-                    return $item->lembaga;
+                    $statusBadge = new StatusLembaga($item->lembaga);
+                    return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        '#',
+                        '#',
+                        '#'
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
