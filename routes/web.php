@@ -182,7 +182,7 @@ Route::get('/program/{slug}', function ($slug) {
 
 
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
 
 
     Route::get('/admin', function () {
@@ -276,4 +276,4 @@ Route::middleware('auth')->group(function () {
             });
         });
     });
-});
+// });
