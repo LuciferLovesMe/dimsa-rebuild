@@ -1,11 +1,102 @@
 <?php
 
+use App\Http\Controllers\Backend\AgendaController;
+use App\Http\Controllers\Backend\AlumniController;
+use App\Http\Controllers\Backend\EkstrakulikulerController;
+use App\Http\Controllers\Backend\FasilitasController;
+use App\Http\Controllers\Backend\GaleriController;
+use App\Http\Controllers\Backend\LowonganKerjaController;
+use App\Http\Controllers\Backend\MajalahController;
+use App\Http\Controllers\Backend\PengumumanController;
+use App\Http\Controllers\Backend\QnaController;
+use App\Http\Controllers\Backend\TestimoniController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
 
 require __DIR__ . '/auth.php';
 
+Route::prefix('/admin/api')->group(function () {
+    Route::prefix('/pengumuman')->group(function () {
+        Route::get('/', [PengumumanController::class, 'index']);
+        Route::get('/{id}', [PengumumanController::class, 'show']);
+        Route::post('/', [PengumumanController::class, 'store']);
+        Route::post('/{id}/update', [PengumumanController::class, 'update']);
+        Route::post('/{id}/destroy', [PengumumanController::class, 'destroy']);
+    });
+
+    Route::prefix('/qna')->group(function () {
+        Route::get('/', [QnaController::class, 'index']);
+        Route::get('/{id}', [QnaController::class, 'show']);
+        Route::post('/', [QnaController::class, 'store']);
+        Route::post('/{id}/update', [QnaController::class, 'update']);
+        Route::post('/{id}/destroy', [QnaController::class, 'destroy']);
+    });
+
+    Route::prefix('/alumni')->group(function () {
+        Route::get('/', [AlumniController::class, 'index']);
+        Route::get('/{id}', [AlumniController::class, 'show']);
+        Route::post('/', [AlumniController::class, 'store']);
+        Route::post('/{id}/update', [AlumniController::class, 'update']);
+        Route::post('/{id}/destroy', [AlumniController::class, 'destroy']);
+    });
+
+    Route::prefix('/lowongan-kerja')->group(function () {
+        Route::get('/', [LowonganKerjaController::class, 'index']);
+        Route::get('/{id}', [LowonganKerjaController::class, 'show']);
+        Route::post('/', [LowonganKerjaController::class, 'store']);
+        Route::post('/{id}/update', [LowonganKerjaController::class, 'update']);
+        Route::post('/{id}/destroy', [LowonganKerjaController::class, 'destroy']);
+    });
+
+    Route::prefix('/testimoni')->group(function () {
+        Route::get('/', [TestimoniController::class, 'index']);
+        Route::get('/{id}', [TestimoniController::class, 'show']);
+        Route::post('/', [TestimoniController::class, 'store']);
+        Route::post('/{id}/update', [TestimoniController::class, 'update']);
+        Route::post('/{id}/destroy', [TestimoniController::class, 'destroy']);
+    });
+
+    Route::prefix('/ekstrakulikuler')->group(function () {
+        Route::get('/', [EkstrakulikulerController::class, 'index']);
+        Route::get('/{id}', [EkstrakulikulerController::class, 'show']);
+        Route::post('/', [EkstrakulikulerController::class, 'store']);
+        Route::post('/{id}/update', [EkstrakulikulerController::class, 'update']);
+        Route::post('/{id}/destroy', [EkstrakulikulerController::class, 'destroy']);
+    });
+
+    Route::prefix('/agenda')->group(function () {
+        Route::get('/', [AgendaController::class, 'index']);
+        Route::get('/{id}', [AgendaController::class, 'show']);
+        Route::post('/', [AgendaController::class, 'store']);
+        Route::post('/{id}/update', [AgendaController::class, 'update']);
+        Route::post('/{id}/destroy', [AgendaController::class, 'destroy']);
+    });
+
+    Route::prefix('/majalah')->group(function () {
+        Route::get('/', [MajalahController::class, 'index']);
+        Route::get('/{id}', [MajalahController::class, 'show']);
+        Route::post('/', [MajalahController::class, 'store']);
+        Route::post('/{id}/update', [MajalahController::class, 'update']);
+        Route::post('/{id}/destroy', [MajalahController::class, 'destroy']);
+    });
+
+    Route::prefix('/galeri')->group(function () {
+        Route::get('/', [GaleriController::class, 'index'])->name('galeri.index');
+        Route::get('/{id}', [GaleriController::class, 'show'])->name('galeri.show');
+        Route::post('/', [GaleriController::class, 'store'])->name('galeri.store');
+        Route::post('/{id}/update', [GaleriController::class, 'update'])->name('galeri.update');
+        Route::post('/{id}/destroy', [GaleriController::class, 'destroy'])->name('galeri.destroy');
+    });
+
+    Route::prefix('/fasilitas')->group(function () {
+        Route::get('/', [FasilitasController::class, 'index']);
+        Route::get('/{id}', [FasilitasController::class, 'show']);
+        Route::post('/', [FasilitasController::class, 'store']);
+        Route::post('/{id}/update', [FasilitasController::class, 'update']);
+        Route::post('/{id}/destroy', [FasilitasController::class, 'destroy']);
+    });
+});
 
 // Landing
 Route::get('/', function () {
