@@ -56,9 +56,9 @@
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
+                    dom: '<"md:flex md:justify-between items-center mb-4"lf>t<"md:flex md:justify-between items-center mt-4"ip>',
                     ajax: "{{ url('admin/api/majalah') }}",
-                    columns: [
-                        {
+                    columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
