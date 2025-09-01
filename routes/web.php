@@ -191,7 +191,6 @@ Route::get('/admin', function () {
 
 Route::middleware('auth')->group(function () {
 
-    // Prefix untuk semua rute admin dan nama rute (contoh: admin.dashboard, admin.majalah.index)
     Route::group(['prefix' => '/admin', 'as' => 'admin.'], function () {
 
         // --- Rute Dashboard ---
