@@ -68,8 +68,7 @@ class KaryaIlmiahRepository implements KaryaIlmiahInterface
 
         return Publikasi::where('type', 'karya ilmiah')
             ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
-
+            ->get();
     }
 
     public function destroy(int $id)
