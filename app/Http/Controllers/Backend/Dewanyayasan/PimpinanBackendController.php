@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\DewanYayasan;
+namespace App\Http\Controllers\Backend\Dewanyayasan;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GuruStaff\AddGuruStaffRequest;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\DewanYayasan;
+namespace app\Http\Controllers\Backend\Dewanyayasan;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GuruStaff\AddGuruStaffRequest;
@@ -8,7 +8,6 @@ use App\Http\Requests\GuruStaff\UpdateGuruStaffRequest;
 use App\Interfaces\DewanYayasan\PengasuhInterface;
 use App\View\Components\ActionButton;
 use App\View\Components\StatusPublish;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\QueryException;
 
