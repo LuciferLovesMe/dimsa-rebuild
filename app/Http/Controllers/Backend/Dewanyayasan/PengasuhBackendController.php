@@ -39,7 +39,7 @@ class PengasuhBackendController extends Controller
                 ->addColumn('nama', fn($item) => $item->nama)
                 ->addColumn('jabatan', fn($item) => $item->jabatan)
                 ->addColumn('status', function ($item) {
-                    $statusBadge = new StatusPublish($item->status);
+                    $statusBadge = new StatusPublish($item->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {

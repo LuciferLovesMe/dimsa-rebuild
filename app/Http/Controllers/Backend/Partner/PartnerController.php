@@ -33,7 +33,7 @@ class PartnerController extends Controller
                 })
                 ->addColumn('nama_mitra', fn($item) => $item->nama_mitra)
                 ->addColumn('status', function ($item) {
-                    $statusBadge = new StatusPublish($item->status);
+                    $statusBadge = new StatusPublish($item->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {

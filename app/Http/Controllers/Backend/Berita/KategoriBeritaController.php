@@ -32,7 +32,7 @@ class KategoriBeritaController extends Controller
                 ->of($kategori)
                 ->addColumn('nama_kategori', fn($item) => $item->nama_kategori)
                 ->addColumn('status', function ($item) {
-                    $statusBadge = new StatusPublish($item->status);
+                    $statusBadge = new StatusPublish($item->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
