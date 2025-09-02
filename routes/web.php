@@ -375,18 +375,57 @@ Route::middleware('auth')->group(function () {
             })->name('edit');
         });
 
-        // --- HALAMAN DENGAN STRUKTUR BERBEDA ---
-
         // Dewan
         Route::prefix('dewan')->name('dewan.')->group(function () {
-            Route::get('/pimpinan', function () {
-                $data = [['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1]];
-                return view('pages.admin.dewan.index', ['title' => 'Pimpinan', 'breadcrumb3' => 'Data Pimpinan', 'dewanData' => $data]);
-            })->name('pimpinan');
-            Route::get('/pengasuh', function () {
-                $data = [['id' => 1, 'nama' => 'Ahmad Subarjo', 'jabatan' => 'Pengasuh Putra', 'status' => 1], ['id' => 2, 'nama' => 'Siti Aminah', 'jabatan' => 'Pengasuh Putri', 'status' => 0]];
-                return view('pages.admin.dewan.index', ['title' => 'Pengasuh', 'breadcrumb3' => 'Data Pengasuh', 'dewanData' => $data]);
-            })->name('pengasuh');
+
+            // --- Rute Pimpinan ---
+            Route::prefix('pimpinan')->name('pimpinan.')->group(function () {
+                Route::get('/', function () {
+                    return view('pages.admin.dewan.index', [
+                        'title' => 'Pimpinan',
+                        'breadcrumb3' => 'Data Pimpinan'
+                    ]);
+                })->name('index');
+
+                // Mengirimkan judul dan URL kembali yang spesifik untuk Pimpinan
+                Route::get('/create', function () {
+                    return view('pages.admin.dewan.create', [
+                        'pageTitle' => 'Tambah Data Pimpinan',
+                        'backUrl' => route('admin.dewan.pimpinan.index')
+                    ]);
+                })->name('create');
+
+                Route::get('/edit/{id}', function ($id) {
+                    return view('pages.admin.dewan.edit', [
+                        'pageTitle' => 'Edit Data Pimpinan',
+                        'backUrl' => route('admin.dewan.pimpinan.index')
+                    ]);
+                })->name('edit');
+            });
+
+            // --- Rute Pengasuh ---
+            Route::prefix('pengasuh')->name('pengasuh.')->group(function () {
+                Route::get('/', function () {
+                    return view('pages.admin.dewan.index', [
+                        'title' => 'Pengasuh',
+                        'breadcrumb3' => 'Data Pengasuh'
+                    ]);
+                })->name('index');
+
+                Route::get('/create', function () {
+                    return view('pages.admin.dewan.create', [
+                        'pageTitle' => 'Tambah Data Pengasuh',
+                        'backUrl' => route('admin.dewan.pengasuh.index')
+                    ]);
+                })->name('create');
+
+                Route::get('/edit/{id}', function ($id) {
+                    return view('pages.admin.dewan.edit', [
+                        'pageTitle' => 'Edit Data Pengasuh',
+                        'backUrl' => route('admin.dewan.pengasuh.index')
+                    ]);
+                })->name('edit');
+            });
         });
 
         // Staff
