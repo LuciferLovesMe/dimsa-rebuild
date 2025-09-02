@@ -170,13 +170,32 @@
     </nav>
 
     <!-- User Profile -->
-    <div class="mt-auto p-4">
+    <div class="mt-auto p-4" x-data="{ user: { name: 'Memuat...', email: '...' } }" x-init="$.ajax({
+        url: '/api/admin/profile/show',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success' && response.data) {
+                user.name = response.data.name;
+                user.email = response.data.email;
+            } else {
+                user.name = 'Gagal Memuat';
+            }
+        },
+        error: function(error) {
+            console.error('Error fetching user profile:', error);
+            user.name = 'Error';
+            user.email = 'Tidak dapat memuat data';
+        }
+    })">
         <a href="#" class="flex items-center gap-4 rounded-lg p-2 hover:bg-gray-800">
-            <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/e2e8f0/334155?text=A"
-                alt="Admin Avatar">
+            <img class="h-10 w-10 rounded-full object-cover"
+                :src="'https://placehold.co/40x40/e2e8f0/334155?text=' + (user.name.charAt(0).toUpperCase() || 'A')"
+                :alt="user.name + ' Avatar'">
             <div class="text-left">
-                <p class="text-sm font-semibold text-white">Admin</p>
-                <p class="text-xs text-gray-400">Administrator</p>
+                {{-- Nama dan email pengguna akan ditampilkan di sini --}}
+                <p x-text="user.name" class="text-sm font-semibold text-white"></p>
+                <p x-text="user.email" class="text-xs text-gray-400"></p>
             </div>
             <svg class="ml-auto h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
