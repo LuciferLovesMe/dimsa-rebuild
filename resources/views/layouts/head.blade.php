@@ -20,16 +20,18 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.tailwindcss.js"></script>
-    
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
     <script>
-        function getIndonesianDate (date) 
-        {
+        function getIndonesianDate(date) {
             let unformattedDate = new Date(date)
-            let localMonth = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+            let localMonth = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                'Oktober', 'November', 'Desember'
+            ]
             let day = unformattedDate.getDate()
             let month = localMonth[unformattedDate.getMonth()]
             let year = unformattedDate.getFullYear()
-            
+
             return day + ' ' + month + ' ' + year
         }
     </script>
