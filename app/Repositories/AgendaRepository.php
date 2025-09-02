@@ -53,9 +53,9 @@ class AgendaRepository implements AgendaInterface
 
     public function get($type = 'all', $limit = null)
     {
+        $agenda = $this->agenda;
         if ($type === 'published') {
-            $agenda = $this->agenda
-                ->where('is_publish', true);
+            $agenda = $agenda->where('is_publish', true);
         }
 
         if ($limit) {

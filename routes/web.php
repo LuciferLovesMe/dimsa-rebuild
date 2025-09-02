@@ -185,60 +185,199 @@ Route::get('/program/{slug}', function ($slug) {
 })->name('program.show');
 
 
+Route::get('/admin', function () {
+    return redirect()->route('admin.dashboard');
+});
 
 Route::middleware('auth')->group(function () {
 
+    Route::group(['prefix' => '/admin', 'as' => 'admin.'], function () {
 
-    Route::get('/admin', function () {
-        return redirect()->route('dashboard');
-    })->name('admin');
-
-
-    Route::get('/admin/dashboard', function () {
-        return view('pages.admin.dashboard.index');
-    })->name('dashboard');
-    Route::get('/admin/slideshow', function () {
-        return view('pages.admin.slideshow.index');
-    })->name('slideshow');
-    Route::get('/admin/berita', function () {
-        return view('pages.admin.berita.index');
-    })->name('admin.berita');
-    Route::get('/admin/karya-ilmiah', function () {
-        return view('pages.admin.karya_ilmiah.index');
-    })->name('admin.karya-ilmiah');
-    Route::get('/admin/majalah', function () {
-        return view('pages.admin.majalah.index');
-    })->name('admin.majalah');
-    Route::get('/admin/galeri', function () {
-        return view('pages.admin.galeri.index');
-    })->name('admin.galeri');
-    Route::get('/admin/pengumuman', function () {
-        return view('pages.admin.pengumuman.index');
-    })->name('pengumuman');
-    Route::get('/admin/qna', function () {
-        return view('pages.admin.qna.index');
-    })->name('admin.qna');
-    Route::get('/admin/alumni', function () {
-        return view('pages.admin.alumni.index');
-    })->name('admin.alumni');
-    Route::get('admin/agenda', function () {
-        return view('pages.admin.agenda.index');
-    })->name('admin.agenda');
-    Route::get('/admin/lowongan-kerja', function () {
-        return view('pages.admin.lowongan_kerja.index');
-    })->name('admin.lowongan-kerja');
-    Route::get('/admin/testimoni', function () {
-        return view('pages.admin.testimoni.index');
-    })->name('admin.testimoni');
-    Route::get('/admin/ekstrakurikuler', function () {
-        return view('pages.admin.ekstrakurikuler.index');
-    })->name('admin.ekstrakurikuler');
-    Route::get('/admin/fasilitas', function () {
-        return view('pages.admin.fasilitas.index');
-    })->name('admin.fasilitas');
+        // --- Rute Dashboard ---
+        Route::get('/dashboard', function () {
+            return view('pages.admin.dashboard.index');
+        })->name('dashboard');
 
 
-    Route::prefix('admin')->name('admin.')->group(function () {
+
+        // Admin Majalah
+        Route::group(['prefix' => '/majalah', 'as' => 'majalah.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.majalah.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.majalah.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.majalah.edit');
+            })->name('edit');
+        });
+
+        // Admin Slideshow
+        Route::group(['prefix' => '/slideshow', 'as' => 'slideshow.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.slideshow.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.slideshow.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.slideshow.edit');
+            })->name('edit');
+        });
+
+        // Admin Berita
+        Route::group(['prefix' => '/berita', 'as' => 'berita.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.berita.index');
+            })->name('index');
+
+            // Tambahkan baris ini untuk rute kategori
+            Route::get('/kategori', function () {
+                return view('pages.admin.berita.kategori');
+            })->name('kategori');
+
+            Route::get('/create', function () {
+                return view('pages.admin.berita.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.berita.edit');
+            })->name('edit');
+        });
+
+        // Admin Karya Ilmiah
+        Route::group(['prefix' => '/karya-ilmiah', 'as' => 'karya-ilmiah.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.karya_ilmiah.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.karya_ilmiah.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.karya_ilmiah.edit');
+            })->name('edit');
+        });
+
+        // Admin Galeri
+        Route::group(['prefix' => '/galeri', 'as' => 'galeri.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.galeri.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.galeri.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.galeri.edit');
+            })->name('edit');
+        });
+
+        // Admin Pengumuman
+        Route::group(['prefix' => '/pengumuman', 'as' => 'pengumuman.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.pengumuman.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.pengumuman.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.pengumuman.edit');
+            })->name('edit');
+        });
+
+        // Admin QNA
+        Route::group(['prefix' => '/qna', 'as' => 'qna.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.qna.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.qna.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.qna.edit');
+            })->name('edit');
+        });
+
+        // Admin Alumni
+        Route::group(['prefix' => '/alumni', 'as' => 'alumni.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.alumni.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.alumni.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.alumni.edit');
+            })->name('edit');
+        });
+
+        // Admin Agenda
+        Route::group(['prefix' => '/agenda', 'as' => 'agenda.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.agenda.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.agenda.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.agenda.edit');
+            })->name('edit');
+        });
+
+        // Admin Lowongan Kerja
+        Route::group(['prefix' => '/lowongan-kerja', 'as' => 'lowongan-kerja.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.lowongan_kerja.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.lowongan_kerja.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.lowongan_kerja.edit');
+            })->name('edit');
+        });
+
+        // Admin Testimoni
+        Route::group(['prefix' => '/testimoni', 'as' => 'testimoni.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.testimoni.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.testimoni.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.testimoni.edit');
+            })->name('edit');
+        });
+
+        // Admin Ekstrakurikuler
+        Route::group(['prefix' => '/ekstrakurikuler', 'as' => 'ekstrakurikuler.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.ekstrakurikuler.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.ekstrakurikuler.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.ekstrakurikuler.edit');
+            })->name('edit');
+        });
+
+        // Admin Fasilitas
+        Route::group(['prefix' => '/fasilitas', 'as' => 'fasilitas.'], function () {
+            Route::get('/', function () {
+                return view('pages.admin.fasilitas.index');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.fasilitas.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.fasilitas.edit');
+            })->name('edit');
+        });
+
+        // --- HALAMAN DENGAN STRUKTUR BERBEDA ---
+
+        // Dewan
         Route::prefix('dewan')->name('dewan.')->group(function () {
             Route::get('/pimpinan', function () {
                 $data = [['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1]];
@@ -250,34 +389,56 @@ Route::middleware('auth')->group(function () {
             })->name('pengasuh');
         });
 
-        Route::prefix('staff')->name('staff')->group(function () {
+        // Staff
+        Route::prefix('staff')->name('staff.')->group(function () {
             Route::get('/', function () {
                 $data = [['id' => 1, 'nama' => 'Muhammad Rasyid', 'jabatan' => 'Pimpinan', 'status' => 1], ['id' => 2, 'nama' => 'Siti Aminah', 'jabatan' => 'Pengasuh Putri', 'status' => 0], ['id' => 3, 'nama' => 'Ahmad Subarjo', 'jabatan' => 'Pengasuh Putra', 'status' => 1]];
                 return view('pages.admin.staff.index', ['title' => 'Guru & Staff', 'breadcrumb3' => 'Guru & Staff', 'staffData' => $data]);
-            });
-            Route::get('/add-staff', function () {
-                return view('pages.admin.staff.add');
-            })->name('.add-staff');
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.staff.create'); // Mengubah add menjadi create
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.staff.edit');
+            })->name('edit');
         });
 
-        Route::prefix('partner')->name('partner')->group(function () {
+        // Partner
+        Route::prefix('partner')->name('partner.')->group(function () {
             Route::get('/', function () {
                 $data = [['id' => 1, 'nama_mitra' => 'Google', 'logo' => 'logo-google.png', 'status' => 1], ['id' => 2, 'nama_mitra' => 'Microsoft', 'logo' => 'logo-microsoft.png', 'status' => 0], ['id' => 3, 'nama_mitra' => 'Apple', 'logo' => 'logo-apple.png', 'status' => 1], ['id' => 4, 'nama_mitra' => 'Oracle', 'logo' => 'logo-oracle.png', 'status' => 0]];
                 return view('pages.admin.partner.index', ['title' => 'Partner Lembaga', 'breadcrumb3' => 'Partner Lembaga', 'partnerData' => $data]);
-            });
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.partner.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.partner.edit');
+            })->name('edit');
         });
 
-        Route::prefix('program')->name('program')->group(function () {
+        // Program Unggulan
+        Route::prefix('program')->name('program.')->group(function () {
             Route::get('/', function () {
                 $data = [['id' => 1, 'gambar_header' => 'gambar.png', 'nama_program' => 'Ngaji Bersama', 'deskripsi' => 'Program Studi Ngaji Bersama', 'status' => 1]];
                 return view('pages.admin.program.index', ['title' => 'Program Unggulan', 'breadcrumb3' => 'Program Unggulan', 'programData' => $data]);
-            });
+            })->name('index');
+            Route::get('/create', function () {
+                return view('pages.admin.program.create');
+            })->name('create');
+            Route::get('/edit', function () {
+                return view('pages.admin.program.edit');
+            })->name('edit');
         });
 
-        Route::prefix('tata-tertib')->name('tata-tertib')->group(function () {
+        // Tata Tertib
+        Route::prefix('tata-tertib')->name('tata-tertib.')->group(function () {
             Route::get('/', function () {
                 return view('pages.admin.tata_tertib.index', ['title' => 'Tata Tertib', 'breadcrumb3' => 'Tata Tertib']);
-            });
+            })->name('index');
+            Route::get('/edit', function () { // Tata tertib mungkin hanya butuh edit
+                return view('pages.admin.tata_tertib.edit');
+            })->name('edit');
         });
     });
 });

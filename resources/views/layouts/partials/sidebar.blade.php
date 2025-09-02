@@ -10,13 +10,13 @@
     <!-- Navigation Links -->
     <nav class="flex-grow space-y-3 overflow-y-auto px-8 scrollbar-hide">
         {{-- Tautan tunggal --}}
-        <a href="{{ route('dashboard') }}"
+        <a href="{{ route('admin.dashboard') }}"
             class="sidebar-subitem
                 {{ request()->is('admin/dashboard*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-pie-chart"></i>
             <span>Dashboard</span>
         </a>
-        <a href="{{ route('slideshow') }}"
+        <a href="{{ route('admin.slideshow.index') }}"
             class="sidebar-subitem
                 {{ request()->is('admin/slideshow*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa-regular fa-window-maximize"></i>
@@ -46,25 +46,25 @@
                         <i class="fa fa-users"></i>
                         <span>Dewan Yayasan</span>
                     </a></li>
-                <li><a href="{{ route('admin.staff') }}"
+                <li><a href="{{ route('admin.staff.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/staff*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-graduation-cap"></i>
                         <span>Guru & Staff</span>
                     </a></li>
-                <li><a href="{{ route('admin.partner') }}"
+                <li><a href="{{ route('admin.partner.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/partner*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-handshake"></i>
                         <span>Partner Lembaga</span>
                     </a></li>
-                <li><a href="{{ route('admin.program') }}"
+                <li><a href="{{ route('admin.program.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/program*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-trophy"></i>
                         <span>Program Unggulan</span>
                     </a></li>
-                <li><a href="{{ route('admin.tata-tertib') }}"
+                <li><a href="{{ route('admin.tata-tertib.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/tata-tertib*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-warning"></i>
@@ -74,7 +74,7 @@
         </div>
 
         {{-- Dropdown Informasi --}}
-        <div x-data="{ open: {{ request()->is(['berita*', 'karya-ilmiah*', 'majalah*', 'galeri*', 'pengumuman*', 'qna*', 'alumni*', 'lowongan-kerja*', 'testimoni*']) ? 'true' : 'false' }} || localStorage.getItem('informasiOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('informasiOpen', value))" class="mb-2">
+        <div x-data="{ open: {{ request()->is(['admin/berita*', 'admin/karya-ilmiah*', 'admin/majalah*', 'admin/galeri*', 'admin/pengumuman*', 'admin/qna*', 'admin/alumni*', 'admin/lowongan-kerja*', 'admin/testimoni*']) ? 'true' : 'false' }} || localStorage.getItem('informasiOpen') === 'true' }" x-init="$watch('open', value => localStorage.setItem('informasiOpen', value))" class="mb-2">
             <button @click="open = !open"
                 class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-gray-800 hover:text-white">
                 <span class="flex items-center gap-3">
@@ -92,61 +92,61 @@
             </button>
 
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
-                <li><a href="{{ route('admin.agenda') }}"
+                <li><a href="{{ route('admin.agenda.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/agenda*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-calendar"></i>
                         <span>Agenda</span>
                     </a></li>
-                <li><a href="{{ route('admin.berita') }}"
+                <li><a href="{{ route('admin.berita.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/berita*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-newspaper"></i>
                         <span>Berita</span>
                     </a></li>
-                <li><a href="{{ route('admin.karya-ilmiah') }}"
+                <li><a href="{{ route('admin.karya-ilmiah.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/karya-ilmiah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-book"></i>
                         <span>Karya Ilmiah</span>
                     </a></li>
-                <li><a href="{{ route('admin.majalah') }}"
+                <li><a href="{{ route('admin.majalah.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/majalah*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-journal-whills"></i>
                         <span>Majalah</span>
                     </a></li>
-                <li><a href="{{ route('admin.galeri') }}"
+                <li><a href="{{ route('admin.galeri.index') }}"
                         class="sidebar-subitem
-                            {{ request()->is(patterns: 'admin/galeri*') ? 'bg-blue-600 text-white' : '' }}">
+                            {{ request()->is('admin/galeri*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
                         <span>Galeri</span>
                     </a></li>
-                <li><a href="{{ route('pengumuman') }}"
+                <li><a href="{{ route('admin.pengumuman.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/pengumuman*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-bullhorn"></i>
                         <span>Pengumuman</span>
                     </a></li>
-                <li><a href="{{ route('admin.qna') }}"
+                <li><a href="{{ route('admin.qna.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/qna*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-question-circle"></i>
                         <span>QnA</span>
                     </a></li>
-                <li><a href="{{ route('admin.alumni') }}"
+                <li><a href="{{ route('admin.alumni.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/alumni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-address-book"></i>
                         <span>Alumni</span>
                     </a></li>
-                <li><a href="{{ route('admin.lowongan-kerja') }}"
+                <li><a href="{{ route('admin.lowongan-kerja.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/lowongan-kerja*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-briefcase"></i>
                         <span>Lowongan Kerja</span>
                     </a></li>
-                <li><a href="{{ route('admin.testimoni') }}"
+                <li><a href="{{ route('admin.testimoni.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/testimoni*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-image"></i>
@@ -155,13 +155,13 @@
             </ul>
         </div>
 
-        <a href="{{ route('admin.ekstrakurikuler') }}"
+        <a href="{{ route('admin.ekstrakurikuler.index') }}"
             class="sidebar-subitem
                 {{ request()->is('admin/ekstrakurikuler*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-star"></i>
             <span>Ekstrakurikuler</span>
         </a>
-        <a href="{{ route('admin.fasilitas') }}"
+        <a href="{{ route('admin.fasilitas.index') }}"
             class="sidebar-subitem
                 {{ request()->is('admin/fasilitas*') ? 'bg-blue-600 text-white' : '' }}">
             <i class="fa fa-building"></i>
@@ -170,13 +170,32 @@
     </nav>
 
     <!-- User Profile -->
-    <div class="mt-auto p-4">
+    <div class="mt-auto p-4" x-data="{ user: { name: 'Memuat...', email: '...' } }" x-init="$.ajax({
+        url: '/api/admin/profile/show',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success' && response.data) {
+                user.name = response.data.name;
+                user.email = response.data.email;
+            } else {
+                user.name = 'Gagal Memuat';
+            }
+        },
+        error: function(error) {
+            console.error('Error fetching user profile:', error);
+            user.name = 'Error';
+            user.email = 'Tidak dapat memuat data';
+        }
+    })">
         <a href="#" class="flex items-center gap-4 rounded-lg p-2 hover:bg-gray-800">
-            <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/e2e8f0/334155?text=A"
-                alt="Admin Avatar">
+            <img class="h-10 w-10 rounded-full object-cover"
+                :src="'https://placehold.co/40x40/e2e8f0/334155?text=' + (user.name.charAt(0).toUpperCase() || 'A')"
+                :alt="user.name + ' Avatar'">
             <div class="text-left">
-                <p class="text-sm font-semibold text-white">Admin</p>
-                <p class="text-xs text-gray-400">Administrator</p>
+                {{-- Nama dan email pengguna akan ditampilkan di sini --}}
+                <p x-text="user.name" class="text-sm font-semibold text-white"></p>
+                <p x-text="user.email" class="text-xs text-gray-400"></p>
             </div>
             <svg class="ml-auto h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
