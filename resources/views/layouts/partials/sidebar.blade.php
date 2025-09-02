@@ -1,5 +1,5 @@
 <aside
-    class="fixed inset-y-0 left-0 z-50 flex h-full w-fit flex-col bg-gray-900 text-gray-300 transition-transform duration-300 lg:relative lg:translate-x-0"
+    class="fixed inset-y-0 left-0 z-50 flex h-full w-fit flex-col bg-gray-900 text-gray-300 transition-transform duration-300 lg:sticky lg:top-0 lg:translate-x-0"
     :class="{ 'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen }">
 
     <!-- Logo -->
@@ -40,7 +40,7 @@
                 </svg>
             </button>
             <ul x-show="open" x-transition class="mt-2 space-y-1 pl-5">
-                <li><a href="{{ route('admin.dewan.pimpinan') }}"
+                <li><a href="{{ route('admin.dewan.pimpinan.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/dewan*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-users"></i>
