@@ -146,8 +146,8 @@
 
                     {{-- Widget Berita Terbaru (Statis) --}}
                     <div
-                        class="bg-slate-900/30 backdrop-blur-lg text-white p-4 rounded-xl shadow-lg flex items-center gap-4">
-                        <img src="{{ $lastNews['image'] }}" alt="Berita Terbaru"
+                        class="bg-slate-900/30 backdrop-blur-lg text-white p-4 rounded-xl shadow-lg flex items-center gap-4" id="latest-news-widget">
+                        {{-- <img src="{{ $lastNews['image'] }}" alt="Berita Terbaru"
                             class="w-32 h-24 object-cover rounded-lg flex-shrink-0">
                         <div class="flex flex-col">
                             <p class="bg-white text-blue-800 text-xs font-semibold px-3 py-1 rounded-full self-start mb-2">
@@ -155,7 +155,7 @@
                             <h3 class="text-sm font-semibold leading-tight">{{ $lastNews['title'] }}</h3>
                             <a href="{{ $lastNews['url'] }}"
                                 class="text-xs text-white/80 hover:underline mt-2 inline-block">Lihat Detail &gt;</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -274,7 +274,7 @@
         </div>
     </section>
 
-    @if (!empty($mitraData))
+    {{-- @if (!empty($mitraData)) --}}
         <section id="kerja-sama" class="py-16 sm:py-20 md:py-24 bg-gray-50">
             <div class="container mx-auto px-4 sm:px-8 lg:px-20">
                 <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Kerja Sama</p>
@@ -290,25 +290,25 @@
                     </div>
 
                     <div
-                        class="flex flex-nowrap @if (count($mitraData) > 6) animate-scroll @else justify-center @endif">
+                        class="flex flex-nowrap" id="mitra-logos">
                         {{-- Loop pertama untuk logo asli --}}
-                        @foreach ($mitraData as $mitra)
+                        {{-- @foreach ($mitraData as $mitra)
                             <img src="{{ $mitra['logo'] }}" alt="Logo {{ $mitra['name'] }}"
                                 class="h-12 sm:h-16 mx-8 flex-shrink-0">
-                        @endforeach
+                        @endforeach --}}
 
                         {{-- Loop kedua (duplikat) hanya jika animasi aktif --}}
-                        @if (count($mitraData) > 6)
+                        {{-- @if (count($mitraData) > 6)
                             @foreach ($mitraData as $mitra)
                                 <img src="{{ $mitra['logo'] }}" alt="Logo {{ $mitra['name'] }}"
                                     class="h-12 sm:h-16 mx-8 flex-shrink-0">
                             @endforeach
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>
         </section>
-    @endif
+    {{-- @endif --}}
 
     {{-- Agenda --}}
     <section id="agenda" class="bg-slate-900 text-white py-16 sm:py-20 md:py-24">
@@ -350,8 +350,8 @@
             </header>
             <main class="flex flex-col lg:flex-row gap-6 lg:gap-12">
                 <!-- Kolom Kiri: Artikel Utama -->
-                <article class="w-full lg:w-2/3 group cursor-pointer">
-                    <div class="overflow-hidden rounded-xl mb-2 sm:mb-4">
+                <article class="w-full lg:w-2/3 group cursor-pointer" id="main-berita">
+                    {{-- <div class="overflow-hidden rounded-xl mb-2 sm:mb-4">
                         <img src="{{ $lastNews['image'] }}" alt="Berita Utama"
                             class="w-full h-40 sm:h-[500px] object-cover transition-transform duration-300 group-hover:scale-105">
                     </div>
@@ -360,12 +360,12 @@
                     </p>
                     <h3
                         class="text-lg sm:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors select-none">
-                        {{ $lastNews['title'] }}</h3>
+                        {{ $lastNews['title'] }}</h3> --}}
                 </article>
 
                 <!-- Kolom Kanan: Daftar Artikel Lainnya -->
-                <article class="w-full lg:w-1/3 flex flex-col gap-y-4 sm:gap-y-6">
-                    @foreach ($news as $new)
+                <article class="w-full lg:w-1/3 flex flex-col gap-y-4 sm:gap-y-6" id="side-berita">
+                    {{-- @foreach ($news as $new)
                         <div class="flex gap-4 w-full group cursor-pointer">
                             <img src="{{ $new['image'] }}" alt="Berita 1"
                                 class="w-1/3 h-24 sm:h-32 object-cover rounded-xl">
@@ -377,7 +377,7 @@
                                     {{ $new['title'] }}</h6>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach --}}
                 </article>
             </main>
             <!-- Tombol Selengkapnya untuk Mobile -->
@@ -419,6 +419,8 @@
             $(document).ready(function() {
                 fetchTestimoni()
                 fetchAgenda()
+                fetchMitra()
+                fetchBerita()
 
                 function fetchTestimoni () 
                 {
@@ -428,7 +430,6 @@
                         method: "GET",
                         success: function(data) {
                             let response = data.data;
-                            console.log(response);
                             $('#testimoni-card').empty(); // Clear existing cards
                             $.each(response, function(index, testimoni) {
                                 let testimoniCard = `
@@ -460,17 +461,112 @@
                             let data = response.data;
                             let date = new Date(data.datetime);
                             let image = data.image ? data.image : 'https://placehold.co/400x250/e2e8f0/334155?text=Agenda+Dimsa';
-                            console.log([
-                                date.toLocaleDateString(),
-                                date.toLocaleTimeString()
-                            ]);
 
                             $("#agenda-title").text(data.nama);
-                            $("#agenda-date").text(date.toLocaleDateString() + ' - ' + date.toLocaleTimeString());
+                            $("#agenda-date").text(getIndonesianDate(date) + ' - ' + date.toLocaleTimeString());
                             $("#agenda-location").text(data.alamat);
                             $("#agenda-image").attr("src", image);
                         }
                     });
+                }
+
+                function fetchMitra ()
+                {
+                    let url = "{{ url('/api/partner') }}"
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        success: function(response) {
+                            let data = response.data
+                            $("#mitra-logos").empty();
+                            $("#mitra-logos").removeClass("animate-scroll")
+                            $("#mitra-logos").removeClass("justify-center")
+
+                            $.each(data, function (index, value) {
+                                let logo = `
+                                        <img src="${value.logo}" alt="Logo ${value.nama_mitra}"
+                                        class="h-12 sm:h-16 mx-8 flex-shrink-0">
+                                `
+                                $("#mitra-logos").append(logo)
+                            })
+
+                            if (data.length > 6) {
+                                $("#mitra-logos").addClass("animate-scroll")
+                                $.each(data, function (index, value) {
+                                    let logo = `
+                                            <img src="${value.logo}" alt="Logo ${value.nama_mitra}"
+                                            class="h-12 sm:h-16 mx-8 flex-shrink-0">
+                                    `
+                                    $("#mitra-logos").append(logo)
+                                })
+                            } else {
+                                $("#mitra-logos").addClass("justify-center")
+                            }
+                        }
+                    })
+                }
+
+                function fetchBerita ()
+                {
+                    let url = `{{ url('api/berita') }}`
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        success: function(response) {
+                            let data = response.data
+                            console.log(data);
+                            
+                            $.each(data, function (index, value) {
+                                let formattedDate = getIndonesianDate(value.tanggal)
+                                let kategori = value.kategori !== null ? value.kategori.nama_kategori : 'Berita'
+                                if (index === 0) {
+                                    $("#main-berita").append(
+                                        `
+                                            <div class="overflow-hidden rounded-xl mb-2 sm:mb-4">
+                                                <img src="${value.cover}" alt="${value.judul}"
+                                                    class="w-full h-40 sm:h-[500px] object-cover transition-transform duration-300 group-hover:scale-105">
+                                            </div>
+                                            <p class="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2 select-none">${kategori} &bull;
+                                                ${formattedDate}
+                                            </p>
+                                            <h3
+                                                class="text-lg sm:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors select-none">
+                                            ${value.judul}</h3>
+                                        `
+                                    )
+                                    $("#latest-news-widget").append(
+                                        `
+                                            <img src="${value.cover}" alt="${value.judul}"
+                                                class="w-32 h-24 object-cover rounded-lg flex-shrink-0">
+                                            <div class="flex flex-col">
+                                                <p class="bg-white text-blue-800 text-xs font-semibold px-3 py-1 rounded-full self-start mb-2">
+                                                    ${kategori}</p>
+                                                <h3 class="text-sm font-semibold leading-tight">${value.judul}</h3>
+                                                <a href="${value.url}"
+                                                    class="text-xs text-white/80 hover:underline mt-2 inline-block">Lihat Detail &gt;</a>
+                                            </div>
+                                        `
+                                    )
+                                } else {
+                                    $("#side-berita").append(
+                                        `
+                                            <div class="flex gap-4 w-full group cursor-pointer">
+                                                <img src="${value.cover}" alt="${value.judul}"
+                                                    class="w-1/3 h-24 sm:h-32 object-cover rounded-xl">
+                                                <div class="w-2/3 flex flex-col justify-center">
+                                                    <p class="text-xs text-gray-500 mb-1 select-none">${kategori} &bull;
+                                                        ${formattedDate}</p>
+                                                    <h6
+                                                        class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-blue-600 transition-colors select-none">
+                                                        ${value.judul}</h6>
+                                                </div>
+                                            </div>
+                                        `
+                                    )
+                                }
+                            })
+                        }
+                    })
                 }
             });
         </script>

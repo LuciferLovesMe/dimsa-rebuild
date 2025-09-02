@@ -52,14 +52,11 @@ class MajalahController extends Controller
                     $statusBadge = new StatusPublish($item->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
+                ->rawColumns(['image'])
                 ->addIndexColumn()
                 ->make(true);
 
-            $response = [
-                'status' => 'success',
-                'data' => $datatable
-            ];
-            $responseCode = Response::HTTP_OK;
+            return $datatable;
         } catch (\Exception $e) {
             $response = [
                 'status' => 'error',

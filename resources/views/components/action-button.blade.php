@@ -3,7 +3,7 @@
     'edit' => '#',
     'delete' => '#',
 ])
-<div>
+<div class="flex gap-2 justify-center">
     <a href="{{ $detail }}" class="detail-btn-table"><i class="text-sm fa-regular fa-eye"></i></a>
     <a href="{{ $edit }}" class="edit-btn-table"><i
             class="text-sm fa-regular fa-pen-to-square"></i></a>
