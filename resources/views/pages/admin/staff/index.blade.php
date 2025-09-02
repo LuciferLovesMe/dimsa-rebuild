@@ -3,57 +3,93 @@
 @section('title', 'Staff Yayasan')
 
 @section('content')
-    <x-cms_page :title="$title" breadcrumb1="Tentang Sekolah" :breadcrumb2="$title" :breadcrumb3="$breadcrumb3">
+    <x-cms_page title="Staff Yayasan" breadcrumb1="Admin" breadcrumb2="Tentang Sekolah" breadcrumb3="Staff Yayasan">
 
-        <!-- Isi konten lainnya -->
-        <div class="flex flex-row justify-between">
-            <p>Data {{ $title }}</p>
-            <a href="{{ route('admin.staff.add-staff') }}"
+        <div class="flex flex-row justify-end mb-5">
+            <a href="#"
                 class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg text-sm shadow-md transition-all duration-200">
                 <i class="fa-regular fa-plus text-base"></i>
                 <span class="font-semibold">Tambah Data</span>
             </a>
         </div>
 
-        <table class="table-auto w-full mt-4 text-sm">
-            <thead>
-                <tr>
-                    <th class="border px-4 py-2">No</th>
-                    <th class="border px-4 py-2">Nama</th>
-                    <th class="border px-4 py-2">Jabatan</th>
-                    <th class="border px-4 py-2">Status Publish</th>
-                    <th class="border px-4 py-2">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($staffData as $item)
+        <div class="overflow-x-auto">
+            <table id="staff-datatable" class="table-auto w-full mt-4 text-sm">
+                <thead>
                     <tr>
-                        <td class="border px-4 py-2 align-middle text-center">{{ $loop->iteration }}</td>
-                        <td class="border px-4 py-2 align-middle">{{ $item['nama'] }}</td>
-                        <td class="border px-4 py-2 align-middle">{{ $item['jabatan'] }}</td>
-                        <td class="border px-4 py-2 align-middle text-center flex justify-center">
-                            <x-status-publish :status="$item['status']" />
-                        </td>
-                        <td class="border px-4 py-2 align-middle">
-                            <div class="flex gap-2 justify-center">
-                                <a href="#" class="detail-btn-table"><i class="text-sm fa-regular fa-eye"></i></a>
-                                <a href="#" class="edit-btn-table"><i
-                                        class="text-sm fa-regular fa-pen-to-square"></i></a>
-                                <a href="#" class="delete-btn-table"><i
-                                        class="text-sm fa-regular fa-trash-can"></i></a>
-                            </div>
-                        </td>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            No.</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Nama</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Jabatan</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Status</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Aksi</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center border p-4 text-gray-500">
-                            Belum ada data.
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </x-cms_page>
-    <!-- Isi konten halaman dewan di sini -->
 
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#staff-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                autoWidth: false,
+                responsive: true,
+                dom: '<"md:flex md:justify-between items-center mb-4"lf>t<"md:flex md:justify-between items-center mt-4"ip>',
+                // PERBAIKAN: Mengubah AJAX menjadi objek dan menambahkan dataSrc
+                ajax: {
+                    url: "{{ url('/api/admin/guru-staff/showAll') }}",
+                    dataSrc: function(json) {
+                        json.recordsTotal = json.data.original.recordsTotal;
+                        json.recordsFiltered = json.data.original.recordsFiltered;
+                        return json.data.original.data;
+                    }
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'jabatan',
+                        name: 'jabatan',
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        className: 'text-center',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'aksi',
+                        className: 'text-center',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+        });
+    </script>
+@endpush

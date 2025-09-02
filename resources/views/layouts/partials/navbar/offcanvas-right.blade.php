@@ -63,8 +63,8 @@
         <div x-show="activeTab === 'fasilitas'">
             @php
                 $profilItems = [
-                    ['text' => 'Sarana Prasarana', 'url' => route('sarana-prasarana')],
-                    ['text' => 'Panduan Tata Tertib', 'url' => route('tata-tertib')],
+                    ['text' => 'Sarana Prasarana', 'url' => route('guest.sarana-prasarana')],
+                    ['text' => 'Panduan Tata Tertib', 'url' => route('guest.tata-tertib')],
                 ];
             @endphp
             <x-item-offcanvas title="Fasilitas"

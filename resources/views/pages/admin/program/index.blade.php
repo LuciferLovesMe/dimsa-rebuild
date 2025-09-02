@@ -1,63 +1,105 @@
 @extends('layouts.cms')
 
-@section('title', 'Staff Yayasan')
+@section('title', 'Program Unggulan')
 
 @section('content')
-    <x-cms_page :title="$title" breadcrumb1="Tentang Sekolah" :breadcrumb2="$title" :breadcrumb3="$breadcrumb3">
+    <x-cms_page title="Program Unggulan" breadcrumb1="Tentang Sekolah" breadcrumb2="Program Unggulan"
+        breadcrumb3="Data Program">
 
-        <!-- Isi konten lainnya -->
-        <div class="flex flex-row justify-between">
-            <p>Data {{ $title }}</p>
+        <div class="w-full flex flex-row justify-end mb-5">
             <a href="#"
-                class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg text-sm shadow-md transition-all duration-200">
+                class="w-fit flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg text-sm shadow-md transition-all duration-200">
                 <i class="fa-regular fa-plus text-base"></i>
                 <span class="font-semibold">Tambah Data</span>
             </a>
         </div>
 
-        <table class="table-auto w-full mt-4 text-sm">
-            <thead>
-                <tr>
-                    <th class="border px-4 py-2">No</th>
-                    <th class="border px-4 py-2">Gambar Header</th>
-                    <th class="border px-4 py-2">Nama Program</th>
-                    <th class="border px-4 py-2">Deskripsi</th>
-                    <th class="border px-4 py-2">Status Publish</th>
-                    <th class="border px-4 py-2">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($programData as $item)
+        <div class="overflow-x-auto">
+            <table class="min-w-full mt-4 text-sm" id="program-datatable">
+                <thead>
                     <tr>
-                        <td class="border px-4 py-2 align-middle text-center">{{ $loop->iteration }}</td>
-                        <td class="border px-4 py-2 align-middle">
-                            <img src="" alt="{{ $item['gambar_header'] }}" class="w-16 h-16 object-cover">
-                        </td>
-                        <td class="border px-4 py-2 align-middle">{{ $item['nama_program'] }}</td>
-                        <td class="border px-4 py-2 align-middle">{{ $item['deskripsi'] }}</td>
-                        <td class="border px-4 py-2 align-middle text-center flex items-center justify-center">
-                            <div class="h-full flex items-center justify-center">
-                                <x-status-publish :status="$item['status']" />
-                            </div>
-                        </td>
-                        <td class="border px-4 py-2 align-middle">
-                            <div class="flex gap-2 justify-center">
-                                <a href="#" class="detail-btn-table"><i class="text-sm fa-regular fa-eye"></i></a>
-                                <a href="#" class="edit-btn-table"><i
-                                        class="text-sm fa-regular fa-pen-to-square"></i></a>
-                                <a href="#" class="delete-btn-table"><i
-                                        class="text-sm fa-regular fa-trash-can"></i></a>
-                            </div>
-                        </td>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            No</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Gambar Header</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Nama Program</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Deskripsi</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Status</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Aksi</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center border p-4 text-gray-500">
-                            Belum ada data.
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </x-cms_page>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#program-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                dom: '<"md:flex md:justify-between items-center mb-4"lf>t<"md:flex md:justify-between items-center mt-4"ip>',
+                ajax: {
+                    url: "{{ url('/api/admin/program-unggulan/showAll') }}",
+                    dataSrc: function(json) {
+                        json.recordsTotal = json.data.original.recordsTotal;
+                        json.recordsFiltered = json.data.original.recordsFiltered;
+                        return json.data.original.data;
+                    }
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'cover',
+                        name: 'cover',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'nama_program',
+                        name: 'nama_program'
+                    },
+                    {
+                        data: 'deskripsi',
+                        name: 'deskripsi',
+                        render: function(data, type, row) {
+                            if (data && data.length > 60) {
+                                return data.substring(0, 60) + '...';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+        });
+    </script>
+@endpush

@@ -65,7 +65,6 @@ class KaryaIlmiahRepository implements KaryaIlmiahInterface
 
     public function showAll()
     {
-
         return Publikasi::where('type', 'karya ilmiah')
             ->orderBy('created_at', 'desc')
             ->get();
