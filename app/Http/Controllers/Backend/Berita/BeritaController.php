@@ -45,7 +45,7 @@ class BeritaController extends Controller
                 ->addColumn('tanggal', fn($item) => Carbon::parse($item->tanggal)->format('d-m-Y'))
                 ->addColumn('penulis', fn($item) => $item->penulis)
                 ->addColumn('status', function ($item) {
-                    $statusBadge = new StatusPublish($item->status);
+                    $statusBadge = new StatusPublish($item->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {

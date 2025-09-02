@@ -29,7 +29,7 @@ class KaryaIlmiahController extends Controller
             ->addColumn('penulis', fn($item) => $item->penulis)
             ->addColumn('tahun', fn($item) => $item->tahun)
             ->addColumn('status', function ($item) {
-                $statusBadge = new StatusPublish($item->status);
+                $statusBadge = new StatusPublish($item->is_publish);
                 return $statusBadge->render()->with($statusBadge->data());
             })
             ->addColumn('aksi', function ($item) {
