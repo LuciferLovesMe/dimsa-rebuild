@@ -44,10 +44,11 @@ class PengasuhBackendController extends Controller
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
+                    $edit = route('admin.dewan.pengasuh.edit', $item->id);
                     $actionButton = new ActionButton(
-                        '#',
-                        '#',
-                        '#',
+                        $item->id,
+                        $edit,
+                        $item->id,
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })

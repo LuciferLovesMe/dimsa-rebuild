@@ -27,15 +27,13 @@ class PimpinanBackendController extends Controller
     public function index()
     {
         try {
-
-            $pengasuh = $this->PimpinanRepo->showAll();
-
+            $pimpinan = $this->PimpinanRepo->showAll();
             $datatable = datatables()
-                ->of($pengasuh)
-                ->addIndexColumn() // No
+                ->of($pimpinan)
+                ->addIndexColumn()
                 ->addColumn('image', function ($item) {
                     $img = $item->image;
-                    return '<img src="' . $img . '" alt="' . $item->nama . '">';
+                    return '<img src="' . $img . '" alt="' . $item->nama . '" class="h-12 w-12 rounded-full object-cover">';
                 })
                 ->addColumn('nama', fn($item) => $item->nama)
                 ->addColumn('jabatan', fn($item) => $item->jabatan)
@@ -44,10 +42,11 @@ class PimpinanBackendController extends Controller
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
+                    $edit = route('admin.dewan.pimpinan.edit', $item->id);
                     $actionButton = new ActionButton(
-                        '#',
-                        '#',
-                        '#',
+                        $item->id,
+                        $edit,
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
@@ -66,7 +65,7 @@ class PimpinanBackendController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve pengasuh: ' . $e->getMessage()
+                'message' => 'Gagal mengambil data Pimpinan: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
