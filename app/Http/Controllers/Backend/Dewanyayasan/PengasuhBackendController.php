@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\QueryException;
 
-class PengasuhController extends Controller
+class PengasuhBackendController extends Controller
 {
     protected $pengasuhRepo;
 
