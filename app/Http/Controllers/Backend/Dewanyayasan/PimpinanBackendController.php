@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\QueryException;
 
-class PimpinanController extends Controller
+class PimpinanBackendController extends Controller
 {
     protected $PimpinanRepo;
 
