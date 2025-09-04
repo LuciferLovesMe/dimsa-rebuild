@@ -55,3 +55,68 @@
         </div>
     </form>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            const formData = new FormData()
+            let formInput = $("form").find("input")
+            let formTextArea = $("form").find("textarea")
+            let formSelect = $("form").find("select")
+            let nullValue = []
+
+            function validateData (data) {
+                if ($(data).val() === '' || $(data).val() === null) {
+                    nullValue.push($(data).attr('name'))
+                }
+            }
+
+            function postData (data) {
+                try {
+                    $.ajax({
+                        url: "{{ url('admin/api/alumni') }}",
+                        type: "POST",
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            $("#btnSimpan").on('click', function () {
+                $.each(formInput, function (index, value) {
+                    validateData(value);
+                })
+                $.each(formTextArea, function (index, value) {
+                    validateData(value);
+                })
+                
+                if (nullValue.length > 0) {
+                    return false;
+                }
+
+                $.each(formInput, function (index, value) {
+                    if ($(value).attr('type') === 'file') {
+                        formData.append($(value).attr('name'), $(value)[0].files[0])
+                    } else {
+                        formData.append($(value).attr('name'), ($(value).val()))
+                    }
+                    
+                })
+                $.each(formTextArea, function (index, value) {
+                    formData.append($(value).attr('name'), $(value).val())
+                })
+                $.each(formSelect, function (index, value) {
+                    formData.append($(value).attr('name'), $(value).val())
+                })
+
+                postData(formData)
+            })
+        })
+    </script>
+@endpush

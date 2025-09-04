@@ -14,6 +14,7 @@ class Alumni extends Model
         'tahun_lulus',
         'lembaga',
         'image',
+        'pekerjaan'
     ];
 
     protected $table = 'alumnis';

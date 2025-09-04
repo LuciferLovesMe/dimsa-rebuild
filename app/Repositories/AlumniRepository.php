@@ -40,6 +40,7 @@ class AlumniRepository implements AlumniInterface
         $storedData['nama_alumni'] = $data->nama_alumni;
         $storedData['tahun_lulus'] = $data->tahun_lulus;
         $storedData['lembaga'] = $data->lembaga;
+        $storedData['pekerjaan'] = $data->pekerjaan;
         $storedData['image'] = storeImage($file, '/uploads/alumni/');
 
         return $this->alumni->create($storedData);
@@ -55,6 +56,7 @@ class AlumniRepository implements AlumniInterface
         $storedData['nama_alumni'] = $data->nama_alumni;
         $storedData['tahun_lulus'] = $data->tahun_lulus;
         $storedData['lembaga'] = $data->lembaga;
+        $storedData['pekerjaan'] = $data->pekerjaan;
         $alumni->update($storedData);
 
         return $alumni;
