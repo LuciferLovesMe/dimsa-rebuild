@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface AlumniInterface
 {
-    public function index($request);
+    public function index($limit = null);
 
     public function show($id);
 

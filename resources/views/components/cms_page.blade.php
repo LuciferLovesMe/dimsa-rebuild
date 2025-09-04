@@ -1,4 +1,4 @@
-{{-- page indicator --}}
+{{-- components/cms_page.blade.php --}}
 
 @props([
     'title' => 'Default Title',
@@ -7,7 +7,8 @@
     'breadcrumb3' => 'Default Sub Breadcrumb',
 ])
 
-<div class="container mx-auto p-2">
+{{-- PERBAIKAN: Menghapus div "container" dari sini untuk menghindari container ganda --}}
+<div>
     <div class="flex flex-row justify-between items-end">
         <div class="flex flex-col">
             <h1 class="text-3xl text-gray-900">{{ $title ?? 'Default Title' }}</h1>
@@ -19,16 +20,16 @@
         </div>
 
         {{-- Slot untuk Aksi di Kanan (misalnya, tombol tab) --}}
+        {{-- PERBAIKAN: Mengubah $action menjadi $actions agar sesuai dengan pemanggilan slot --}}
         @if (isset($actions))
             <div class="mt-4 md:mt-0 md:ml-4">
                 {{ $actions }}
             </div>
         @endif
 
-
     </div>
 
-    <div class="p-8 mt-4 min-h-96 rounded-lg shadow-lg bg-white">
+    <div class="p-8 mt-4 min-h-96 rounded-lg shadow-lg bg-white overflow-x-auto">
         {{ $slot }}
     </div>
 </div>

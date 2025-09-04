@@ -19,9 +19,22 @@ class PengumumanRepository implements PengumumanInterface
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index($request)
+    public function index($type = 'all', $limit = null)
     {
-        return $this->pengumuman->orderBy('id', 'desc')->get();
+        if ($type === 'published') {
+            $pengumuman = $this->pengumuman
+                ->where('is_publish', true);
+        } else {
+            $pengumuman = $this->pengumuman;
+        }
+
+        if ($limit) {
+            $pengumuman = $pengumuman->limit($limit);
+        }
+
+        return $pengumuman
+            ->orderBy('id', 'desc')
+            ->get();
     }
     
     /**

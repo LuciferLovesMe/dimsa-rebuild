@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface EkstrakulikulerInterface
 {
-    public function getAll();
+    public function getAll($type = 'all', $limit = null);
 
     public function getById($id);
 

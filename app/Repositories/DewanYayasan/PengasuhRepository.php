@@ -79,11 +79,23 @@ class PengasuhRepository implements PengasuhInterface
         return  $pengasuh;
     }
 
-    public function showAll(int $perPage = 10)
+    public function showAll()
+    {
+        return GuruStaff::where('role', 'pengasuh')->orderBy('created_at', 'desc')
+            ->get();
+    }
+
+    public function showGuest()
+    {
+        return GuruStaff::where('role', 'pengasuh')->where('is_publish', 1)->get();
+    }
+
+    public function showGuestByID($id)
     {
         return GuruStaff::with(['riwayatPendidikans', 'pengalamanKerjas', 'prestasis'])
             ->where('role', 'pengasuh')
-            ->paginate($perPage);
+            ->where('is_publish', 1)
+            ->findOrFail($id);
     }
 
     public function destroy(int $id)

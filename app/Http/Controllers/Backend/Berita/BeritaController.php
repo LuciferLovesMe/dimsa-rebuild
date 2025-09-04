@@ -7,9 +7,11 @@ use App\Http\Requests\Berita\BeritaRequest;
 use App\Interfaces\Berita\BeritaInterface;
 use App\Traits\ImageHandler;
 use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 
 class BeritaController extends Controller
 {
@@ -26,44 +28,49 @@ class BeritaController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    try {
-        $perPage = $request->input('per_page', 10);
-        $berita = $this->beritaRepo->getAll($perPage);
+    {
+        try {
 
-        $datatable = datatables()
-            ->of($berita)
-            ->addIndexColumn() // No
-            ->addColumn('thumbnail', function ($item) {
-               
-                $cover = asset($item->cover);
-                return '<img src="'.$cover.'" alt="Thumbnail" style="width:80px; height:50px; object-fit:cover">';
-            })
-            ->addColumn('judul', fn($item) => $item->judul)
-            ->addColumn('tanggal', fn($item) => $item->tanggal->format('d-m-Y'))
-            ->addColumn('penulis', fn($item) => $item->penulis)
-            ->addColumn('status', fn($item) => $item->is_publish ? 'Published' : 'Draft')
-            ->addColumn('aksi', function ($item) {
-                $actionButton = new ActionButton(
-                   '#', '#', '#'
-                );
-                return $actionButton->render()->with($actionButton->data());
-            })
-            ->rawColumns(['thumbnail','aksi'])
-            ->make(true);
+            $berita = $this->beritaRepo->getAllWithoutPaginate();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $datatable
-        ], Response::HTTP_OK);
+            $datatable = datatables()
+                ->of($berita)
+                ->addIndexColumn() // No
+                ->addColumn('cover', function ($item) {
 
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Failed to retrieve berita: ' . $e->getMessage()
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+                    $cover = asset($item->cover);
+                    return '<img src="' . $cover . '" alt="' . $item->berita . '" >';
+                })
+                ->addColumn('judul', fn($item) => $item->judul)
+                ->addColumn('tanggal', fn($item) => Carbon::parse($item->tanggal)->format('d-m-Y'))
+                ->addColumn('penulis', fn($item) => $item->penulis)
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
+                ->addColumn('aksi', function ($item) {
+                    $actionButton = new ActionButton(
+                        '#',
+                        '#',
+                        '#'
+                    );
+                    return $actionButton->render()->with($actionButton->data());
+                })
+                ->addIndexColumn()
+                ->rawColumns(['cover', 'status', 'aksi'])
+                ->make(true);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $datatable
+            ], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to retrieve berita: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
-}
 
 
     public function store(BeritaRequest $request)

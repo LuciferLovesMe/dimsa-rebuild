@@ -28,10 +28,12 @@ class SlideshowController extends Controller
             $datatable = datatables()
                 ->of($slides)
                 ->addColumn('headline', fn($item) => $item->headline ?? '-')
-                ->addColumn('image', fn($item) => '<img src="' . asset($item->file) . '" alt="Slide" style="max-width:100px">')
+                ->addColumn('image', fn($item) => '<img src="' . asset($item->file) . '" alt="' . $item->headline . '">')
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                         '#', '#', '#'
+                        '#',
+                        '#',
+                        '#'
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
@@ -43,7 +45,6 @@ class SlideshowController extends Controller
                 'status' => 'success',
                 'data' => $datatable
             ], Response::HTTP_OK);
-
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
@@ -77,7 +78,6 @@ class SlideshowController extends Controller
                 'status' => 'success',
                 'message' => 'Slideshow created successfully'
             ], Response::HTTP_CREATED);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -123,7 +123,6 @@ class SlideshowController extends Controller
                 'status' => 'success',
                 'message' => 'Slideshow updated successfully'
             ], Response::HTTP_OK);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -140,7 +139,6 @@ class SlideshowController extends Controller
                 'status' => 'success',
                 'message' => 'Slideshow deleted successfully'
             ], Response::HTTP_OK);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',

@@ -49,16 +49,43 @@ class ProgramUnggulanController extends Controller
     {
         try {
             $program = $this->programRepo->getById($id);
+           
+            return apiSuccess($program, 'Show program unggulan successful');
+        } catch (\Throwable $th) {
+            return apiFailed("Error show data Program Unggulan", null, 500, $th->getMessage());
+        }
+    }
+    public function showIndexById(string $id)
+    {
+        try {
+            $program = $this->programRepo->getGuestById($id);
             return apiSuccess($program, 'Show program unggulan successful');
         } catch (\Throwable $th) {
             return apiFailed("Error show data Program Unggulan", null, 500, $th->getMessage());
         }
     }
 
+
     public function showAll()
     {
         try {
             $programs = $this->programRepo->getAll();
+             if (!$programs || $programs->isEmpty()) {
+                return apiFailed("No data Program Unggulan found", null, 404);
+            }
+            return apiSuccess($programs, 'Show All program unggulan successful');
+        } catch (\Throwable $th) {
+            return apiFailed("Error show all data Program Unggulan", null, 500, $th->getMessage());
+        }
+    }
+
+    public function showIndex()
+    {
+        try {
+            $programs = $this->programRepo->getPublished();
+             if (!$programs || $programs->isEmpty()) {
+                return apiFailed("No data Program Unggulan found", null, 404);
+            }
             return apiSuccess($programs, 'Show All program unggulan successful');
         } catch (\Throwable $th) {
             return apiFailed("Error show all data Program Unggulan", null, 500, $th->getMessage());

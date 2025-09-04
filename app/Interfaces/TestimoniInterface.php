@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface TestimoniInterface
 {
-    public function getAll();
+    public function getAll($type = 'all', $limit = null);
     
     public function getById($id);
     
@@ -13,4 +13,6 @@ interface TestimoniInterface
     public function update($id, $data);
     
     public function delete($id);
+
+    public function getLatest();
 }

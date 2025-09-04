@@ -55,6 +55,32 @@ class GuruStaffController extends Controller
         }
     }
 
+    public function showIndex()
+    {
+        try {
+            $data = $this->guruStaffRepository->showGuest();
+            if (!$data || $data->isEmpty()) {
+                return apiFailed("Guru Staff not found.", null, 404);
+            }
+            return apiSuccess($data, "Show Guru Staff successful");
+        } catch (\Throwable $th) {
+            return apiFailed("Error fetching Guru Staff list", null, 500, $th->getMessage());
+        }
+    }
+
+    public function showIndexByID($id)
+    {
+        try {
+            $guru_staff = $this->guruStaffRepository->showGuestByID($id);
+            if (!$guru_staff) {
+                return apiFailed("Guru Staff tidak ditemukan.", null, 404);
+            }
+            return apiSuccess($guru_staff, "Show Guru Staff successful");
+        } catch (\Throwable $th) {
+            return apiFailed("Error fetching Guru Staff detail", null, 500, $th->getMessage());
+        }
+    }
+
     public function showAll()
     {
         try {

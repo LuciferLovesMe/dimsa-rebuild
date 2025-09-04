@@ -47,11 +47,7 @@ class QnaController extends Controller
                 ->addIndexColumn()
                 ->make(true);
 
-            $response = [
-                'message' => 'Q&A data retrieved successfully',
-                'data' => $datatable,
-            ];
-            return response()->json($response, Response::HTTP_OK);
+            return $datatable;
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to retrieve Q&A data. ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (QueryException $e) {

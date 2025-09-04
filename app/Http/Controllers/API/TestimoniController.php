@@ -22,7 +22,7 @@ class TestimoniController extends Controller
         try {
             $response = [
                 'status' => 'success',
-                'data' => $this->testimoniRepository->getAll()
+                'data' => $this->testimoniRepository->getAll($type = 'published', $request->query('limit', null))
             ];
             $responseCode = Response::HTTP_OK;
         } catch (\Exception $e) {
@@ -90,6 +90,32 @@ class TestimoniController extends Controller
             $response = [
                 'status' => 'error',
                 'message' => 'Failed to update testimony. ' . $e->getMessage()
+            ];
+            $responseCode = Response::HTTP_BAD_REQUEST;
+        }
+
+        return response()->json($response, $responseCode);
+    }
+
+    public function getLatest ()
+    {
+        try {
+            $testimoni = $this->testimoniRepository->getLatest();
+            $response = [
+                'status' => 'success',
+                'data' => $testimoni
+            ];
+            $responseCode = Response::HTTP_OK;
+        } catch (\Exception $e) {
+            $response = [
+                'status' => 'error',
+                'message' => 'Failed to retrieve latest testimony. ' . $e->getMessage()
+            ];
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e) {
+            $response = [
+                'status' => 'error',
+                'message' => 'Failed to retrieve latest testimony. ' . $e->getMessage()
             ];
             $responseCode = Response::HTTP_BAD_REQUEST;
         }

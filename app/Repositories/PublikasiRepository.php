@@ -53,10 +53,20 @@ class PublikasiRepository implements PublikasiInterface
         return $this->publikasi->findOrFail($id);
     }
 
-    public function getMajalah()
+    public function getMajalah($type = 'all', $limit = null)
     {
-        return $this->publikasi
-            ->where('type', 'majalah')
+        if ($type === 'published') {
+            $query = $this->publikasi->where('is_publish', true);
+        } else {
+            $query = $this->publikasi;
+        }
+
+        if ($limit) {
+            $query = $query->limit($limit);
+        }
+
+        return $query
+            ->orderBy('id', 'desc')
             ->get();
     }
 }

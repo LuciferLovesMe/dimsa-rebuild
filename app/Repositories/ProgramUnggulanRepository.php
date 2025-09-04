@@ -7,14 +7,24 @@ use App\Models\ProgramUnggulan;
 
 class ProgramUnggulanRepository implements ProgramUnggulanInterface
 {
-    public function getAll(int $perPage = 10)
+    public function getAll()
     {
-        return ProgramUnggulan::orderBy('created_at', 'desc')->paginate($perPage);
+        return ProgramUnggulan::orderBy('created_at', 'desc')->get();
     }
 
     public function getById($id)
     {
         return ProgramUnggulan::findOrFail($id);
+    }
+
+    public function getPublished()
+    {
+        return ProgramUnggulan::where('is_publish', 1)->orderBy('created_at', 'desc')->get();
+    }
+
+    public function getGuestById($id)
+    {
+        return ProgramUnggulan::where('id', $id)->where('is_publish', 1)->firstOrFail();
     }
 
     public function create(array $data)

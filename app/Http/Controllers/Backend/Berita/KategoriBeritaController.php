@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Berita\KategoriBeritaRequest;
 use App\Interfaces\Berita\KategoriBeritaInterface;
 use App\View\Components\ActionButton;
+use App\View\Components\StatusPublish;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,15 +31,20 @@ class KategoriBeritaController extends Controller
             $datatable = datatables()
                 ->of($kategori)
                 ->addColumn('nama_kategori', fn($item) => $item->nama_kategori)
-                ->addColumn('is_publish', fn($item) => $item->is_publish ? 'Published' : 'Draft')
+                ->addColumn('status', function ($item) {
+                    $statusBadge = new StatusPublish($item->is_publish);
+                    return $statusBadge->render()->with($statusBadge->data());
+                })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                       '#', '#', '#'
+                        '#',
+                        '#',
+                        '#'
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
                 ->addIndexColumn()
-                ->rawColumns(['aksi'])
+                ->rawColumns(['status', 'aksi'])
                 ->make(true);
 
             return response()->json([
@@ -48,12 +54,12 @@ class KategoriBeritaController extends Controller
         } catch (QueryException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Database query error: '.$e->getMessage()
+                'message' => 'Database query error: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve categories: '.$e->getMessage()
+                'message' => 'Failed to retrieve categories: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

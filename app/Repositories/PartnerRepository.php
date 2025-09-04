@@ -9,7 +9,11 @@ class PartnerRepository implements PartnerInterface
 {
     public function getAll()
     {
-        return Partner::all();
+        return Partner::orderBy('created_at', 'desc')->get();
+    }
+    public function getAllPublished()
+    {
+        return Partner::where('is_publish', 1)->get();
     }
 
     public function getById($id)
