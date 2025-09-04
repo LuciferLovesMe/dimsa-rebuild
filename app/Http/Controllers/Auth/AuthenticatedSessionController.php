@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/admin');
+        return redirect('/admin')->with('success', 'Anda berhasil login!');
     }
 
     /**
