@@ -18,7 +18,7 @@ class QnaController extends Controller
     {
         $this->qnaRepository = $qnaRepository;
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -28,19 +28,21 @@ class QnaController extends Controller
             $qnas = $this->qnaRepository->index();
             $datatable = datatables()
                 ->of($qnas)
-                ->addColumn('question',function ($qna) {
+                ->addColumn('question', function ($qna) {
                     return $qna->pertanyaan;
                 })
-                ->addColumn('answer',function ($qna) {
+                ->addColumn('answer', function ($qna) {
                     return $qna->jawaban;
                 })
-                ->addColumn('status',function ($qna) {
+                ->addColumn('status', function ($qna) {
                     $statusBadge = new StatusPublish($qna->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($qna) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        $qna->id,
+                        '#',
+                        $qna->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
@@ -88,11 +90,11 @@ class QnaController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request, string $id)
-    {   
+    {
         if (!$request->ajax()) {
             return view('backend.qna.show', ['id' => $id]);
         }
-        
+
         try {
             $qna = $this->qnaRepository->show($id);
             return response()->json(['message' => 'Q&A retrieved successfully', 'data' => $qna], 200);
