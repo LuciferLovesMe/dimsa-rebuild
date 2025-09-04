@@ -1,33 +1,33 @@
 @extends('layouts.form-cms')
 
+{{-- Judul untuk tab browser --}}
+@section('title', 'Tambah Data Staff')
 
-@section('title', 'Tambah Data Dewan')
+{{-- URL untuk tombol kembali --}}
+@section('backUrl', route('admin.staff.index'))
 
+{{-- Judul yang akan ditampilkan di atas form --}}
+@section('pageTitle', 'Tambah Data Staff')
 
-@section('backUrl', route('admin.dewan.pimpinan.index'))
-
-
-@section('pageTitle', 'Tambah Data')
-
-
+{{-- Konten utama dari form --}}
 @section('formContent')
-    <form action="#" method="POST" enctype="multipart/form-data">
+    <form id="main-form" action="#" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-
+            {{-- Kolom Kiri: Form Fields --}}
             <div class="lg:col-span-2 space-y-6">
 
-
+                {{-- Biodata Section --}}
                 <div class="space-y-4">
                     <h3 class="font-medium text-lg">Biodata</h3>
-                    <x-input.text name="nama" label="Nama" placeholder="e.g: Nama" :required="true" />
-                    <x-input.text name="jabatan" label="Jabatan" placeholder="Jabatan Pimpinan" :required="true" />
+                    <x-input.text name="nama" label="Nama" placeholder="e.g: Nama Lengkap" :required="true" />
+                    <x-input.text name="jabatan" label="Jabatan" placeholder="e.g: Guru Matematika" :required="true" />
                 </div>
 
                 <hr>
 
-
+                {{-- Riwayat Pendidikan Dinamis --}}
                 <div x-data="educationManager()">
                     <div class="flex justify-between items-center mb-2">
                         <h3 class="font-medium text-lg">Riwayat Pendidikan</h3>
@@ -41,7 +41,7 @@
                             <div>
                                 <label :for="`pendidikan_pendidikan_${index}`"
                                     class="block text-sm font-medium text-gray-700">Pendidikan</label>
-                                <input type="text" :name="`pendidikan[${index}][pendidikan]`"
+                                <input type="text" :name="`riwayat_pendidikan[${index}][tingkat_pendidikan]`"
                                     :id="`pendidikan_pendidikan_${index}`"
                                     class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Tulis Pendidikan">
@@ -49,16 +49,16 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label :for="`pendidikan_sekolah_${index}`"
-                                        class="block text-sm font-medium text-gray-700">Sekolah</label>
-                                    <input type="text" :name="`pendidikan[${index}][sekolah]`"
+                                        class="block text-sm font-medium text-gray-700">Instansi/Sekolah</label>
+                                    <input type="text" :name="`riwayat_pendidikan[${index}][instansi]`"
                                         :id="`pendidikan_sekolah_${index}`"
                                         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        placeholder="Tulis Sekolah">
+                                        placeholder="Tulis Instansi/Sekolah">
                                 </div>
                                 <div>
                                     <label :for="`pendidikan_kota_${index}`"
                                         class="block text-sm font-medium text-gray-700">Kota</label>
-                                    <input type="text" :name="`pendidikan[${index}][kota]`"
+                                    <input type="text" :name="`riwayat_pendidikan[${index}][kota]`"
                                         :id="`pendidikan_kota_${index}`"
                                         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Tulis Kota">
@@ -68,7 +68,8 @@
                                 <div>
                                     <label :for="`tahun_mulai_${index}`"
                                         class="block text-sm font-medium text-gray-700">Tahun Mulai</label>
-                                    <select :name="`pendidikan[${index}][tahun_mulai]`" :id="`tahun_mulai_${index}`"
+                                    <select :name="`riwayat_pendidikan[${index}][tahun_mulai]`"
+                                        :id="`tahun_mulai_${index}`"
                                         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         <option value="">Pilih tahun</option>
                                         <template x-for="year in years" :key="year">
@@ -87,8 +88,8 @@
                                                 class="ml-2 block text-sm text-gray-900">Sekarang</label>
                                         </div>
                                     </div>
-                                    <select :name="`pendidikan[${index}][tahun_berakhir]`" :id="`tahun_berakhir_${index}`"
-                                        :disabled="education.sekarang"
+                                    <select :name="`riwayat_pendidikan[${index}][tahun_akhir]`"
+                                        :id="`tahun_berakhir_${index}`" :disabled="education.sekarang"
                                         class="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm disabled:bg-gray-100">
                                         <option value="">Pilih tahun</option>
                                         <template x-for="year in years" :key="year">
@@ -111,7 +112,7 @@
 
                 <hr>
 
-                {{-- Pengalaman Kerja --}}
+                {{-- Pengalaman Kerja Dinamis --}}
                 <div x-data="workExperienceManager()">
                     <div class="flex justify-between items-center mb-2">
                         <h3 class="font-medium text-lg">Pengalaman Kerja</h3>
@@ -125,23 +126,25 @@
                             <div>
                                 <label :for="`work_posisi_${index}`"
                                     class="block text-sm font-medium text-gray-700">Posisi</label>
-                                <input type="text" :name="`pengalaman[${index}][posisi]`" :id="`work_posisi_${index}`"
+                                <input type="text" :name="`pengalaman_kerja[${index}][posisi]`"
+                                    :id="`work_posisi_${index}`"
                                     class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Tulis Posisi">
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label :for="`work_pemberi_kerja_${index}`"
-                                        class="block text-sm font-medium text-gray-700">Pemberi Kerja</label>
-                                    <input type="text" :name="`pengalaman[${index}][pemberi_kerja]`"
+                                        class="block text-sm font-medium text-gray-700">Perusahaan</label>
+                                    <input type="text" :name="`pengalaman_kerja[${index}][perusahaan]`"
                                         :id="`work_pemberi_kerja_${index}`"
                                         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        placeholder="Tulis Pemberi Kerja">
+                                        placeholder="Tulis Nama Perusahaan">
                                 </div>
                                 <div>
                                     <label :for="`work_kota_${index}`"
                                         class="block text-sm font-medium text-gray-700">Kota</label>
-                                    <input type="text" :name="`pengalaman[${index}][kota]`" :id="`work_kota_${index}`"
+                                    <input type="text" :name="`pengalaman_kerja[${index}][kota]`"
+                                        :id="`work_kota_${index}`"
                                         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Tulis Kota">
                                 </div>
@@ -150,7 +153,8 @@
                                 <div>
                                     <label :for="`work_tahun_mulai_${index}`"
                                         class="block text-sm font-medium text-gray-700">Tahun Mulai</label>
-                                    <select :name="`pengalaman[${index}][tahun_mulai]`" :id="`work_tahun_mulai_${index}`"
+                                    <select :name="`pengalaman_kerja[${index}][tahun_mulai]`"
+                                        :id="`work_tahun_mulai_${index}`"
                                         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         <option value="">Pilih tahun</option>
                                         <template x-for="year in years" :key="year">
@@ -169,7 +173,7 @@
                                                 class="ml-2 block text-sm text-gray-900">Sekarang</label>
                                         </div>
                                     </div>
-                                    <select :name="`pengalaman[${index}][tahun_berakhir]`"
+                                    <select :name="`pengalaman_kerja[${index}][tahun_akhir]`"
                                         :id="`work_tahun_berakhir_${index}`" :disabled="work.sekarang"
                                         class="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm disabled:bg-gray-100">
                                         <option value="">Pilih tahun</option>
@@ -207,7 +211,8 @@
                             <div>
                                 <label :for="`prestasi_lomba_${index}`"
                                     class="block text-sm font-medium text-gray-700">Lomba</label>
-                                <input type="text" :name="`prestasi[${index}][lomba]`" :id="`prestasi_lomba_${index}`"
+                                <input type="text" :name="`prestasi[${index}][nama_lomba]`"
+                                    :id="`prestasi_lomba_${index}`"
                                     class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Tulis Lomba">
                             </div>
@@ -266,7 +271,7 @@
                     </template>
                 </div>
 
-                <x-input.publish-checkbox />
+                <x-input.publish-checkbox name="is_publish" />
 
             </div>
 
@@ -296,11 +301,11 @@
                 },
                 addEducation() {
                     this.educations.push({
-                        pendidikan: '',
-                        sekolah: '',
+                        tingkat_pendidikan: '',
+                        instansi: '',
                         kota: '',
                         tahun_mulai: '',
-                        tahun_berakhir: '',
+                        tahun_akhir: '',
                         sekarang: false
                     });
                 },
@@ -325,10 +330,10 @@
                 addWorkExperience() {
                     this.workExperiences.push({
                         posisi: '',
-                        pemberi_kerja: '',
+                        perusahaan: '',
                         kota: '',
                         tahun_mulai: '',
-                        tahun_berakhir: '',
+                        tahun_akhir: '',
                         sekarang: false
                     });
                 },
@@ -352,7 +357,7 @@
                 },
                 addAchievement() {
                     this.achievements.push({
-                        lomba: '',
+                        nama_lomba: '',
                         penyelenggara: '',
                         predikat: '',
                         tingkat: '',
@@ -364,5 +369,60 @@
                 }
             }
         }
+
+        // --- SKRIP UNTUK MENGIRIM FORM ---
+        $(document).ready(function() {
+            $('#main-form').on('submit', function(event) {
+                event.preventDefault();
+
+                const apiUrl = `/api/admin/guru-staff/create`; // URL API untuk staff
+
+                const formData = new FormData(this);
+
+                Swal.fire({
+                    title: 'Menyimpan data...',
+                    text: 'Mohon tunggu sebentar.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: apiUrl,
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: response.message,
+                            icon: 'success',
+                        }).then(() => {
+                            window.location.href = "{{ route('admin.staff.index') }}";
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        const errors = xhr.responseJSON.errors;
+                        let errorMessages = '';
+                        if (errors) {
+                            for (const key in errors) {
+                                errorMessages += `<p>${errors[key][0]}</p>`;
+                            }
+                        }
+                        Swal.fire(
+                            'Gagal!',
+                            errorMessages || 'Terjadi kesalahan saat menyimpan data.',
+                            'error'
+                        );
+                    }
+                });
+            });
+        });
     </script>
 @endpush

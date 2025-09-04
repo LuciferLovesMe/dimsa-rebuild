@@ -41,10 +41,11 @@ class GuruStaffController extends Controller
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
+                    $edit = route('admin.staff.edit', $item->id);
                     $actionButton = new ActionButton(
-                        '#',
-                        '#',
-                        '#',
+                        $item->id,
+                        $edit,
+                        $item->id,
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })

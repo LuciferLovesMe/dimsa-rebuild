@@ -41,7 +41,7 @@ class ProgramUnggulanController extends Controller
                     return $actionButton->render()->with($actionButton->data());
                 })
                 ->addIndexColumn()
-                ->rawColumns(['image', 'status', 'aksi'])
+                ->rawColumns(['cover', 'status', 'aksi'])
                 ->make(true);
 
             return response()->json([

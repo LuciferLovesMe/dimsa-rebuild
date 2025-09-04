@@ -29,9 +29,6 @@
                             Nama Program</th>
                         <th
                             class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Deskripsi</th>
-                        <th
-                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Status</th>
                         <th
                             class="px-6 py-3 border-b-2 border-gray-300 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -76,16 +73,16 @@
                         data: 'nama_program',
                         name: 'nama_program'
                     },
-                    {
-                        data: 'deskripsi',
-                        name: 'deskripsi',
-                        render: function(data, type, row) {
-                            if (data && data.length > 60) {
-                                return data.substring(0, 60) + '...';
-                            }
-                            return data;
-                        }
-                    },
+                    // {
+                    //     data: 'deskripsi',
+                    //     name: 'deskripsi',
+                    //     render: function(data, type, row) {
+                    //         if (data && data.length > 60) {
+                    //             return data.substring(0, 60) + '...';
+                    //         }
+                    //         return data;
+                    //     }
+                    // },
                     {
                         data: 'status',
                         name: 'status',
