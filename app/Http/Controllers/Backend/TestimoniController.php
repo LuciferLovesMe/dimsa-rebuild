@@ -43,7 +43,9 @@ class TestimoniController extends Controller
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        $item->id,
+                        '#',
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
@@ -63,7 +65,7 @@ class TestimoniController extends Controller
                 'message' => 'Failed to retrieve testimonies. ' . $e->getMessage()
             ];
             $responseCode = Response::HTTP_BAD_REQUEST;
-        } 
+        }
 
         return response()->json($response, $responseCode);
     }

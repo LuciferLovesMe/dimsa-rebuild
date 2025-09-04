@@ -49,14 +49,13 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // Menyimpan instance DataTable ke dalam variabel
             const table = $("#testimoni-datatable").DataTable({
                 processing: true,
                 serverSide: true,
                 autoWidth: false,
                 responsive: true,
                 dom: '<"md:flex md:justify-between items-center mb-4"lf>t<"md:flex md:justify-between items-center mt-4"ip>',
-                ajax: "{{ url('/admin/api/testimoni') }}", // URL API untuk mengambil data
+                ajax: "{{ url('/admin/api/testimoni') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -64,17 +63,17 @@
                         searchable: false
                     },
                     {
-                        data: 'nama', // Mengambil 'nama' dari data utama
-                        name: 'alumni.nama_alumni' // Memungkinkan pencarian berdasarkan relasi
+                        data: 'nama',
+                        name: 'alumni.nama_alumni'
                     },
                     {
-                        data: 'tahun_lulus', // Mengambil 'tahun_lulus' dari data utama
+                        data: 'tahun_lulus',
                         name: 'alumni.tahun_lulus'
                     },
                     {
                         data: 'testimoni',
                         name: 'testimoni',
-                        // Memotong teks jika terlalu panjang
+
                         render: function(data, type, row) {
                             if (data && data.length > 50) {
                                 return data.substring(0, 50) + '...';
@@ -101,7 +100,7 @@
             $('#testimoni-datatable').on('click', '.delete-btn-table', function(event) {
                 event.preventDefault();
                 const id = $(this).data('id');
-                const deleteUrl = `/admin/api/testimoni/${id}/delete`;
+                const deleteUrl = `/admin/api/testimoni/${id}/destroy`;
 
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
