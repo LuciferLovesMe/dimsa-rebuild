@@ -38,7 +38,7 @@ class AgendaController extends Controller
                     return $item->alamat ?: '-';
                 })
                 ->addColumn('image', function ($item) {
-                    $filePath = public_path('uploads/agenda/' . $item->image);
+                    $filePath = asset('uploads/agenda/' . $item->image);
                     return '<img src="' . $filePath . '" alt="' . $item->nama . '">';
                 })
                 ->addColumn('status', function ($item) {

@@ -18,9 +18,9 @@ class AgendaRepository implements AgendaInterface
     {
         $storedData = [
             'nama' => $data->nama,
-            'datetime' => $data->datetime,
+            'datetime' => $data->datetime ?? now(),
             'alamat' => $data->alamat,
-            'image' => storeImage($data->file('image'), '/uploads/agenda'),
+            'image' => storeImage($data->file('image'), '/uploads/agenda/'),
             'is_publish' => $data->is_publish ?? false
         ];
 
