@@ -39,7 +39,7 @@ class MajalahController extends Controller
                     return $item->tanggal_terbit ? date('d M Y', strtotime($item->tanggal_terbit)) : '-';
                 })
                 ->addColumn('image', function ($item) {
-                    $filePath = public_path('uploads/majalah/' . $item->image);
+                    $filePath = asset('uploads/publikasi/majalah/' . $item->image);
                     return '<img src="' . $filePath . '" alt="' . $item->judul . '">';
                 })
                 ->addColumn('aksi', function ($item) {

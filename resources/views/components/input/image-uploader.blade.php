@@ -1,6 +1,7 @@
 @props([
     'name' => 'image',
     'src' => null,
+    'id' => ''
 ])
 
 
@@ -19,7 +20,7 @@
 
     <template x-if="photoPreview">
         <div class="space-y-4">
-            <img :src="photoPreview" alt="Pratinjau Gambar"
+            <img :src="photoPreview" id="{{ $id }}" alt="Pratinjau Gambar"
                 class="mx-auto h-32 max-h-32 w-auto object-contain rounded">
             <label for="file-upload-{{ $name }}"
                 class="cursor-pointer font-semibold text-blue-600 hover:text-blue-700 text-sm">
