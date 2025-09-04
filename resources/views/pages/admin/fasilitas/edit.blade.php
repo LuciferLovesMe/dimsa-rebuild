@@ -32,7 +32,7 @@
         </div>
 
         <!-- checkbox + button save -->
-        <div class="flex justify-between mt-6">
+        <div class="flex justify-between items-center mt-6">
             <x-input.publish-checkbox />
             <div class="w-[233px]">
                 <x-button.save text="Perbarui Data" />
