@@ -51,6 +51,7 @@ class AgendaController extends Controller
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
+                ->rawColumns(['image'])
                 ->addIndexColumn()
                 ->make(true);
 
