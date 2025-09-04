@@ -1,15 +1,7 @@
 @extends('layouts.form-cms')
-
-{{-- Judul untuk tab browser --}}
 @section('title', 'Tambah Data Berita')
-
-{{-- URL untuk tombol kembali --}}
 @section('backUrl', route('admin.berita.index'))
-
-{{-- Judul yang akan ditampilkan di atas form --}}
 @section('pageTitle', 'Tambah Berita')
-
-{{-- Konten utama dari form --}}
 @section('formContent')
     <form action="#" method="POST" enctype="multipart/form-data">
         @csrf
