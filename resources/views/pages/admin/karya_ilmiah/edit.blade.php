@@ -10,7 +10,7 @@
     <form action="#" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
             <div class="lg:col-span-2 space-y-6">
@@ -30,7 +30,7 @@
 
             <div class="space-y-6">
                 <x-input.image-uploader name="image" />
-                <x-button.save text="Simpan Data" />
+                <x-button.save text="Perbarui Data" />
             </div>
 
         </div>
