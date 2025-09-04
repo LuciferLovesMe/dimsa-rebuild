@@ -38,9 +38,9 @@ class AlumniController extends Controller
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
+                        $item->id,
                         '#',
-                        '#',
-                        '#'
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
