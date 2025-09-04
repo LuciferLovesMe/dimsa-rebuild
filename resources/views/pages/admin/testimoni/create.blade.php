@@ -31,3 +31,90 @@
         </div>
     </form>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $("select[name=alumni_id]").select2({
+                minimumInputLength: 2,
+                tags: [],
+                ajax: {
+                    url: `{{ url('api/alumni') }}`,
+                    datatype: 'json',
+                    quietMillis: 50,
+                    data: (search) => {
+                        return {
+                            search: search,
+                        }
+                    }, 
+                    processResults: (data) => {
+                        return {
+                            results: $.map(data.data, (item) => {
+                                return {
+                                    text: item.nama_alumni,
+                                    id: item.id
+                                }
+                            })
+                        }
+                    }
+                }
+            })
+            
+            const formData = new FormData()
+            let formInput = $("form").find("input")
+            let formSelect = $("form").find("select")
+            let formTextArea = $("form").find("textarea")
+            let nullValue = []
+
+            function validateData (data) {
+                if ($(data).val() === '' || $(data).val() === null) {
+                    nullValue.push($(data).attr('name'))
+                }
+            }
+
+            function postData (data) {
+                try {
+                    $.ajax({
+                        url: "{{ url('admin/api/testimoni') }}",
+                        type: "POST",
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            $("#btnSimpan").on('click', function () {
+                $.each(formSelect, function (index, value) {
+                    validateData(value);
+                })
+                $.each(formTextArea, function (index, value) {
+                    validateData(value);
+                })
+                
+                if (nullValue.length > 0) {
+                    return false;
+                }
+
+                $.each(formInput, function (index, value) {
+                    formData.append($(value).attr('name'), ($(value).val()))
+                    
+                })
+                $.each(formSelect, function (index, value) {
+                    formData.append($(value).attr('name'), ($(value).val()))
+                    
+                })
+                $.each(formTextArea, function (index, value) {
+                    formData.append($(value).attr('name'), $(value).val())
+                })
+
+                postData(formData)
+            })
+        })
+    </script>
+@endpush

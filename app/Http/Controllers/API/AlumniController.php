@@ -18,7 +18,7 @@ class AlumniController extends Controller
     public function index(Request $request)
     {
         try {
-            $alumni = $this->alumniRepository->index($request->query('limit', null));
+            $alumni = $this->alumniRepository->index($request->query('limit', null), $request->query('search', null));
             $response = [
                 'message' => 'Alumni retrieved successfully',
                 'data' => $alumni

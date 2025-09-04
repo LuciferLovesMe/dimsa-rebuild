@@ -15,11 +15,14 @@ class AlumniRepository implements AlumniInterface
         $this->alumni = $alumni;
     }
 
-    public function index($limit = null)
+    public function index($limit = null, $search = null)
     {
         $alumni = $this->alumni->query();
         if ($limit) {
             $alumni = $alumni->limit($limit);
+        }
+        if ($search) {
+            $alumni = $alumni->where('nama_alumni', 'like', '%' . $search['term'] . '%');
         }
 
         return $alumni->orderBy('id', 'desc')->get();
