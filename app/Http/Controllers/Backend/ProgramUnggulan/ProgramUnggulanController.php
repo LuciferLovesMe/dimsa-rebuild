@@ -33,10 +33,11 @@ class ProgramUnggulanController extends Controller
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
+                    $edit = route('admin.program.edit');
                     $actionButton = new ActionButton(
-                        '#',
-                        '#',
-                        '#'
+                        $item->id,
+                        $edit,
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })

@@ -7,7 +7,7 @@
         breadcrumb3="Data Program">
 
         <div class="w-full flex flex-row justify-end mb-5">
-            <a href="#"
+            <a href="{{ route('admin.program.create') }}"
                 class="w-fit flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg text-sm shadow-md transition-all duration-200">
                 <i class="fa-regular fa-plus text-base"></i>
                 <span class="font-semibold">Tambah Data</span>
@@ -45,7 +45,8 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#program-datatable').DataTable({
+            // simpan ke variabel
+            var table = $('#program-datatable').DataTable({
                 processing: true,
                 serverSide: true,
                 dom: '<"md:flex md:justify-between items-center mb-4"lf>t<"md:flex md:justify-between items-center mt-4"ip>',
@@ -73,16 +74,6 @@
                         data: 'nama_program',
                         name: 'nama_program'
                     },
-                    // {
-                    //     data: 'deskripsi',
-                    //     name: 'deskripsi',
-                    //     render: function(data, type, row) {
-                    //         if (data && data.length > 60) {
-                    //             return data.substring(0, 60) + '...';
-                    //         }
-                    //         return data;
-                    //     }
-                    // },
                     {
                         data: 'status',
                         name: 'status',
@@ -96,6 +87,45 @@
                         searchable: false
                     }
                 ]
+            });
+
+            // delete
+            $('#program-datatable').on('click', '.delete-btn-table', function(event) {
+                event.preventDefault();
+                const id = $(this).data('id');
+                const deleteUrl = `/api/admin/program-unggulan/delete/${id}`;
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: deleteUrl,
+                            type: 'DELETE',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(response) {
+                                Swal.fire('Dihapus!', 'Data berhasil dihapus.',
+                                    'success');
+                                table.ajax.reload(null,
+                                    false);
+                            },
+                            error: function(xhr) {
+                                Swal.fire('Gagal!',
+                                    'Terjadi kesalahan saat menghapus data.',
+                                    'error');
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>
