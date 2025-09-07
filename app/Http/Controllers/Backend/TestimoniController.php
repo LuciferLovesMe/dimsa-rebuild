@@ -44,7 +44,7 @@ class TestimoniController extends Controller
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
                         $item->id,
-                        '#',
+                        url('/admin/testimoni/edit') . '?id=' . $item->id,
                         $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
