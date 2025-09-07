@@ -41,7 +41,7 @@ class QnaController extends Controller
                 ->addColumn('aksi', function ($qna) {
                     $actionButton = new ActionButton(
                         $qna->id,
-                        '#',
+                        url('/admin/qna/edit') . '?id=' . $qna->id,
                         $qna->id
                     );
                     return $actionButton->render()->with($actionButton->data());

@@ -29,7 +29,7 @@ Route::prefix('/admin/api')->group(function () {
         Route::get('/', [QnaController::class, 'index']);
         Route::get('/{id}', [QnaController::class, 'show']);
         Route::post('/', [QnaController::class, 'store']);
-        Route::post('/{id}/update', [QnaController::class, 'update']);
+        Route::put('/{id}/update', [QnaController::class, 'update']);
         Route::post('/{id}/destroy', [QnaController::class, 'destroy']);
     });
 

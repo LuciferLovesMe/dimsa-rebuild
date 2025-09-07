@@ -102,7 +102,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             url: deleteUrl,
-                            type: 'POST', // Menggunakan POST untuk destroy
+                            type: 'POST', 
                             data: {
                                 "_token": "{{ csrf_token() }}",
                             },
