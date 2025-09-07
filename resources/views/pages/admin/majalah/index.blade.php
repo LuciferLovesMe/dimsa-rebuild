@@ -153,12 +153,15 @@
                     success: function(response) {
                         const item = response.data;
                         if (item) {
+                            const imageUrl =
+                                `{{ asset('uploads/publikasi/majalah/') }}/${item.image}`;
+
                             const contentHtml = `
                                 <div class="text-left p-4 space-y-4">
-                                    <img src="${item.image}" alt="${item.judul}" class="w-full h-48 object-cover rounded-lg mx-auto mb-4 border shadow-md">
+                                    <img src="${imageUrl}" alt="${item.judul}" class="w-full h-48 object-cover rounded-lg mx-auto mb-4 border shadow-md">
                                     <div>
                                         <h2 class="text-2xl font-bold">${item.judul}</h2>
-                                        <p class="text-sm text-gray-500">Oleh: ${item.penulis} | Terbit: ${item.tanggal}</p>
+                                        <p class="text-sm text-gray-500">Oleh: ${item.penulis} | Terbit: ${item.tanggal_terbit}</p>
                                     </div>
                                     <div class="border-t pt-4">
                                         <p><strong class="w-24 inline-block">Status:</strong>

@@ -40,11 +40,13 @@ class MajalahController extends Controller
                 })
                 ->addColumn('image', function ($item) {
                     $filePath = asset('uploads/publikasi/majalah/' . $item->image);
-                    return '<img src="' . $filePath . '" alt="' . $item->judul . '">';
+                    return '<img src="' . $filePath . '" alt="' . $item->judul . '" class="h-20 w-auto object-contain rounded">';
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        $item->id, url('/admin/majalah/edit') . '?id=' . $item->id, $item->id
+                        $item->id,
+                        url('/admin/majalah/edit') . '?id=' . $item->id,
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
@@ -88,27 +90,33 @@ class MajalahController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'judul' => 'required|string|max:255',
+                'penulis' => 'required|string|max:100',
+                'tanggal_terbit' => 'required|date',
+                'url' => 'required|url',
+                'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+                'is_publish' => 'nullable|boolean',
+            ]);
+
             $this->publikasiRepository->createMajalah($request);
-            $response = [
+
+            return response()->json([
                 'status' => 'success',
-                'message' => 'Majalah created successfully.'
-            ];
-            $responseCode = Response::HTTP_CREATED;
+                'message' => 'Majalah berhasil dibuat.'
+            ], Response::HTTP_CREATED);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
-            $response = [
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Database query error: ' . $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return response()->json($response, $responseCode);
     }
 
     /**
