@@ -76,7 +76,7 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/majalah')->group(function () {
         Route::get('/', [MajalahController::class, 'index']);
         Route::get('/{id}', [MajalahController::class, 'show']);
-        Route::post('/', [MajalahController::class, 'store']);
+        Route::post('/create', [MajalahController::class, 'store']);
         Route::post('/{id}/update', [MajalahController::class, 'update']);
         Route::post('/{id}/destroy', [MajalahController::class, 'destroy']);
     });
