@@ -46,7 +46,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // Menyimpan instance DataTable ke dalam variabel
             const table = $("#alumni-datatable").DataTable({
                 processing: true,
                 serverSide: true,
@@ -143,10 +142,12 @@
                     success: function(response) {
                         const item = response.data;
                         if (item) {
+                            const imageUrl = `{{ asset('/uploads/alumni/') }}/${item.image}`;
+
                             const contentHtml = `
                                 <div class="text-left p-4 space-y-4">
                                     <div class="text-center">
-                                         <img src="${item.image}" alt="${item.nama_alumni}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-lg">
+                                         <img src="${imageUrl}" alt="${item.nama_alumni}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-lg">
                                         <h2 class="text-2xl font-bold">${item.nama_alumni}</h2>
                                         <p class="text-md text-gray-600">${item.pekerjaan}</p>
                                     </div>

@@ -36,8 +36,8 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/alumni')->group(function () {
         Route::get('/', [AlumniController::class, 'index']);
         Route::get('/{id}', [AlumniController::class, 'show']);
-        Route::post('/', [AlumniController::class, 'store']);
-        Route::post('/{id}/update', [AlumniController::class, 'update']);
+        Route::post('/create', [AlumniController::class, 'store']);
+        Route::put('/{id}/update', [AlumniController::class, 'update']);
         Route::post('/{id}/destroy', [AlumniController::class, 'destroy']);
     });
 
