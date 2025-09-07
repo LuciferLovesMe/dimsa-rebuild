@@ -137,7 +137,7 @@
             // --- FUNGSI UNTUK MENAMPILKAN POP-UP DETAIL ---
             $('#testimoni-datatable').on('click', '.detail-btn-modal', function() {
                 const id = $(this).data('id');
-                const detailUrl = `/admin/api/testimoni/${id}`; // Ganti dengan URL detail Anda
+                const detailUrl = `/admin/api/testimoni/${id}`;
 
                 Swal.fire({
                     title: 'Memuat data...',
@@ -151,12 +151,15 @@
                     url: detailUrl,
                     method: 'GET',
                     success: function(response) {
-                        const item = response.data; // Asumsi data berada di response.data
+                        const item = response.data;
                         if (item) {
+                            const imageUrl =
+                                `{{ asset('/uploads/alumni/') }}/${item.alumni.image}`;
+
                             const contentHtml = `
                                 <div class="text-left p-4 space-y-4">
                                     <div class="flex items-center gap-4">
-                                        <img src="${item.alumni.image}" alt="${item.alumni.nama_alumni}" class="w-20 h-20 rounded-full object-cover border shadow-sm">
+                                        <img src="${imageUrl}" alt="${item.alumni.nama_alumni}" class="w-20 h-20 rounded-full object-cover border shadow-sm">
                                         <div>
                                             <h2 class="text-xl font-bold">${item.alumni.nama_alumni}</h2>
                                             <p class="text-sm text-gray-600">Lulus Tahun ${item.alumni.tahun_lulus}</p>

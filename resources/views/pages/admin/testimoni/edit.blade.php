@@ -54,8 +54,7 @@
 @push('scripts')
 
     <script>
-        $(document).ready(function() {
-            // --- Logika untuk mengambil ID dari URL (hanya dari query parameter) ---
+        $(document).ready(function() {            
             function getIdFromUrl() {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('id');
