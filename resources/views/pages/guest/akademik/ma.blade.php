@@ -64,7 +64,8 @@
 @section('stepper')
     <hr class="my-10 border-t-2 border-gray-200">
     <div class="flex flex-row justify-between md:flex-row lg:justify-between">
-        <div class="flex flex-col cursor-pointer md:w-1/2 lg:w-auto lg:mr-10" onclick="location.href='{{ route('smp') }}'">
+        <div class="flex flex-col cursor-pointer md:w-1/2 lg:w-auto lg:mr-10"
+            onclick="location.href='{{ route('guest.smp') }}'">
             <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800"><i
                     class="fa-solid fa-arrow-left mr-2"></i>Sebelumnya</p>
             <h1 class="font-bold text-sm md:text-base lg:text-lg">SMP Darul Ihsan Muhammadiyah</h1>

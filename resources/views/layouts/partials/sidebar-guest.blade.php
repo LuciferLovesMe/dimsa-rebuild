@@ -41,34 +41,34 @@
 
     {{-- Menu Navigasi Sidebar --}}
     <nav class="space-y-2">
-        <a href="{{ route('selayang-pandang') }}"
+        <a href="{{ route('guest.selayang-pandang') }}"
             class="block px-4 py-2 text-sm font-medium rounded-lg
-                {{ request()->routeIs('selayang-pandang') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                {{ request()->routeIs('guest.selayang-pandang') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
             Selayang Pandang
         </a>
-        <a href="{{ route('sejarah-pondok') }}"
+        <a href="{{ route('guest.sejarah-pondok') }}"
             class="block px-4 py-2 text-sm font-medium rounded-lg
-                {{ request()->routeIs('sejarah-pondok') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                {{ request()->routeIs('guest.sejarah-pondok') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
             Sejarah Pondok
         </a>
-        <a href="{{ route('visi-misi') }}"
+        <a href="{{ route('guest.visi-misi') }}"
             class="block px-4 py-2 text-sm font-medium rounded-lg
-                {{ request()->routeIs('visi-misi') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                {{ request()->routeIs('guest.visi-misi') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
             Visi & Misi
         </a>
-        <a href="{{ route('struktur-organisasi') }}"
+        <a href="{{ route('guest.struktur-organisasi') }}"
             class="block px-4 py-2 text-sm font-medium rounded-lg
-                {{ request()->routeIs('struktur-organisasi') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                {{ request()->routeIs('guest.struktur-organisasi') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
             Struktur Organisasi
         </a>
-        <a href="{{ route('akreditasi') }}"
+        <a href="{{ route('guest.akreditasi') }}"
             class="block px-4 py-2 text-sm font-medium rounded-lg
-                {{ request()->routeIs('akreditasi') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                {{ request()->routeIs('guest.akreditasi') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
             Akreditasi
         </a>
-        <a href="{{ route('logo') }}"
+        <a href="{{ route('guest.logo') }}"
             class="block px-4 py-2 text-sm font-medium rounded-lg
-                {{ request()->routeIs('logo') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                {{ request()->routeIs('guest.logo') ? 'text-blue-600 bg-blue-50 font-bold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
             Logo & Brand
         </a>
     </nav>

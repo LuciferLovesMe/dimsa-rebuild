@@ -162,7 +162,7 @@
         </div>
         <hr class="my-10 border-t-2 border-gray-200">
         <div class="max-w-7xl mx-auto flex flex-row justify-between">
-            <div class="flex flex-col cursor-pointer" onclick="location.href='{{ route('alumni') }}'">
+            <div class="flex flex-col cursor-pointer" onclick="location.href='{{ route('guest.alumni') }}'">
                 <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800"><i
                         class="fa-solid fa-arrow-left mr-2"></i>Sebelumnya</p>
                 <h1 class="text-lg md:text-xl font-bold">Alumni</h1>

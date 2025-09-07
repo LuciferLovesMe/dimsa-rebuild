@@ -56,7 +56,7 @@
     <div class="p-4 sm:p-8 lg:p-20 bg-gray-50">
         <div class="max-w-4xl mx-auto" x-data="{
             allItems: [],
-            fetchItems () {
+            fetchItems() {
                 fetch(`{{ url('api/pengumuman') }}`)
                     .then(response => response.json())
                     .then(data => {
@@ -87,7 +87,8 @@
                         <div class="p-6">
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                                 <h3 class="text-lg sm:text-xl font-bold text-gray-900" x-text="item.judul"></h3>
-                                <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0" x-text="`${getIndonesianDate(item.tanggal)}`"></p>
+                                <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0"
+                                    x-text="`${getIndonesianDate(item.tanggal)}`"></p>
                             </div>
                             <p class="text-gray-600 mt-4 text-sm leading-relaxed" x-text="item.content"></p>
                         </div>
@@ -128,12 +129,12 @@
         </div>
         <hr class="my-10 border-t-2 border-gray-200">
         <div class="max-w-7xl mx-auto flex flex-row justify-between">
-            <div class="flex flex-col cursor-pointer" onclick="location.href='{{ route('galeri') }}'">
+            <div class="flex flex-col cursor-pointer" onclick="location.href='{{ route('guest.galeri') }}'">
                 <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800"><i
                         class="fa-solid fa-arrow-left mr-2"></i>Sebelumnya</p>
                 <h1 class="text-lg md:text-xl font-bold">Galeri</h1>
             </div>
-            <div class="flex flex-col items-end cursor-pointer" onclick="location.href='{{ route('qna') }}'">
+            <div class="flex flex-col items-end cursor-pointer" onclick="location.href='{{ route('guest.qna') }}'">
                 <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800">Berikutnya<i
                         class="fa-solid fa-arrow-right ml-2"></i></p>
                 <h1 class="text-lg md:text-xl font-bold">QnA</h1>
@@ -144,11 +145,11 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             function fetchItems() {
                 $.ajax({
                     url: "{{ url('api/pengumuman') }}",
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response);
                         return response.data;
                     }

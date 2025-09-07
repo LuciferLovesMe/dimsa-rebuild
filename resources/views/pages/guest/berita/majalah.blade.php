@@ -58,7 +58,7 @@
     <div class="p-4 sm:p-8 lg:p-20 bg-gray-50">
         <div class="max-w-7xl mx-auto" x-data="{
             allItems: [],
-            fetchItems () {
+            fetchItems() {
                 fetch(`{{ url('api/majalah') }}`)
                     .then(response => response.json())
                     .then(data => {
@@ -89,7 +89,8 @@
                     <div class="group flex flex-col">
                         <div
                             class="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-2xl">
-                            <img :src="'{{ asset('uploads/publikasi/majalah') }}/' + item.image" :alt="item.judul" class="w-full h-full object-cover">
+                            <img :src="'{{ asset('uploads/publikasi/majalah') }}/' + item.image" :alt="item.judul"
+                                class="w-full h-full object-cover">
                             <div
                                 class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <a :href="item.url" download
@@ -101,7 +102,8 @@
                         </div>
                         <div class="mt-4 text-center">
                             <h3 class="font-bold text-gray-800" x-text="item.judul"></h3>
-                            <p class="text-sm text-gray-500" x-text="`${(new Date(item.tanggal_terbit)).toLocaleDateString()}`"></p>
+                            <p class="text-sm text-gray-500"
+                                x-text="`${(new Date(item.tanggal_terbit)).toLocaleDateString()}`"></p>
                         </div>
                     </div>
                 </template>
@@ -135,12 +137,12 @@
         </div>
         <hr class="my-10 border-t-2 border-gray-200">
         <div class="max-w-7xl mx-auto flex flex-row justify-between">
-            <div class="flex flex-col cursor-pointer" onclick="location.href='{{ route('karya-ilmiah') }}'">
+            <div class="flex flex-col cursor-pointer" onclick="location.href='{{ route('guest.karya-ilmiah') }}'">
                 <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800"><i
                         class="fa-solid fa-arrow-left mr-2"></i>Sebelumnya</p>
                 <h1 class="text-lg md:text-xl font-bold">Karya Ilmiah</h1>
             </div>
-            <div class="flex flex-col items-end cursor-pointer" onclick="location.href='{{ route('galeri') }}'">
+            <div class="flex flex-col items-end cursor-pointer" onclick="location.href='{{ route('guest.galeri') }}'">
                 <p class="text-xs md:text-sm text-gray-600 hover:text-gray-800">Berikutnya<i
                         class="fa-solid fa-arrow-right ml-2"></i>
                 </p>
