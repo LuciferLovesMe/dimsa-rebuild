@@ -17,6 +17,8 @@
                     required>
                     <option value="">Cari nama alumni...</option>
                 </select>
+                {{-- Container untuk pesan error dari AJAX --}}
+                <p id="error-alumni_id" class="mt-1 text-xs text-red-600"></p>
             </div>
 
             <x-input.textarea name="testimoni" label="Testimoni" placeholder="Tuliskan testimoni dari alumni"
@@ -25,7 +27,7 @@
             <x-input.publish-checkbox name="is_publish" />
 
             <div class="pt-6 border-t">
-                {{-- Mengganti komponen dengan tombol submit standar --}}
+                {{-- Menggunakan tombol submit standar agar event form terpicu --}}
                 <button type="submit"
                     class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-5 rounded-lg text-sm shadow-md transition-all duration-200">
                     <span class="font-semibold">Simpan Data</span>
@@ -37,6 +39,8 @@
 @endsection
 
 @push('styles')
+    {{-- Menambahkan style untuk Select2 agar tampilannya konsisten --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .select2-container .select2-selection--single {
             height: 42px !important;
@@ -51,13 +55,16 @@
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             height: 40px !important;
         }
+
+        .select2-container--default.select2-container--open .select2-selection--single {
+            border-color: #4f46e5 !important;
+        }
     </style>
 @endpush
 
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // --- INISIALISASI SELECT2 ---
             $('#alumni_id').select2({
                 placeholder: 'Cari dan pilih alumni',
                 minimumInputLength: 2,
@@ -66,7 +73,6 @@
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
-                        // Memproses data dari API agar sesuai format Select2
                         return {
                             results: $.map(data.data, function(item) {
                                 return {
@@ -80,12 +86,17 @@
                 }
             });
 
-            // --- FUNGSI SIMPAN DATA ---
             $('#main-form').on('submit', function(event) {
                 event.preventDefault();
 
-                const apiUrl = "{{ url('admin/api/testimoni') }}";
+                const apiUrl = "{{ url('admin/api/testimoni/create') }}";
                 const formData = new FormData(this);
+
+                function clearValidationErrors() {
+                    $('#main-form').find('select, textarea').removeClass('border-red-500');
+                    $('#main-form').find('p[id^="error-"]').text('');
+                    $('#main-form').find('.select2-selection').removeClass('border-red-500');
+                }
 
                 Swal.fire({
                     title: 'Menyimpan data...',
@@ -106,32 +117,46 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        // Menampilkan modal sukses
                         Swal.fire({
                             title: 'Berhasil!',
                             text: response.message ||
                                 'Data testimoni berhasil disimpan.',
                             icon: 'success',
                         }).then(() => {
-                            // Mengarahkan kembali ke halaman index setelah modal ditutup
                             window.location.href =
                                 "{{ route('admin.testimoni.index') }}";
                         });
                     },
                     error: function(xhr) {
                         Swal.close();
-                        const errors = xhr.responseJSON.errors;
-                        let errorMessages = '';
-                        if (errors) {
+                        clearValidationErrors();
+
+                        if (xhr.status === 422) {
+                            const errors = xhr.responseJSON.errors;
                             for (const key in errors) {
-                                errorMessages += `<p>${errors[key][0]}</p>`;
+                                const inputField = $(`[name="${key}"]`);
+                                const errorContainer = $(`#error-${key}`);
+
+                                // Menambahkan border merah pada input/textarea/select
+                                inputField.addClass('border-red-500');
+                                // Khusus untuk Select2, target elemen yang terlihat
+                                if (key === 'alumni_id') {
+                                    inputField.next('.select2-container').find(
+                                        '.select2-selection').addClass('border-red-500');
+                                }
+
+                                if (errorContainer.length) {
+                                    errorContainer.text(errors[key][0]);
+                                }
                             }
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                xhr.responseJSON.message ||
+                                'Terjadi kesalahan saat menyimpan data.',
+                                'error'
+                            );
                         }
-                        Swal.fire(
-                            'Gagal!',
-                            errorMessages || 'Terjadi kesalahan saat menyimpan data.',
-                            'error'
-                        );
                     }
                 });
             });

@@ -52,7 +52,7 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/testimoni')->group(function () {
         Route::get('/', [TestimoniController::class, 'index']);
         Route::get('/{id}', [TestimoniController::class, 'show']);
-        Route::post('/', [TestimoniController::class, 'store']);
+        Route::post('/create', [TestimoniController::class, 'store']);
         Route::put('/{id}/update', [TestimoniController::class, 'update']);
         Route::post('/{id}/destroy', [TestimoniController::class, 'destroy']);
     });
@@ -68,7 +68,7 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/agenda')->group(function () {
         Route::get('/', [AgendaController::class, 'index']);
         Route::get('/{id}', [AgendaController::class, 'show']);
-        Route::post('/', [AgendaController::class, 'store']);
+        Route::post('/create', [AgendaController::class, 'store']);
         Route::post('/{id}/update', [AgendaController::class, 'update']);
         Route::post('/{id}/destroy', [AgendaController::class, 'destroy']);
     });

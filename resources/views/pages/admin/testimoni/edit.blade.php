@@ -4,26 +4,25 @@
 @section('pageTitle', 'Edit Testimoni')
 
 @section('formContent')
-    {{-- PERBAIKAN: Menambahkan 'novalidate' untuk mencegah validasi browser --}}
+
     <form id="main-form" action="#" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
-        @method('PUT') {{-- Menandakan bahwa ini adalah form update --}}
-        <div class="max-w-lg mx-auto space-y-6">
+        @method('PUT')
+        <div class="w-full space-y-6">
 
-            {{-- 1. Combobox untuk memilih alumni --}}
+
             <div>
                 <label for="alumni_id" class="block text-sm font-medium text-gray-700">Pilih Alumni <span
                         class="text-red-600">*</span></label>
                 <select id="alumni_id" name="alumni_id" class="mt-1 block w-full" required>
-                    {{-- Opsi yang dipilih akan diisi oleh JavaScript --}}
+
                 </select>
             </div>
 
-            {{-- 2. Textarea untuk testimoni --}}
             <x-input.textarea name="testimoni" label="Testimoni" placeholder="Tuliskan testimoni dari alumni"
                 :required="true" :rows="8" />
 
-            {{-- 3. Checkbox Publish dan Tombol Simpan --}}
+
             <x-input.publish-checkbox name="is_publish" />
             <div class="pt-6 border-t">
                 <x-button.save text="Perbarui Data" />
@@ -52,9 +51,10 @@
 @endpush
 
 @push('scripts')
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        $(document).ready(function() {            
+        $(document).ready(function() {
+            // --- Logika untuk mengambil ID dari URL ---
             function getIdFromUrl() {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('id');
@@ -120,17 +120,14 @@
             $('#main-form').on('submit', function(event) {
                 event.preventDefault();
 
-                const alumniId = $('#alumni_id').val();
-                const testimoni = $('textarea[name="testimoni"]').val();
-
-                if (!alumniId || !testimoni) {
-                    Swal.fire('Data Tidak Lengkap', 'Mohon pilih alumni dan isi testimoni terlebih dahulu.',
-                        'warning');
-                    return;
-                }
-
                 const apiUrl = `/admin/api/testimoni/${id}/update`;
                 const formData = new FormData(this);
+
+                function clearValidationErrors() {
+                    $('#main-form').find('select, textarea').removeClass('border-red-500');
+                    $('#main-form').find('p[id^="error-"]').text('');
+                    $('#main-form').find('.select2-selection').removeClass('border-red-500');
+                }
 
                 Swal.fire({
                     title: 'Memperbarui data...',
@@ -163,15 +160,28 @@
                     },
                     error: function(xhr) {
                         Swal.close();
-                        const errors = xhr.responseJSON.errors;
-                        let errorMessages = '';
-                        if (errors) {
+                        clearValidationErrors();
+
+                        if (xhr.status === 422) {
+                            const errors = xhr.responseJSON.errors;
                             for (const key in errors) {
-                                errorMessages += `<p>${errors[key][0]}</p>`;
+                                const inputField = $(`[name="${key}"]`);
+                                const errorContainer = $(`#error-${key}`);
+
+                                inputField.addClass('border-red-500');
+                                if (key === 'alumni_id') {
+                                    inputField.next('.select2-container').find(
+                                        '.select2-selection').addClass('border-red-500');
+                                }
+
+                                if (errorContainer.length) {
+                                    errorContainer.text(errors[key][0]);
+                                }
                             }
+                        } else {
+                            Swal.fire('Gagal!', xhr.responseJSON.message ||
+                                'Terjadi kesalahan saat memperbarui data.', 'error');
                         }
-                        Swal.fire('Gagal!', errorMessages ||
-                            'Terjadi kesalahan saat memperbarui data.', 'error');
                     }
                 });
             });

@@ -84,27 +84,28 @@ class TestimoniController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->testimoniRepository->create($request->all());
-            $response = [
-                'status' => 'success',
-                'message' => 'Testimony created successfully.'
-            ];
-            $responseCode = Response::HTTP_CREATED;
-        } catch (\Exception $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Failed to create testimony. ' . $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Failed to create testimony. ' . $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_BAD_REQUEST;
-        }
+            $validatedData = $request->validate([
+                'alumni_id' => 'required|exists:alumnis,id',
+                'testimoni' => 'required|string',
+                'is_publish' => 'required|boolean',
+            ]);
 
-        return response()->json($response, $responseCode);
+            $testimoni = $this->testimoniRepository->create($validatedData);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Testimoni berhasil dibuat.',
+                'data' => $testimoni
+            ], Response::HTTP_CREATED);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); // Kode 422
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal membuat testimoni. ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -151,27 +152,29 @@ class TestimoniController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $this->testimoniRepository->update($id, $request->all());
-            $response = [
-                'status' => 'success',
-                'message' => 'Testimony updated successfully.'
-            ];
-            $responseCode = Response::HTTP_OK;
-        } catch (\Exception $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Failed to update testimony. ' . $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Failed to update testimony. ' . $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_BAD_REQUEST;
-        }
+            // Menambahkan validasi untuk data yang masuk
+            $validatedData = $request->validate([
+                'alumni_id' => 'required|exists:alumnis,id',
+                'testimoni' => 'required|string',
+                'is_publish' => 'required|boolean',
+            ]);
 
-        return response()->json($response, $responseCode);
+            $testimoni = $this->testimoniRepository->update($id, $validatedData);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Testimoni berhasil diperbarui.',
+                'data' => $testimoni
+            ], Response::HTTP_OK);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal memperbarui testimoni. ' . $e->getMessage()], 500);
+        }
     }
 
     /**
