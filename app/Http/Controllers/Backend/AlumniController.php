@@ -68,17 +68,29 @@ class AlumniController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+                'nama_alumni' => 'required|string|max:255',
+                'tahun_lulus' => 'required|numeric',
+                'pekerjaan' => 'required|string|max:255',
+                'lembaga' => 'required|in:0,1',
+                'is_publish' => 'required|boolean',
+            ]);
+
             $alumni = $this->alumniRepository->store($request);
-            $response = [
-                'message' => 'Alumni created successfully',
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Alumni berhasil dibuat',
                 'data' => $alumni
-            ];
-            // Return a JSON response with the created alumni data
-            return response()->json($response, 201);
+            ], Response::HTTP_CREATED);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to create alumni. ' . $e->getMessage()], 500);
-        } catch (QueryException $e) {
-            return response()->json(['error' => 'Database query error. ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Gagal membuat alumni. ' . $e->getMessage()], 500);
         }
     }
 
@@ -118,12 +130,25 @@ class AlumniController extends Controller
     public function update(Request $request, string $id)
     {
         try {
+            $request->validate([
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+                'nama_alumni' => 'required|string|max:255',
+                'tahun_lulus' => 'required|numeric',
+                'pekerjaan' => 'required|string|max:255',
+                'lembaga' => 'required|in:0,1',
+                'is_publish' => 'required|boolean',
+            ]);
+
             $alumni = $this->alumniRepository->update($id, $request);
-            return response()->json(['message' => 'Alumni updated successfully', 'data' => $alumni], 200);
+            return response()->json(['message' => 'Alumni berhasil diperbarui', 'data' => $alumni], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to update alumni. ' . $e->getMessage()], 500);
-        } catch (QueryException $e) {
-            return response()->json(['error' => 'Database query error. ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Gagal memperbarui alumni. ' . $e->getMessage()], 500);
         }
     }
 

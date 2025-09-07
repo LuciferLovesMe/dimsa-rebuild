@@ -13,7 +13,10 @@
             $tahunLulusOptions[] = ['value' => $year, 'text' => $year];
         }
 
-        $lembagaOptions = [['value' => '0', 'text' => 'SMP Darun Ihsan'], ['value' => '1', 'text' => 'MA Darun Ihsan']];
+        $lembagaOptions = [
+            ['value' => '0', 'text' => 'SMP Darun Ihsan'],
+            ['value' => '1', 'text' => 'SMA Darun Ihsan'],
+        ];
     @endphp
 
     <form id="main-form" action="#" method="POST" enctype="multipart/form-data">
@@ -55,6 +58,7 @@
 
                 function clearValidationErrors() {
                     $('#main-form').find('input, select').removeClass('border-red-500');
+                    $('#main-form').find('.rounded-lg.border').removeClass('border-red-500');
                     $('#main-form').find('p[id^="error-"]').text('');
                 }
 
@@ -94,7 +98,11 @@
                             for (const key in errors) {
                                 const inputField = $(`[name="${key}"]`);
                                 const errorContainer = $(`#error-${key}`);
+
                                 inputField.addClass('border-red-500');
+                                inputField.closest('div.rounded-lg.border').addClass(
+                                    'border-red-500');
+
                                 if (errorContainer.length) {
                                     errorContainer.text(errors[key][0]);
                                 }
