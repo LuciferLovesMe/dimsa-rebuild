@@ -1,9 +1,7 @@
 @props([
     'name' => 'image',
     'src' => null,
-    'id' => ''
 ])
-
 
 <div x-data="{
     photoPreview: '{{ $src }}' || null,
@@ -13,14 +11,15 @@
             this.photoPreview = URL.createObjectURL(file);
         }
     }
-}" class="rounded-lg border border-gray-300 p-6 text-center h-fit">
+}" @update-preview.window="photoPreview = $event.detail.src" {{-- PERBAIKAN: Menambahkan event listener --}}
+    class="rounded-lg border border-gray-300 p-6 text-center h-fit">
 
     <input id="file-upload-{{ $name }}" name="{{ $name }}" type="file" class="sr-only"
-        @change="handlePhotoChange($event)" accept="image/png, image/jpeg">
+        @change="handlePhotoChange($event)" accept="image/png, image/jpeg, image/jpg">
 
     <template x-if="photoPreview">
         <div class="space-y-4">
-            <img :src="photoPreview" id="{{ $id }}" alt="Pratinjau Gambar"
+            <img :src="photoPreview" alt="Pratinjau Gambar"
                 class="mx-auto h-32 max-h-32 w-auto object-contain rounded">
             <label for="file-upload-{{ $name }}"
                 class="cursor-pointer font-semibold text-blue-600 hover:text-blue-700 text-sm">
@@ -41,8 +40,9 @@
             </p>
             <p class="mt-2 text-xs text-gray-500">
                 Ukuran 1920x1080px<br>
-                diperlukan dalam format PNG atau JPG saja.
+                diperlukan dalam format PNG, JPG, JPEG.
             </p>
         </div>
     </template>
+    <p id="error-{{ $name }}" class="mt-1 text-xs text-red-600"></p>
 </div>
