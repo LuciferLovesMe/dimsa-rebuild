@@ -24,7 +24,7 @@ class KaryaIlmiahRequest extends FormRequest
         return [
             "judul" => ['required', 'string', 'max:255'],
             "penulis" => ['required', 'string', 'max:255'],
-            "tanggal" => ['nullable', 'date'],
+            "tanggal_terbit" => ['nullable', 'date'],
             "url" => ['required', 'url'],
             "image" => ['required', 'image', 'mimes:png,jpg,jpeg',],
             "is_publish" => ['nullable', 'boolean']

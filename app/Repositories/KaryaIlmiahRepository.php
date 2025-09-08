@@ -24,9 +24,9 @@ class KaryaIlmiahRepository implements KaryaIlmiahInterface
             return Publikasi::create([
                 'judul'      => $data['judul'],
                 'penulis'    => $data['penulis'],
-                'tanggal'    => $data['tanggal'],
+                'tanggal_terbit'    => $data['tanggal_terbit'],
                 'url'        => $data['url'],
-                'image'      => $relative_path ? '/storage/' . $relative_path : null,
+                'image'      => $relative_path ? $relative_path : null,
                 'type'       => 'karya ilmiah',
                 'is_publish' => $data['is_publish'] ?? 0,
             ]);
@@ -49,7 +49,7 @@ class KaryaIlmiahRepository implements KaryaIlmiahInterface
             $karyaIlmiah->update([
                 'judul'      => $data['judul'],
                 'penulis'    => $data['penulis'],
-                'tanggal'    => $data['tanggal'],
+                'tanggal_terbit'    => $data['tanggal'],
                 'url'        => $data['url'],
                 'is_publish' => $data['is_publish'] ?? 0,
             ]);
