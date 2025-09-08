@@ -17,45 +17,38 @@ class PengumumanController extends Controller
     {
         $this->pengumumanRepository = $pengumumanRepository;
     }
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         try {
-            $data = $this->pengumumanRepository->index($request->all());
+            $pengumuman = $this->pengumumanRepository->index();
             $datatable = datatables()
-                ->of($data)
-                ->addColumn('judul', function ($item){
-                    return $item->judul;
-                })
-                ->addColumn('tanggal', function ($item) {
-                    return $item->tanggal ? date('d-m-Y', strtotime($item->tanggal)) : '-';
-                })
+                ->of($pengumuman)
+                ->addIndexColumn()
+                ->addColumn('judul', fn($item) => $item->judul)
+                ->addColumn('tanggal', fn($item) => $item->tanggal ? date('d M Y', strtotime($item->tanggal)) : '-')
                 ->addColumn('status', function ($item) {
                     $statusBadge = new StatusPublish($item->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        $item->id,
+                        // Menggunakan nama rute yang benar untuk edit
+                        route('admin.pengumuman.edit', ['id' => $item->id]),
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
-                ->addIndexColumn()
+                ->rawColumns(['status', 'aksi'])
                 ->make(true);
-                return $datatable;
+
+            return $datatable;
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to retrieve pengumuman: ' . $e->getMessage(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        } catch (QueryException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Database error: ' . $e->getMessage(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['error' => 'Gagal mengambil data pengumuman. ' . $e->getMessage()], 500);
         }
     }
 
@@ -73,54 +66,47 @@ class PengumumanController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->pengumumanRepository->store($request->all());
+            $validatedData = $request->validate([
+                'judul' => 'required|string|max:255',
+                'deskripsi' => 'required|string',
+                'tanggal' => 'required|date',
+                'url' => 'nullable|url',
+                'is_publish' => 'required|boolean',
+            ]);
+
+            $pengumuman = $this->pengumumanRepository->store($validatedData);
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengumuman created successfully',
-            ], 201);
+                'message' => 'Pengumuman berhasil dibuat.',
+                'data' => $pengumuman
+            ], Response::HTTP_CREATED);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to create pengumuman: ' . $e->getMessage(),
-            ], 500);
-        } catch (QueryException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
+            return response()->json(['error' => 'Gagal membuat pengumuman. ' . $e->getMessage()], 500);
         }
-        return response()->json([
-            'status' => 'error',
-            'message' => 'An unexpected error occurred',
-        ], 500);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, string $id)
+    public function show(string $id)
     {
-        if (!$request->ajax()) {
-            return view('backend.pengumuman.show', ['id' => $id]);
-        }
-
         try {
-            $data = $this->pengumumanRepository->show($id);
+            $pengumuman = $this->pengumumanRepository->show($id);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengumuman retrieved successfully',
-                'data' => $data,
-            ], 200);
+                'data' => $pengumuman
+            ], Response::HTTP_OK);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'Data pengumuman tidak ditemukan.'], 404);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to retrieve pengumuman: ' . $e->getMessage(),
-            ], 500);
-        } catch (QueryException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
+            return response()->json(['error' => 'Gagal mengambil data pengumuman. ' . $e->getMessage()], 500);
         }
     }
 
@@ -138,26 +124,31 @@ class PengumumanController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $this->pengumumanRepository->update($id, $request->all());
+            // Menambahkan validasi untuk update
+            $validatedData = $request->validate([
+                'judul' => 'required|string|max:255',
+                'deskripsi' => 'required|string',
+                'tanggal' => 'required|date',
+                'url' => 'nullable|url',
+                'is_publish' => 'required|boolean',
+            ]);
+
+            $pengumuman = $this->pengumumanRepository->update($validatedData, $id);
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengumuman updated successfully',
-            ], 200);
+                'message' => 'Pengumuman berhasil diperbarui.',
+                'data' => $pengumuman
+            ], Response::HTTP_OK);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to update pengumuman: ' . $e->getMessage(),
-            ], 500);
-        } catch (QueryException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
+            return response()->json(['error' => 'Gagal memperbarui pengumuman. ' . $e->getMessage()], 500);
         }
-        return response()->json([
-            'status' => 'error',
-            'message' => 'An unexpected error occurred',
-        ], 500);
     }
 
     /**
@@ -169,22 +160,10 @@ class PengumumanController extends Controller
             $this->pengumumanRepository->destroy($id);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pengumuman deleted successfully',
-            ], 200);
+                'message' => 'Pengumuman berhasil dihapus.'
+            ], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to delete pengumuman: ' . $e->getMessage(),
-            ], 500);
-        } catch (QueryException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Database error: ' . $e->getMessage(),
-            ], 500);
+            return response()->json(['error' => 'Gagal menghapus pengumuman. ' . $e->getMessage()], 500);
         }
-        return response()->json([
-            'status' => 'error',
-            'message' => 'An unexpected error occurred',
-        ], 500);
     }
 }

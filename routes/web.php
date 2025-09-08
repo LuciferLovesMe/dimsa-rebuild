@@ -20,8 +20,8 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/pengumuman')->group(function () {
         Route::get('/', [PengumumanController::class, 'index']);
         Route::get('/{id}', [PengumumanController::class, 'show']);
-        Route::post('/', [PengumumanController::class, 'store']);
-        Route::post('/{id}/update', [PengumumanController::class, 'update']);
+        Route::post('/create', [PengumumanController::class, 'store']);
+        Route::put('/{id}/update', [PengumumanController::class, 'update']);
         Route::post('/{id}/destroy', [PengumumanController::class, 'destroy']);
     });
 
