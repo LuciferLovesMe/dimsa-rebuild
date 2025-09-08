@@ -39,7 +39,7 @@ class LowonganKerjaController extends Controller
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        $item->id, url('admin/lowongan-kerja/edit?id=' . $item->id), $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })

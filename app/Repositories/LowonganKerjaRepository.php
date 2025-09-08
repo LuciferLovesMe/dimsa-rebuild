@@ -49,14 +49,12 @@ class LowonganKerjaRepository implements LowonganKerjaInterface
         
         $file =  $data->file('file');
         
-        $path = public_path() . '/uploads/lowongan_kerja/';
+        $path = public_path() . '/uploads/lowongan-kerja/';
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
 
-        $fileType = $file->getClientOriginalExtension();
-        $fileName = time() . '.' . $fileType;
-        $lowonganKerja->file = $fileName;
+        $lowonganKerja->file = storeImage($file, '/uploads/lowongan-kerja/');
         $lowonganKerja->save();
 
         foreach ($data->deskripsi_kualifikasi as $key => $item) {
@@ -85,14 +83,12 @@ class LowonganKerjaRepository implements LowonganKerjaInterface
         
         if ($data->hasFile('file')) {   
             $file =  $data->file('file');
-            $path = public_path() . '/uploads/lowongan_kerja/';
+            $path = public_path() . '/uploads/lowongan-kerja/';
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
         
-            $fileType = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $fileType;
-            $lowonganKerja->file = $fileName;
+            $lowonganKerja->file = storeImage($file, '/uploads/lowongan-kerja/');
         }
         $lowonganKerja->save();
 
