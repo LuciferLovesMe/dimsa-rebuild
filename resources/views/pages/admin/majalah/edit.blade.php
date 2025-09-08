@@ -67,7 +67,7 @@
                             $('input[name="is_publish"]').prop('checked', data.is_publish == 1);
 
                             const imageUrl = `{{ asset('uploads/publikasi/majalah') }}/${data.image}`;
-                            // Kirim event yang akan ditangkap oleh komponen Alpine.js
+                            
                             window.dispatchEvent(new CustomEvent('update-preview', {
                                 detail: {
                                     src: imageUrl
