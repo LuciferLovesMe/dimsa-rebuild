@@ -8,7 +8,23 @@
     </div>
 
     <!-- Navigation Links -->
-    <nav class="flex-grow space-y-3 overflow-y-auto px-8 scrollbar-hide">
+    <nav x-data="{
+        scrollPos: 0,
+        saveScroll() {
+            localStorage.setItem('adminSidebarScrollPos', this.scrollPos);
+        },
+        restoreScroll() {
+            const pos = localStorage.getItem('adminSidebarScrollPos');
+            if (pos) {
+                this.scrollPos = parseInt(pos);
+                this.$el.scrollTop = this.scrollPos;
+            }
+        }
+    }" x-init="restoreScroll();
+    $el.addEventListener('scroll', () => {
+        scrollPos = $el.scrollTop;
+        saveScroll();
+    });" class="flex-grow space-y-3 overflow-y-auto px-8 scrollbar-hide">
         {{-- Tautan tunggal --}}
         <a href="{{ route('admin.dashboard') }}"
             class="sidebar-subitem
