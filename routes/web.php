@@ -60,8 +60,8 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/ekstrakulikuler')->group(function () {
         Route::get('/', [EkstrakulikulerController::class, 'index']);
         Route::get('/{id}', [EkstrakulikulerController::class, 'show']);
-        Route::post('/', [EkstrakulikulerController::class, 'store']);
-        Route::post('/{id}/update', [EkstrakulikulerController::class, 'update']);
+        Route::post('/create', [EkstrakulikulerController::class, 'store']);
+        Route::put('/{id}/update', [EkstrakulikulerController::class, 'update']);
         Route::post('/{id}/destroy', [EkstrakulikulerController::class, 'destroy']);
     });
 

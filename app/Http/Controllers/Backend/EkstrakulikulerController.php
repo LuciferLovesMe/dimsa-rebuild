@@ -29,8 +29,8 @@ class EkstrakulikulerController extends Controller
             $datatable = datatables()
                 ->of($ekstrakulikuler)
                 ->addColumn('thumbnail', function ($item) {
-                    $filePath = public_path('uploads/ekstrakulikuler/' . $item->image);
-                    return '<img src="' . $filePath . '" alt="' . $item->judul . '">';
+                    $filePath = asset('uploads/ekstrakulikuler/' . $item->image);
+                    return '<img src="' . $filePath . '" alt="' . $item->judul . '" class="h-20 w-auto object-contain rounded">';
                 })
                 ->addColumn('judul', function ($item) {
                     return $item->judul;
@@ -44,10 +44,13 @@ class EkstrakulikulerController extends Controller
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        $item->id,
+                        url('/admin/ekstrakurikuler/edit') . '?id=' . $item->id,
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
+                ->rawColumns(['thumbnail'])
                 ->addIndexColumn()
                 ->make(true);
 
