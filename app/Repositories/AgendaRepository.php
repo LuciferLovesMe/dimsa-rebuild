@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\AgendaInterface;
 use App\Models\Agenda;
 
-class AgendaRepository implements AgendaInterface 
+class AgendaRepository implements AgendaInterface
 {
     private $agenda;
 
@@ -33,7 +33,7 @@ class AgendaRepository implements AgendaInterface
         $updatedData->nama = $data->nama;
         $updatedData->datetime = $data->datetime;
         $updatedData->alamat = $data->alamat;
-        $updatedData->image = ($data->file('image')) ? storeImage($data->file('image'), '/uploads/agenda') : $updatedData->image;
+        $updatedData->image = ($data->file('image')) ? storeImage($data->file('image'), '/uploads/agenda/') : $updatedData->image;
         $updatedData->is_publish = $data->is_publish ?? false;
         $updatedData->save();
 

@@ -69,7 +69,7 @@ Route::prefix('/admin/api')->group(function () {
         Route::get('/', [AgendaController::class, 'index']);
         Route::get('/{id}', [AgendaController::class, 'show']);
         Route::post('/create', [AgendaController::class, 'store']);
-        Route::post('/{id}/update', [AgendaController::class, 'update']);
+        Route::put('/{id}/update', [AgendaController::class, 'update']);
         Route::post('/{id}/destroy', [AgendaController::class, 'destroy']);
     });
 

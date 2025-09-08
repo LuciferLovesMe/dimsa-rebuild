@@ -28,57 +28,33 @@ class AgendaController extends Controller
             $agenda = $this->agendaRepository->get();
             $datatable = datatables()
                 ->of($agenda)
-                ->addColumn('nama', function ($item) {
-                    return $item->nama;
-                })
-                ->addColumn('datetime', function ($item) {
-                    return $item->datetime ? date('d M Y H:i', strtotime($item->datetime)) : '-';
-                })
-                ->addColumn('alamat', function ($item) {
-                    return $item->alamat ?: '-';
-                })
+                ->addIndexColumn()
                 ->addColumn('image', function ($item) {
                     $filePath = asset('uploads/agenda/' . $item->image);
-                    return '<img src="' . $filePath . '" alt="' . $item->nama . '">';
+                    return '<img src="' . $filePath . '" alt="' . $item->nama . '" class="h-16 w-auto object-contain rounded">';
                 })
+                ->addColumn('nama', fn($item) => $item->nama)
+                ->addColumn('datetime', fn($item) => $item->datetime ? date('d M Y H:i', strtotime($item->datetime)) : '-')
+                ->addColumn('alamat', fn($item) => $item->alamat ?: '-')
                 ->addColumn('status', function ($item) {
                     $statusBadge = new StatusPublish($item->is_publish);
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        $item->id,
+                        url('/admin/agenda/edit') . '?id=' . $item->id,
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
-                ->rawColumns(['image'])
-                ->addIndexColumn()
+                ->rawColumns(['image', 'status', 'aksi'])
                 ->make(true);
 
             return $datatable;
         } catch (\Exception $e) {
-            $response = [
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Database query error'
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+            return response()->json(['error' => 'Gagal mengambil data agenda. ' . $e->getMessage()], 500);
         }
-
-        return response()->json($response, $responseCode);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -87,27 +63,29 @@ class AgendaController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->agendaRepository->create($request);
-            $response = [
-                'status' => 'success',
-                'message' => 'Agenda created successfully'
-            ];
-            $responseCode = Response::HTTP_CREATED;
-        } catch (\Exception $e) {
-            $response = [
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Database query error'
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        }
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'datetime' => 'required|date',
+                'alamat' => 'required|string',
+                'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+                'is_publish' => 'required|boolean',
+            ]);
 
-        return response()->json($response, $responseCode);
+            $this->agendaRepository->create($request);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Agenda berhasil dibuat.'
+            ], Response::HTTP_CREATED);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal membuat agenda. ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -116,34 +94,14 @@ class AgendaController extends Controller
     public function show(string $id)
     {
         try {
-            $response = [
+            $agenda = $this->agendaRepository->getById($id);
+            return response()->json([
                 'status' => 'success',
-                'data' => $this->agendaRepository->getById($id)
-            ];
-            $responseCode = Response::HTTP_OK;
+                'data' => $agenda
+            ], Response::HTTP_OK);
         } catch (\Exception $e) {
-            $response = [
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Database query error'
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+            return response()->json(['error' => 'Gagal mengambil data agenda. ' . $e->getMessage()], 500);
         }
-
-        return response()->json($response, $responseCode);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
@@ -152,27 +110,29 @@ class AgendaController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $this->agendaRepository->update($id, $request);
-            $response = [
-                'status' => 'success',
-                'message' => 'Agenda updated successfully'
-            ];
-            $responseCode = Response::HTTP_OK;
-        } catch (\Exception $e) {
-            $response = [
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Database query error'
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        }
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'datetime' => 'required|date',
+                'alamat' => 'required|string',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+                'is_publish' => 'required|boolean',
+            ]);
 
-        return response()->json($response, $responseCode);
+            $this->agendaRepository->update($id, $request);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Agenda berhasil diperbarui.'
+            ], Response::HTTP_OK);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validasi gagal.',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal memperbarui agenda. ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -182,25 +142,12 @@ class AgendaController extends Controller
     {
         try {
             $this->agendaRepository->delete($id);
-            $response = [
+            return response()->json([
                 'status' => 'success',
-                'message' => 'Agenda deleted successfully'
-            ];
-            $responseCode = Response::HTTP_OK;
+                'message' => 'Agenda berhasil dihapus.'
+            ], Response::HTTP_OK);
         } catch (\Exception $e) {
-            $response = [
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        } catch (QueryException $e) {
-            $response = [
-                'status' => 'error',
-                'message' => 'Database query error'
-            ];
-            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+            return response()->json(['error' => 'Gagal menghapus agenda. ' . $e->getMessage()], 500);
         }
-
-        return response()->json($response, $responseCode);
     }
 }
