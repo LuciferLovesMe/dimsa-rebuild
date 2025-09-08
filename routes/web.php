@@ -44,8 +44,8 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/lowongan-kerja')->group(function () {
         Route::get('/', [LowonganKerjaController::class, 'index']);
         Route::get('/{id}', [LowonganKerjaController::class, 'show']);
-        Route::post('/', [LowonganKerjaController::class, 'store']);
-        Route::post('/{id}/update', [LowonganKerjaController::class, 'update']);
+        Route::post('/create', [LowonganKerjaController::class, 'store']);
+        Route::put('/{id}/update', [LowonganKerjaController::class, 'update']);
         Route::post('/{id}/destroy', [LowonganKerjaController::class, 'destroy']);
     });
 
