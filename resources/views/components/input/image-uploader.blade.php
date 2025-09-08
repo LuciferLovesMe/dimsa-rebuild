@@ -4,14 +4,14 @@
 ])
 
 <div x-data="{
-    photoPreview: '{{ $src }}' || null,
+    photoPreview: {{ $src ? "'" . $src . "'" : 'null' }},
     handlePhotoChange(event) {
         const file = event.target.files[0];
         if (file) {
             this.photoPreview = URL.createObjectURL(file);
         }
     }
-}" @update-preview.window="photoPreview = $event.detail.src" {{-- PERBAIKAN: Menambahkan event listener --}}
+}" @update-preview.window="photoPreview = $event.detail.src"
     class="rounded-lg border border-gray-300 p-6 text-center h-fit">
 
     <input id="file-upload-{{ $name }}" name="{{ $name }}" type="file" class="sr-only"
