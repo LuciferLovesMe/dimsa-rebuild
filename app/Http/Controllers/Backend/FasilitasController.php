@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FasilitasRequest;
 use App\Interfaces\FasilitasInterface;
 use App\View\Components\ActionButton;
 use App\View\Components\StatusPublish;
@@ -36,7 +37,9 @@ class FasilitasController extends Controller
                 })
                 ->addColumn('aksi', function ($item) {
                     $actionButton = new ActionButton(
-                        '#', '#', '#'
+                        $item->id,
+                        url('/admin/fasilitas/edit') . '?id=' . $item->id,
+                        $item->id
                     );
                     return $actionButton->render()->with($actionButton->data());
                 })
@@ -76,7 +79,7 @@ class FasilitasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FasilitasRequest $request)
     {
         try {
             $fasilitas = $this->fasilitasRepository->store($request);

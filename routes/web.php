@@ -92,8 +92,8 @@ Route::prefix('/admin/api')->group(function () {
     Route::prefix('/fasilitas')->group(function () {
         Route::get('/', [FasilitasController::class, 'index']);
         Route::get('/{id}', [FasilitasController::class, 'show']);
-        Route::post('/', [FasilitasController::class, 'store']);
-        Route::post('/{id}/update', [FasilitasController::class, 'update']);
+        Route::post('/create', [FasilitasController::class, 'store']);
+        Route::put('/{id}/update', [FasilitasController::class, 'update']);
         Route::post('/{id}/destroy', [FasilitasController::class, 'destroy']);
     });
 });

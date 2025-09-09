@@ -34,7 +34,7 @@ class FasilitasRepository implements FasilitasInterface
                 array_push($files, [
                     'reference' => 'fasilitas',
                     'id_reference' => $fasilitas->id,
-                    'file' => storeImage($file, '/uploads/files/fasilitas/', $key + 1),
+                    'file' => storeImage($file, '/uploads/fasilitas/', $key + 1),
                 ]);
             };
             $fasilitas->files()->createMany($files);
@@ -53,7 +53,7 @@ class FasilitasRepository implements FasilitasInterface
         foreach ($data->id_image as $key => $item) {
             $file = $data->file('image')[$key] ?? null;
             if ($file) {
-                $storedFile = storeImage($file, '/uploads/files/fasilitas/', $key + 1);
+                $storedFile = storeImage($file, '/uploads/fasilitas/', $key + 1);
                 $updatedFile = $fasilitas->files()->find($item);
                 if ($updatedFile) {
                     $updatedFile->file = $storedFile;
