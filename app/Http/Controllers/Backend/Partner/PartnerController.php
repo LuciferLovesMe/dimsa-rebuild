@@ -29,7 +29,7 @@ class PartnerController extends Controller
 
                 ->addColumn('logo', function ($item) {
                     $img = $item->logo;
-                    return '<img src="' . $img . '" alt="' . $item->nama_mitra . '">';
+                    return '<img src="' . $img . '" alt="' . $item->nama_mitra . '" class="h-20 w-auto object-contain rounded">';
                 })
                 ->addColumn('nama_mitra', fn($item) => $item->nama_mitra)
                 ->addColumn('status', function ($item) {
@@ -37,7 +37,7 @@ class PartnerController extends Controller
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
-                    $edit = route('admin.partner.edit', $item->id);
+                    $edit = url('/admin/partner/edit') . '?id=' . $item->id;
                     $actionButton = new ActionButton($item->id, $edit, $item->id);
                     return $actionButton->render()->with($actionButton->data());
                 })

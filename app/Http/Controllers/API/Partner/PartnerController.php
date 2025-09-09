@@ -25,7 +25,7 @@ class PartnerController extends Controller
         try {
             $relative_path = null;
             if ($request->hasFile('logo')) {
-                $relative_path = $this->processImage($request->file('logo'), 'Partners');
+                $relative_path = $this->processImage($request->file('logo'), 'uploads/partner');
             }
 
             $this->partnerRepository->create([
@@ -52,8 +52,8 @@ class PartnerController extends Controller
                 if ($partner->logo) {
                     $this->deleteImage($partner->logo);
                 }
-                $relative_path = $this->processImage($request->file('logo'), 'Partners');
-                $partner->logo = '/storage/' . $relative_path;
+                $relative_path = $this->processImage($request->file('logo'), 'uploads/partner');
+                $logo_path = '/storage/' . $relative_path;
             }
 
             $this->partnerRepository->update($id, [
@@ -74,7 +74,7 @@ class PartnerController extends Controller
     {
         try {
             $partner = $this->partnerRepository->getById($id);
-            
+
             return apiSuccess($partner, 'Show partner successful');
         } catch (\Throwable $th) {
             return apiFailed("Error show partner", null, 500, $th->getMessage());

@@ -133,7 +133,6 @@
                 });
             });
 
-            // --- FUNGSI UNTUK MENAMPILKAN POP-UP DETAIL ---
             $('#partner-datatable').on('click', '.detail-btn-modal', function() {
                 const id = $(this).data('id');
                 const detailUrl = `/api/admin/partner/show/${id}`;
@@ -150,15 +149,21 @@
                     url: detailUrl,
                     method: 'GET',
                     success: function(response) {
-                        if (response.status === 'success' && response.data) {
-                            const item = response.data;
+                        const item = response.data;
+                        if (item) {
+                            const imageUrl = item.logo ? item.logo :
+                                'https://placehold.co/128x128?text=No+Image';
+                            const imageHtml =
+                                `<img src="${imageUrl}" alt="${item.nama_mitra}" class="max-w-full max-h-full object-contain rounded">`;
 
                             const contentHtml = `
-                                <div class="text-center p-4">
-                                    <div class="w-32 h-32 mx-auto mb-4 flex items-center justify-center">${item.logo}</div>
-                                    <h2 class="text-lg font-medium">${item.nama_mitra}</h2>
-                                </div>
-                            `;
+                    <div class="text-center p-4">
+                        <div class="w-32 h-32 mx-auto mb-4 flex items-center justify-center border rounded-lg overflow-hidden bg-gray-100">
+                           ${imageHtml}
+                        </div>
+                        <h2 class="text-xl font-semibold">${item.nama_mitra}</h2>
+                    </div>
+                `;
 
                             Swal.fire({
                                 title: `<strong>Detail Partner</strong>`,

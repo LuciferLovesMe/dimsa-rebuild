@@ -23,7 +23,7 @@ class AddPartnerRequest extends FormRequest
     {
         return [
             'nama_mitra' => ['required', 'string', 'max:255'],
-            'logo' => ['required', 'file', 'mimes:png,jpg', 'max:2048'],
+            'logo' => ['nullable', 'file', 'mimes:png,jpg', 'max:2048'],
             'is_publish' => ['nullable', 'boolean'],
         ];
     }
