@@ -80,12 +80,12 @@
                         <i class="fa fa-trophy"></i>
                         <span>Program Unggulan</span>
                     </a></li>
-                <li><a href="{{ route('admin.tata-tertib.index') }}"
+                {{-- <li><a href="{{ route('admin.tata-tertib.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/tata-tertib*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-warning"></i>
                         <span>Tata Tertib</span>
-                    </a></li>
+                    </a></li> --}}
             </ul>
         </div>
 
@@ -186,7 +186,25 @@
     </nav>
 
     <!-- User Profile -->
-    <div class="mt-auto p-4" x-data="{ user: { name: 'Memuat...', email: '...' } }" x-init="$.ajax({
+    <div class="mt-auto p-4" x-data="{
+        user: { name: 'Memuat...', email: '...' },
+        openModal: false,
+        logout() {
+            fetch('/api/admin/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // sesuaikan jika perlu
+                }
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/login'; // arahkan ke halaman login setelah logout
+                } else {
+                    alert('Logout gagal');
+                }
+            }).catch(() => alert('Logout gagal'));
+        }
+    }" x-init="$.ajax({
         url: '/api/admin/profile/show',
         method: 'GET',
         dataType: 'json',
@@ -203,20 +221,30 @@
             user.name = 'Error';
             user.email = 'Tidak dapat memuat data';
         }
-    })">
-        <a href="#" class="flex items-center gap-4 rounded-lg p-2 hover:bg-gray-800">
+    })" @click.outside="openModal = false"
+        class="relative">
+        <button @click="openModal = !openModal"
+            class="flex items-center gap-4 rounded-lg p-2 hover:bg-gray-800 w-full text-left">
             <img class="h-10 w-10 rounded-full object-cover"
                 :src="'https://placehold.co/40x40/e2e8f0/334155?text=' + (user.name.charAt(0).toUpperCase() || 'A')"
                 :alt="user.name + ' Avatar'">
-            <div class="text-left">
-                {{-- Nama dan email pengguna akan ditampilkan di sini --}}
+            <div class="text-left flex-grow">
                 <p x-text="user.name" class="text-sm font-semibold text-white"></p>
                 <p x-text="user.email" class="text-xs text-gray-400"></p>
             </div>
             <svg class="ml-auto h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                </path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
-        </a>
+        </button>
+
+        <!-- Modal kecil -->
+        <div x-show="openModal" x-transition
+            class="absolute bottom-full mb-2 right-0 w-40 bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50"
+            style="display: none;">
+            <a href="/admin/profile" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Profile</a>
+            <button @click="logout()"
+                class="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Logout</button>
+        </div>
     </div>
+
 </aside>
