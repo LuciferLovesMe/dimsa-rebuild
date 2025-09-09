@@ -79,16 +79,13 @@
                         Swal.close();
                         clearValidationErrors();
 
-                        // --- PERBAIKAN UTAMA DI SINI ---
-                        if (xhr.status === 422) { // Tangani error validasi dari Laravel
+                        if (xhr.status === 422) {
                             const errors = xhr.responseJSON.errors;
 
-                            // Loop melalui setiap error dan tampilkan di bawah field yang sesuai
                             for (const key in errors) {
                                 const inputField = $(`[name="${key}"]`);
                                 const errorContainer = $(`#error-${key}`);
 
-                                // Tambahkan border merah pada input atau pada uploader
                                 inputField.addClass('border-red-500');
                                 inputField.closest('.rounded-lg.border').addClass(
                                     'border-red-500');
