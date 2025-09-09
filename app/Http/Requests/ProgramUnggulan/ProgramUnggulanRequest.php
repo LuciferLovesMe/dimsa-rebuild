@@ -21,12 +21,20 @@ class ProgramUnggulanRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        // Menentukan aturan validasi dasar
+        $rules = [
             'nama_program' => ['required', 'string', 'max:255'],
-            'deskripsi' => ['required', 'string'],
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'url' => ['required', 'url'],
-            'is_publish' => ['nullable', 'boolean'],
+            'deskripsi'    => ['required', 'string'],
+            'url'          => ['nullable', 'url'],
+            'is_publish'   => ['required', 'boolean'],
         ];
+
+        if ($this->isMethod('post')) {
+            $rules['image'] = ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'];
+        } else {
+            $rules['image'] = ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'];
+        }
+
+        return $rules;
     }
 }
