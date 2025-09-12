@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\slideshow;
+use App\Models\Slideshow;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +13,6 @@ class SlideshowSeeder extends Seeder
      */
     public function run(): void
     {
-        slideshow::factory()->count(3)->create();
+        Slideshow::factory()->count(3)->create();
     }
 }
