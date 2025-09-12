@@ -19,7 +19,7 @@ class EkstrakulikulerFactory extends Factory
         return [
             'judul' => $this->faker->sentence(),
             'link' => $this->faker->url(),
-            'image' => $this->faker->imageUrl(),
+            'image' => 'https://placehold.co/150x100?text=Ekstrakulikuler',
             'is_publish' => $this->faker->boolean(),
         ];
     }

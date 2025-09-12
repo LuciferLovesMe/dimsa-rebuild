@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\slideshow;
+use App\Models\Slideshow;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class SlideshowFactory extends Factory
 {
-    protected $model = slideshow::class;
+    protected $model = Slideshow::class;
     /**
      * Define the model's default state.
      *

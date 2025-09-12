@@ -7,7 +7,7 @@ use App\Models\Slideshow;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\Encoders\AutoEncoder;
+use Intervention\Image\Encoders\WebpEncoder;
 use Intervention\Image\ImageManager;
 
 class SlideshowRepository implements SlideshowInterface
@@ -27,10 +27,12 @@ class SlideshowRepository implements SlideshowInterface
         $headlines = $data['headlines'] ?? [];
 
         foreach ($files as $index => $file) {
-            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            // Nama file dengan ekstensi .webp
+            $filename = Str::uuid() . '.webp';
             $relativePath = $this->storagePath . '/' . $filename;
 
-            $image = $this->manager->read($file)->encode(new AutoEncoder(quality: 75));
+            // Encode ke WebP
+            $image = $this->manager->read($file)->encode(new WebpEncoder(quality: 75));
             Storage::disk('public')->put($relativePath, (string) $image);
 
             Slideshow::create([
@@ -64,10 +66,13 @@ class SlideshowRepository implements SlideshowInterface
 
             if (!empty($files[$index])) {
                 $file = $files[$index];
-                $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $relativePath = $this->storagePath . '/' . $fileName;
 
-                $image = $this->manager->read($file)->encode(new AutoEncoder(quality: 75));
+                // Nama file baru dengan ekstensi .webp
+                $filename = Str::uuid() . '.webp';
+                $relativePath = $this->storagePath . '/' . $filename;
+
+                // Encode ke WebP
+                $image = $this->manager->read($file)->encode(new WebpEncoder(quality: 75));
                 Storage::disk('public')->put($relativePath, (string) $image);
 
                 // Hapus file lama

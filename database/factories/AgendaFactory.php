@@ -20,7 +20,7 @@ class AgendaFactory extends Factory
             'nama' => $this->faker->sentence(),
             'datetime' => $this->faker->dateTime(),
             'alamat' => $this->faker->address(),
-            'image' => $this->faker->imageUrl(),
+            'image' => 'https://placehold.co/150x100?text=Agenda',
             'is_publish' => $this->faker->boolean()
         ];
     }
