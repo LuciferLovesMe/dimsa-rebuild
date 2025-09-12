@@ -21,7 +21,7 @@ class AlumniFactory extends Factory
             'tahun_lulus' => $this->faker->year(),
             'lembaga' => $this->faker->boolean(),
             'pekerjaan' => $this->faker->jobTitle() . ' ' . $this->faker->company(),
-            'image' => $this->faker->imageUrl(),
+            'image' => 'https://placehold.co/150x100?text=Alumni',
         ];
     }
 }

@@ -19,7 +19,7 @@ class MajalahFactory extends Factory
         return [
             'judul' => $this->faker->sentence(),
             'penulis' => $this->faker->name(),
-            'image' => $this->faker->imageUrl(),
+            'image' => 'https://placehold.co/150x100?text=Majalah',
             'url' => $this->faker->url(),
             'tanggal_terbit' => $this->faker->date(),
             'type' => 'majalah',
