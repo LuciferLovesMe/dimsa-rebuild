@@ -22,12 +22,14 @@ class UpdateSlideShowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|array',
+            'id' => 'nullable|array',
             'id.*' => 'required|exists:slideshows,id',
             'headline' => 'nullable|array',
             'headline.*' => 'nullable|string',
             'file' => 'nullable|array',
             'file.*' => 'nullable|file|image|max:2048',
+            'remove_image' => 'nullable|array',
+            'remove_image.*' => 'nullable|boolean',
         ];
     }
 }
