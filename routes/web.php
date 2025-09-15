@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AlumniController;
 use App\Http\Controllers\Backend\EkstrakulikulerController;
 use App\Http\Controllers\Backend\FasilitasController;
 use App\Http\Controllers\Backend\GaleriController;
+use App\Http\Controllers\Backend\GuruStaff\GuruStaffController;
 use App\Http\Controllers\Backend\LowonganKerjaController;
 use App\Http\Controllers\Backend\MajalahController;
 use App\Http\Controllers\Backend\PengumumanController;
@@ -197,7 +198,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return view('pages.admin.dashboard.index');
         })->name('dashboard');
-
 
 
         // Admin Majalah
@@ -437,9 +437,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/create', function () {
                 return view('pages.admin.staff.create'); // Mengubah add menjadi create
             })->name('create');
-            Route::get('/edit', function () {
-                return view('pages.admin.staff.edit');
-            })->name('edit');
+            Route::get('/{guruStaff}/edit', [GuruStaffController::class, 'edit'])->name('edit');
         });
 
         // Partner

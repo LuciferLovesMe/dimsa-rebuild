@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GuruStaff\AddGuruStaffRequest;
 use App\Http\Requests\GuruStaff\UpdateGuruStaffRequest;
 use App\Interfaces\GuruStaffInterface;
+use App\Models\GuruStaff;
+use Illuminate\Support\Facades\Storage;
 use App\View\Components\ActionButton;
 use App\View\Components\StatusPublish;
 use Illuminate\Http\Request;
@@ -29,10 +31,28 @@ class GuruStaffController extends Controller
 
             $datatable = datatables()
                 ->of($pengasuh)
-                ->addIndexColumn() // No
+                ->addIndexColumn()
                 ->addColumn('image', function ($item) {
-                    $img = $item->image;
-                    return '<img src="' . $img . '" alt="' . $item->nama . '">';
+                    // 1. Dapatkan path file mentah dari database.
+                    $rawImagePath = $item->getRawOriginal('image');
+
+                    if ($rawImagePath) {
+                        // 2. Bersihkan path dari segala kemungkinan prefix 'storage/' atau '/'
+                        // untuk memastikan kita hanya mendapatkan path relatif di dalam folder storage.
+                        // str_replace akan menghapus semua kemunculan, lebih aman.
+                        $cleanPath = str_replace('storage/', '', $rawImagePath);
+                        $cleanPath = ltrim($cleanPath, '/');
+
+                        // 3. Buat URL publik yang lengkap menggunakan helper asset().
+                        // Ini adalah cara yang paling andal.
+                        $img = asset('storage/' . $cleanPath);
+                    } else {
+                        // 4. Jika tidak ada gambar, gunakan placeholder.
+                        $img = 'https://via.placeholder.com/300x300.png?text=No+Image';
+                    }
+
+                    // 5. Kembalikan tag <img> dengan URL yang sudah benar.
+                    return '<img src="' . $img . '" alt="' . $item->nama . '" class="w-16 h-16 object-cover rounded">';
                 })
                 ->addColumn('nama', fn($item) => $item->nama)
                 ->addColumn('jabatan', fn($item) => $item->jabatan)
@@ -41,10 +61,9 @@ class GuruStaffController extends Controller
                     return $statusBadge->render()->with($statusBadge->data());
                 })
                 ->addColumn('aksi', function ($item) {
-                    $edit = route('admin.staff.edit', $item->id);
                     $actionButton = new ActionButton(
                         $item->id,
-                        $edit,
+                        route('admin.staff.edit', $item->id),
                         $item->id,
                     );
                     return $actionButton->render()->with($actionButton->data());
@@ -67,5 +86,14 @@ class GuruStaffController extends Controller
                 'message' => 'Failed to retrieve pengasuh: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+    public function create()
+    {
+        return view('pages.admin.staff.create');
+    }
+
+    public function edit(GuruStaff $guruStaff)
+    {
+        return view('pages.admin.staff.edit', compact('guruStaff'));
     }
 }

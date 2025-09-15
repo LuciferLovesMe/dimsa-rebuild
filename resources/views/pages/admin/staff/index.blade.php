@@ -40,162 +40,208 @@
         </div>
     </x-cms_page>
 
-@endsection
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                const table = $("#staff-datatable").DataTable({
+                    processing: true,
+                    serverSide: true,
+                    autoWidth: false,
+                    responsive: true,
+                    dom: '<"md:flex md:justify-between items-center mb-4"lf>t<"md:flex md:justify-between items-center mt-4"ip>',
+                    ajax: {
+                        url: "{{ url('/api/admin/guru-staff/showAll') }}",
+                        dataSrc: function(json) {
+                            if (json.data && json.data.original) {
+                                json.recordsTotal = json.data.original.recordsTotal;
+                                json.recordsFiltered = json.data.original.recordsFiltered;
+                                return json.data.original.data;
+                            }
+                            return [];
+                        },
+                    },
+                    columns: [{
+                            data: "DT_RowIndex",
+                            name: "DT_RowIndex",
+                            orderable: false,
+                            searchable: false,
+                        },
+                        {
+                            data: "nama",
+                            name: "nama",
+                        },
+                        {
+                            data: "jabatan",
+                            name: "jabatan",
+                        },
+                        {
+                            data: "status",
+                            name: "status",
+                            className: "text-center",
+                            orderable: false,
+                            searchable: false,
+                        },
+                        {
+                            data: "aksi",
+                            name: "aksi",
+                            className: "text-center",
+                            orderable: false,
+                            searchable: false,
+                        },
+                    ],
+                });
 
-@push('scripts')
-    <<script>
-        $(document).ready(function() {
-            const table = $('#staff-datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                autoWidth: false,
-                responsive: true,
-                dom: '<"md:flex md:justify-between items-center mb-4"lf>t<"md:flex md:justify-between items-center mt-4"ip>',
-                ajax: {
-                    url: "{{ url('/api/admin/guru-staff/showAll') }}",
-                    dataSrc: function(json) {
-                        if (json.data && json.data.original) {
-                            json.recordsTotal = json.data.original.recordsTotal;
-                            json.recordsFiltered = json.data.original.recordsFiltered;
-                            return json.data.original.data;
+                // --- FUNGSI HAPUS DATA ---
+                $("#staff-datatable").on("click", ".delete-btn-table", function(event) {
+                    event.preventDefault();
+                    const id = $(this).data("id");
+                    const deleteUrl = `/api/admin/guru-staff/delete/${id}`;
+
+                    Swal.fire({
+                        title: "Apakah Anda yakin?",
+                        text: "Data yang dihapus tidak dapat dikembalikan!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Ya, hapus!",
+                        cancelButtonText: "Batal",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: deleteUrl,
+                                type: "DELETE",
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                },
+                                success: function(response) {
+                                    Swal.fire(
+                                        "Dihapus!",
+                                        "Data berhasil dihapus.",
+                                        "success"
+                                    );
+                                    table.ajax.reload();
+                                },
+                                error: function(xhr) {
+                                    Swal.fire(
+                                        "Gagal!",
+                                        "Terjadi kesalahan saat menghapus data.",
+                                        "error"
+                                    );
+                                },
+                            });
                         }
-                        return [];
-                    }
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'nama',
-                        name: 'nama',
-                    },
-                    {
-                        data: 'jabatan',
-                        name: 'jabatan',
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        className: 'text-center',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'aksi',
-                        name: 'aksi',
-                        className: 'text-center',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-
-            // --- FUNGSI HAPUS DATA ---
-            $('#staff-datatable').on('click', '.delete-btn-table', function(event) {
-                event.preventDefault();
-                const id = $(this).data('id');
-                const deleteUrl = `/api/admin/guru-staff/delete/${id}`;
-
-                Swal.fire({
-                    title: 'Apakah Anda yakin?',
-                    text: "Data yang dihapus tidak dapat dikembalikan!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: deleteUrl,
-                            type: 'DELETE',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                            },
-                            success: function(response) {
-                                Swal.fire('Dihapus!', 'Data berhasil dihapus.',
-                                    'success');
-                                table.ajax.reload();
-                            },
-                            error: function(xhr) {
-                                Swal.fire('Gagal!',
-                                    'Terjadi kesalahan saat menghapus data.',
-                                    'error');
-                            }
-                        });
-                    }
-                });
-            });
-
-            // --- FUNGSI UNTUK MENAMPILKAN POP-UP DETAIL ---
-            $('#staff-datatable').on('click', '.detail-btn-modal', function() {
-                const id = $(this).data('id');
-                const detailUrl = `/api/admin/guru-staff/show/${id}`; // URL API untuk detail staff
-
-                Swal.fire({
-                    title: 'Memuat data...',
-                    text: 'Mohon tunggu sebentar.',
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
+                    });
                 });
 
-                $.ajax({
-                    url: detailUrl,
-                    method: 'GET',
-                    success: function(response) {
-                        if (response.status === 'success' && response.data) {
-                            const item = response.data;
+                // --- FUNGSI UNTUK MENAMPILKAN POP-UP DETAIL ---
+                $("#staff-datatable").on("click", ".detail-btn-modal", function() {
+                    const id = $(this).data("id");
+                    const detailUrl = `/api/admin/guru-staff/show/${id}`; // URL API untuk detail staff
 
-                            let educationHtml =
-                                '<p class="text-sm text-gray-500">Tidak ada data.</p>';
-                            if (item.riwayat_pendidikans && item.riwayat_pendidikans.length >
-                                0) {
-                                educationHtml = item.riwayat_pendidikans.map(edu => `
+                    Swal.fire({
+                        title: "Memuat data...",
+                        text: "Mohon tunggu sebentar.",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        },
+                    });
+
+                    $.ajax({
+                        url: detailUrl,
+                        method: "GET",
+                        success: function(response) {
+                            if (response.status === "success" && response.data) {
+                                const item = response.data;
+
+                                let educationHtml =
+                                    '<p class="text-sm text-gray-500">Tidak ada data.</p>';
+                                if (
+                                    item.riwayat_pendidikans &&
+                                    item.riwayat_pendidikans.length > 0
+                                ) {
+                                    educationHtml = item.riwayat_pendidikans
+                                        .map(
+                                            (edu) => `
                                     <div class="py-2">
-                                        <p class="font-semibold">${edu.tingkat_pendidikan} - ${edu.instansi}</p>
-                                        <p class="text-sm text-gray-600">${edu.tahun_mulai} - ${edu.tahun_akhir || 'Sekarang'}</p>
+                                        <p class="font-semibold">${
+                                            edu.tingkat_pendidikan
+                                        } - ${edu.instansi}</p>
+                                        <p class="text-sm text-gray-600">${
+                                            edu.tahun_mulai
+                                        } - ${edu.tahun_akhir || "Sekarang"}</p>
                                     </div>
-                                `).join('<hr class="my-1">');
-                            }
+                                `
+                                        )
+                                        .join('<hr class="my-1">');
+                                }
 
-                            let workHtml =
-                                '<p class="text-sm text-gray-500">Tidak ada data.</p>';
-                            if (item.pengalaman_kerjas && item.pengalaman_kerjas.length > 0) {
-                                workHtml = item.pengalaman_kerjas.map(work => `
+                                let workHtml =
+                                    '<p class="text-sm text-gray-500">Tidak ada data.</p>';
+                                if (
+                                    item.pengalaman_kerjas &&
+                                    item.pengalaman_kerjas.length > 0
+                                ) {
+                                    workHtml = item.pengalaman_kerjas
+                                        .map(
+                                            (work) => `
                                     <div class="py-2">
-                                        <p class="font-semibold">${work.posisi}</p>
-                                        <p class="text-sm text-gray-600">${work.perusahaan}</p>
-                                        <p class="text-sm text-gray-500">${work.tahun_mulai} - ${work.tahun_akhir || 'Sekarang'}</p>
+                                        <p class="font-semibold">${
+                                            work.posisi
+                                        }</p>
+                                        <p class="text-sm text-gray-600">${
+                                            work.perusahaan
+                                        }</p>
+                                        <p class="text-sm text-gray-500">${
+                                            work.tahun_mulai
+                                        } - ${
+                                    work.tahun_akhir || "Sekarang"
+                                }</p>
                                     </div>
-                                `).join('<hr class="my-1">');
-                            }
+                                `
+                                        )
+                                        .join('<hr class="my-1">');
+                                }
 
-                            let achievementHtml =
-                                '<p class="text-sm text-gray-500">Tidak ada data.</p>';
-                            if (item.prestasis && item.prestasis.length > 0) {
-                                achievementHtml = item.prestasis.map(ach => `
+                                let achievementHtml =
+                                    '<p class="text-sm text-gray-500">Tidak ada data.</p>';
+                                if (item.prestasis && item.prestasis.length > 0) {
+                                    achievementHtml = item.prestasis
+                                        .map(
+                                            (ach) => `
                                     <div class="py-2">
                                         <p class="font-semibold">${ach.nama_lomba} (${ach.predikat})</p>
                                         <p class="text-sm text-gray-600">${ach.penyelenggara} - ${ach.tingkat}</p>
                                         <p class="text-sm text-gray-500">Tahun: ${ach.tahun}</p>
                                     </div>
-                                `).join('<hr class="my-1">');
-                            }
+                                `
+                                        )
+                                        .join('<hr class="my-1">');
+                                }
 
-                            const contentHtml = `
+                                const contentHtml = `
                                 <div class="text-left p-2 space-y-4">
                                     <div class="text-center">
-                                        <img src="${item.image}" alt="${item.nama}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-lg">
-                                        <h2 class="text-2xl font-bold">${item.nama}</h2>
-                                        <p class="text-md text-gray-600">${item.jabatan}</p>
-                                        <span class="mt-2 inline-block px-2 py-1 text-xs font-semibold rounded-full ${item.is_publish ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
-                                            ${item.is_publish ? 'Published' : 'Draft'}
+                                        <img src="${item.image}" alt="${
+                        item.nama
+                    }" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-lg">
+                                        <h2 class="text-2xl font-bold">${
+                                            item.nama
+                                        }</h2>
+                                        <p class="text-md text-gray-600">${
+                                            item.jabatan
+                                        }</p>
+                                        <span class="mt-2 inline-block px-2 py-1 text-xs font-semibold rounded-full ${
+                                            item.is_publish
+                                                ? "bg-green-100 text-green-800"
+                                                : "bg-yellow-100 text-yellow-800"
+                                        }">
+                                            ${
+                                                item.is_publish
+                                                    ? "Published"
+                                                    : "Draft"
+                                            }
                                         </span>
                                     </div>
                                     <div class="border-t pt-4">
@@ -213,28 +259,31 @@
                                 </div>
                             `;
 
-                            Swal.fire({
-                                title: `<strong>Detail Data</strong>`,
-                                html: contentHtml,
-                                showCloseButton: true,
-                                showCancelButton: false,
-                                focusConfirm: false,
-                                confirmButtonText: 'Tutup',
-                                customClass: {
-                                    popup: 'swal2-popup-lg'
-                                }
-                            });
-
-                        } else {
-                            Swal.fire('Gagal!', 'Data tidak ditemukan.', 'error');
-                        }
-                    },
-                    error: function(xhr) {
-                        Swal.fire('Gagal!', 'Terjadi kesalahan saat mengambil detail data.',
-                            'error');
-                    }
+                                Swal.fire({
+                                    title: `<strong>Detail Data</strong>`,
+                                    html: contentHtml,
+                                    showCloseButton: true,
+                                    showCancelButton: false,
+                                    focusConfirm: false,
+                                    confirmButtonText: "Tutup",
+                                    customClass: {
+                                        popup: "swal2-popup-lg",
+                                    },
+                                });
+                            } else {
+                                Swal.fire("Gagal!", "Data tidak ditemukan.", "error");
+                            }
+                        },
+                        error: function(xhr) {
+                            Swal.fire(
+                                "Gagal!",
+                                "Terjadi kesalahan saat mengambil detail data.",
+                                "error"
+                            );
+                        },
+                    });
                 });
             });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush
+@endsection
