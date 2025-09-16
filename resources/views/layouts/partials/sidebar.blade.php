@@ -189,22 +189,59 @@
     <div class="mt-auto p-4" x-data="{
         user: { name: 'Memuat...', email: '...' },
         openModal: false,
+        confirmLogout() {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: 'Anda akan keluar dari sesi ini.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.logout(); // Memanggil fungsi logout jika dikonfirmasi
+                }
+            });
+        },
         logout() {
             fetch('/api/admin/logout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // sesuaikan jika perlu
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
             }).then(response => {
                 if (response.ok) {
-                    window.location.href = '/login'; // arahkan ke halaman login setelah logout
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Logout Berhasil',
+                        text: 'Anda akan diarahkan ke halaman login.',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                    }).then(() => {
+                        window.location.href = '/login';
+                    });
                 } else {
-                    alert('Logout gagal');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Logout Gagal',
+                        text: 'Terjadi masalah saat mencoba logout.',
+                    });
                 }
-            }).catch(() => alert('Logout gagal'));
+            }).catch(error => {
+                console.error('Logout error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Koneksi Error',
+                    text: 'Tidak dapat terhubung ke server.',
+                });
+            });
         }
-    }" x-init="$.ajax({
+    }" x-init="// Mengembalikan logic untuk fetch profile
+    $.ajax({
         url: '/api/admin/profile/show',
         method: 'GET',
         dataType: 'json',
@@ -224,26 +261,29 @@
     })" @click.outside="openModal = false"
         class="relative">
         <button @click="openModal = !openModal"
-            class="flex items-center gap-4 rounded-lg p-2 hover:bg-gray-800 w-full text-left">
+            class="flex w-full items-center gap-4 rounded-lg p-2 text-left hover:bg-gray-800">
             <img class="h-10 w-10 rounded-full object-cover"
                 :src="'https://placehold.co/40x40/e2e8f0/334155?text=' + (user.name.charAt(0).toUpperCase() || 'A')"
                 :alt="user.name + ' Avatar'">
-            <div class="text-left flex-grow">
+            <div class="flex-grow text-left">
                 <p x-text="user.name" class="text-sm font-semibold text-white"></p>
                 <p x-text="user.email" class="text-xs text-gray-400"></p>
             </div>
-            <svg class="ml-auto h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="text-gray-400">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="12" cy="5" r="1"></circle>
+                <circle cx="12" cy="19" r="1"></circle>
             </svg>
         </button>
 
         <!-- Modal kecil -->
         <div x-show="openModal" x-transition
-            class="absolute bottom-full mb-2 right-0 w-40 bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50"
+            class="absolute bottom-16 right-0 z-50 w-40 rounded-md bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5"
             style="display: none;">
-            <a href="/admin/profile" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Profile</a>
-            <button @click="logout()"
-                class="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-700">Logout</button>
+            <button @click="confirmLogout()"
+                class="w-full px-4 py-2 text-left text-sm text-gray-200 hover:bg-gray-700">Logout</button>
         </div>
     </div>
 
