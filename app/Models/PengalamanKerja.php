@@ -14,6 +14,7 @@ class PengalamanKerja extends Model
     protected $fillable = [
         'id_guru_staff',
         'posisi',
+        'kota',
         'perusahaan',
         'tahun_mulai',
         'tahun_akhir',

@@ -24,6 +24,7 @@ class PengalamanKerjaFactory extends Factory
             'id_guru_staff' => GuruStaff::factory(),
             'posisi' => $this->faker->jobTitle,
             'perusahaan' => $this->faker->company,
+            'kota' => $this->faker->city(),
             'tahun_mulai' => $this->faker->year,
             'tahun_akhir' => $this->faker->optional()->year,
 

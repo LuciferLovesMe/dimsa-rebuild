@@ -146,6 +146,7 @@ class PimpinanRepository implements PimpinanInterface
             PengalamanKerja::create([
                 'id_guru_staff' => $id,
                 'posisi' => $pengalaman['posisi'],
+                'kota' => $pengalaman['kota'],
                 'perusahaan' => $pengalaman['perusahaan'] ?? null,
                 'tahun_mulai' => $pengalaman['tahun_mulai'],
                 'tahun_akhir' => $pengalaman['tahun_akhir'] ?? null,
