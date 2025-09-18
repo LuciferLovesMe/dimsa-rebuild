@@ -23,6 +23,7 @@ use App\Http\Controllers\API\Profile\ChangePassController;
 use App\Http\Controllers\API\Profile\ProfileController;
 use App\Http\Controllers\API\ProgramUnggulan\ProgramUnggulanController;
 use App\Http\Controllers\API\Slideshow\SlideshowController;
+use App\Http\Controllers\API\TataTertib\TataTertibController;
 use App\Http\Controllers\Backend\Slideshow\SlideshowController as SlideshowBackendController;
 use App\Http\Controllers\Backend\Berita\KategoriBeritaController as KategoriBeritaBackendController;
 use App\Http\Controllers\Backend\Berita\BeritaController as BeritaBackendController;
@@ -234,6 +235,13 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
         Route::get('/showAll', 'index')->name('karyailmiah.showAll');
     });
+    Route::prefix('tata-tertib')->controller(TataTertibController::class)->group(function () {
+        Route::post('/create', 'store')->name('tatib.store');
+        Route::get('/show/{id}', 'show')->name('tatib.show');
+        Route::put('/update/{id}', 'update')->name('tatib.update');
+        Route::delete('/delete/{id}', 'destroy')->name('tatib.destroy');
+    });
+
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
 });
@@ -247,7 +255,9 @@ Route::prefix('berita')->controller(BeritaController::class)->group(function () 
     Route::get('/', 'showLimit')->name('berita.index');
     Route::get('/{id}', 'showById')->name('detail_berita.index');
 });
-
+Route::prefix('tata-tertib')->controller(TataTertibController::class)->group(function () {
+    Route::get('/showAll', 'index')->name('tatib.index');
+});
 
 Route::get('/partner/', [PartnerController::class, 'showAllPublished'])->name('partner.index');
 

@@ -11,11 +11,15 @@ use App\Http\Controllers\Backend\MajalahController;
 use App\Http\Controllers\Backend\PengumumanController;
 use App\Http\Controllers\Backend\QnaController;
 use App\Http\Controllers\Backend\TestimoniController;
+use App\Http\Controllers\CkeditorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
 
 require __DIR__ . '/auth.php';
+// routes/web.php
+Route::post('/ckeditor/upload', [App\Http\Controllers\CkeditorController::class, 'upload'])
+    ->name('ckeditor.upload');
 
 Route::prefix('/admin/api')->group(function () {
     Route::prefix('/pengumuman')->group(function () {

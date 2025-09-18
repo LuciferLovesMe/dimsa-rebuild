@@ -22,6 +22,7 @@ use App\Interfaces\ProgramUnggulanInterface;
 use App\Interfaces\PublikasiInterface;
 use App\Interfaces\QnaInterface;
 use App\Interfaces\SlideshowInterface;
+use App\Interfaces\TataTertibInterface;
 use App\Interfaces\TestimoniInterface;
 use App\Repositories\AgendaRepository;
 use App\Repositories\AlumniRepository;
@@ -43,6 +44,7 @@ use App\Repositories\ProgramUnggulanRepository;
 use App\Repositories\PublikasiRepository;
 use App\Repositories\QnaRepository;
 use App\Repositories\SlideshowRepository;
+use App\Repositories\TataTertibRepository;
 use App\Repositories\TestimoniRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -77,16 +79,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(KategoriBeritaInterface::class, KategoriBeritaRepository::class);
         $this->app->bind(BeritaInterface::class, BeritaRepository::class);
         $this->app->bind(KaryaIlmiahInterface::class, KaryaIlmiahRepository::class);
-
-
-
-
-
-
-
-
-
-
+        $this->app->bind(TataTertibInterface::class, TataTertibRepository::class);
     }
 
     /**
