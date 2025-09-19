@@ -48,11 +48,10 @@
     </form>
 @endsection
 
-@push('scripts')
 
+@push('scripts')
     <script>
-        ClassicEditor
-            .create(document.querySelector('#content-editor'), {
+        ClassicEditor.create(document.querySelector('#content-editor'), {
                 toolbar: [
                     'undo', 'redo', '|',
                     'heading', '|',
@@ -61,8 +60,47 @@
                     'bulletedList', 'numberedList', 'outdent', 'indent'
                 ]
             })
+            .then(editor => {
+                editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                    return new MyUploadAdapter(loader);
+                };
+            })
             .catch(error => {
                 console.error(error);
             });
+
+        // === Custom Adapter ===
+        class MyUploadAdapter {
+            constructor(loader) {
+                this.loader = loader;
+            }
+
+            upload() {
+                return this.loader.file.then(file => new Promise((resolve, reject) => {
+                    const data = new FormData();
+                    data.append('upload', file);
+                    data.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content'));
+
+                    fetch("{{ route('ckeditor.upload') }}", {
+                            method: 'POST',
+                            body: data
+                        })
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res.url) {
+                                resolve({
+                                    default: res.url
+                                });
+                            } else {
+                                reject(res.error || 'Upload failed');
+                            }
+                        })
+                        .catch(err => reject(err));
+                }));
+            }
+
+            abort() {}
+        }
     </script>
 @endpush
