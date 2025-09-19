@@ -33,21 +33,14 @@ class GuruStaffController extends Controller
                 ->of($pengasuh)
                 ->addIndexColumn()
                 ->addColumn('image', function ($item) {
-                    // 1. Dapatkan path file mentah dari database.
                     $rawImagePath = $item->getRawOriginal('image');
 
                     if ($rawImagePath) {
-                        // 2. Bersihkan path dari segala kemungkinan prefix 'storage/' atau '/'
-                        // untuk memastikan kita hanya mendapatkan path relatif di dalam folder storage.
-                        // str_replace akan menghapus semua kemunculan, lebih aman.
                         $cleanPath = str_replace('storage/', '', $rawImagePath);
                         $cleanPath = ltrim($cleanPath, '/');
 
-                        // 3. Buat URL publik yang lengkap menggunakan helper asset().
-                        // Ini adalah cara yang paling andal.
                         $img = asset('storage/' . $cleanPath);
                     } else {
-                        // 4. Jika tidak ada gambar, gunakan placeholder.
                         $img = 'https://via.placeholder.com/300x300.png?text=No+Image';
                     }
 
