@@ -20,7 +20,7 @@ class GuruStaffController extends Controller
     public function store(AddGuruStaffRequest $request)
     {
         try {
-            $this->guruStaffRepository->store($request->all(), $request->file('image'));
+            $this->guruStaffRepository->store($request->validated(), $request->file('image'));
             return apiSuccess(null, "Create Guru Staff Successful");
         } catch (\Throwable $th) {
             return apiFailed("Error create data Guru Staff", null, 500, $th->getMessage());
@@ -30,7 +30,7 @@ class GuruStaffController extends Controller
     public function update(UpdateGuruStaffRequest $request, $id)
     {
         try {
-            $guru_staff = $this->guruStaffRepository->update($id, $request->all(), $request->file('image'));
+            $guru_staff = $this->guruStaffRepository->update($id, $request->validated(), $request->file('image'));
             if (!$guru_staff) {
                 return apiFailed("Guru Staff tidak ditemukan.", null, 404);
             }

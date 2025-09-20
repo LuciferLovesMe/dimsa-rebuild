@@ -87,6 +87,13 @@ class GuruStaffController extends Controller
 
     public function edit(GuruStaff $guruStaff)
     {
+        $imagePath = $guruStaff->image ? str_replace('/storage/', '', $guruStaff->image) : null;
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            $guruStaff->image_url = Storage::url($imagePath);
+        } else {
+            $guruStaff->image_url = 'https://placehold.co/400x400/e2e8f0/cbd5e0?text=No+Image';
+        }
+
         return view('pages.admin.staff.edit', compact('guruStaff'));
     }
 }

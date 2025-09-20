@@ -9,6 +9,7 @@ use App\Models\PengalamanKerja;
 use App\Models\Prestasi;
 use App\Traits\ImageHandler;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class GuruStaffRepository implements GuruStaffInterface
 {
@@ -17,16 +18,18 @@ class GuruStaffRepository implements GuruStaffInterface
     public function store(array $data, $image = null)
     {
         return DB::transaction(function () use ($data, $image) {
-            $relative_path = null;
+            $guruStaffData = [
+                'nama'       => $data['nama'],
+                'jabatan'    => $data['jabatan'],
+                'role'       => 'gurustaff',
+                'is_publish' => $data['is_publish'] ?? 0,
+            ];
+
             if ($image) {
-                $relative_path = $this->processImage($image, 'GuruStaff');
-                $data['image'] = '/storage/' . $relative_path;
+                $guruStaffData['image'] = $this->processImage($image, 'GuruStaff');
             }
 
-            $data['role'] = 'gurustaff';
-            $data['is_publish'] = $data['is_publish'] ?? 0;
-
-            $guru_staff = GuruStaff::create($data);
+            $guru_staff = GuruStaff::create($guruStaffData);
 
             $this->syncRelations($guru_staff->id, $data);
 
@@ -44,20 +47,21 @@ class GuruStaffRepository implements GuruStaffInterface
                 return null;
             }
 
+            // Siapkan data utama untuk diupdate
+            $updateData = [
+                'nama'       => $data['nama'],
+                'jabatan'    => $data['jabatan'],
+                'is_publish' => $data['is_publish'] ?? 0,
+            ];
+
             if ($image) {
                 if ($guru_staff->image) {
                     $this->deleteImage($guru_staff->image);
                 }
-                $relative_path = $this->processImage($image, 'GuruStaff');
-                $data['image'] = '/storage/' . $relative_path;
+                $updateData['image'] = $this->processImage($image, 'GuruStaff');
             }
 
-            $guru_staff->update([
-                'nama'       => $data['nama'],
-                'jabatan'    => $data['jabatan'],
-                'image'      => $data['image'] ?? $guru_staff->image,
-                'is_publish' => $data['is_publish'] ?? 0,
-            ]);
+            $guru_staff->update($updateData);
 
             $this->syncRelations($id, $data);
 
@@ -73,7 +77,13 @@ class GuruStaffRepository implements GuruStaffInterface
         if (!$guru_staff) {
             return null;
         }
-        return  $guru_staff;
+
+        if ($guru_staff->image && Storage::disk('public')->exists($guru_staff->image)) {
+            $guru_staff->image_url = Storage::url($guru_staff->image);
+        } else {
+            $guru_staff->image_url = 'https://placehold.co/400x400/e2e8f0/cbd5e0?text=No+Image';
+        }
+        return $guru_staff;
     }
 
 

@@ -17,7 +17,7 @@ class UpdateGuruStaffRequest extends FormRequest
             'nama' => ['required', 'string', 'max:255'],
             'jabatan' => ['required', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg'],
-            'is_publish' => ['required', 'boolean'],
+            'is_publish' => ['nullable', 'boolean'],
 
 
             'riwayat_pendidikan' => ['nullable', 'array'],

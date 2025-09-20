@@ -63,8 +63,7 @@
                     </div>
 
                     {{-- KOLOM KANAN --}}
-                    {{-- Pass the existing image URL as an initial preview --}}
-                    <x-input.image-uploader name="image" :initial-preview="$guruStaff->image" />
+                    <x-input.image-uploader name="image" :src="$guruStaff->image" />
                 </div>
 
                 {{-- FOOTER & TOMBOL SIMPAN --}}
