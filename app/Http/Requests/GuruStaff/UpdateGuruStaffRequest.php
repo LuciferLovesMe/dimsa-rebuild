@@ -29,6 +29,7 @@ class UpdateGuruStaffRequest extends FormRequest
             'pengalaman_kerja' => ['nullable', 'array'],
             'pengalaman_kerja.*.posisi' => ['required', 'string'],
             'pengalaman_kerja.*.perusahaan' => ['nullable', 'string', 'max:255'],
+            'pengalaman_kerja.*.kota' => ['required', 'string', 'max:100'],
             'pengalaman_kerja.*.tahun_mulai' => ['required', 'integer'],
             'pengalaman_kerja.*.tahun_akhir' => ['nullable', 'integer'],
 

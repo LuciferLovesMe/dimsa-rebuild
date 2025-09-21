@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DewanController;
 use App\Http\Controllers\Backend\AgendaController;
 use App\Http\Controllers\Backend\AlumniController;
 use App\Http\Controllers\Backend\EkstrakulikulerController;
@@ -384,51 +385,20 @@ Route::middleware('auth')->group(function () {
 
             // --- Rute Pimpinan ---
             Route::prefix('pimpinan')->name('pimpinan.')->group(function () {
-                Route::get('/', function () {
-                    return view('pages.admin.dewan.index', [
-                        'title' => 'Pimpinan',
-                        'breadcrumb3' => 'Data Pimpinan'
-                    ]);
-                })->name('index');
+                Route::get('/', [DewanController::class, 'index'])->defaults('type', 'pimpinan')->name('index');
+                Route::get('/create', [DewanController::class, 'create'])->defaults('type', 'pimpinan')->name('create');
 
-                // Mengirimkan judul dan URL kembali yang spesifik untuk Pimpinan
-                Route::get('/create', function () {
-                    return view('pages.admin.dewan.create', [
-                        'pageTitle' => 'Tambah Data Pimpinan',
-                        'backUrl' => route('admin.dewan.pimpinan.index')
-                    ]);
-                })->name('create');
-
-                Route::get('/edit/{id}', function ($id) {
-                    return view('pages.admin.dewan.edit', [
-                        'pageTitle' => 'Edit Data Pimpinan',
-                        'backUrl' => route('admin.dewan.pimpinan.index')
-                    ]);
-                })->name('edit');
+                // PERBAIKAN: Mengubah struktur URL menjadi /{id}/edit
+                Route::get('/{id}/edit', [DewanController::class, 'edit'])->defaults('type', 'pimpinan')->name('edit');
             });
 
             // --- Rute Pengasuh ---
             Route::prefix('pengasuh')->name('pengasuh.')->group(function () {
-                Route::get('/', function () {
-                    return view('pages.admin.dewan.index', [
-                        'title' => 'Pengasuh',
-                        'breadcrumb3' => 'Data Pengasuh'
-                    ]);
-                })->name('index');
+                Route::get('/', [DewanController::class, 'index'])->defaults('type', 'pengasuh')->name('index');
+                Route::get('/create', [DewanController::class, 'create'])->defaults('type', 'pengasuh')->name('create');
 
-                Route::get('/create', function () {
-                    return view('pages.admin.dewan.create', [
-                        'pageTitle' => 'Tambah Data Pengasuh',
-                        'backUrl' => route('admin.dewan.pengasuh.index')
-                    ]);
-                })->name('create');
-
-                Route::get('/edit/{id}', function ($id) {
-                    return view('pages.admin.dewan.edit', [
-                        'pageTitle' => 'Edit Data Pengasuh',
-                        'backUrl' => route('admin.dewan.pengasuh.index')
-                    ]);
-                })->name('edit');
+                // PERBAIKAN: Mengubah struktur URL menjadi /{id}/edit
+                Route::get('/{id}/edit', [DewanController::class, 'edit'])->defaults('type', 'pengasuh')->name('edit');
             });
         });
 

@@ -74,13 +74,10 @@ class PimpinanRepository implements PimpinanInterface
 
     public function show(int $id)
     {
-        $pimpinan = GuruStaff::with(['riwayatPendidikans', 'pengalamanKerjas', 'prestasis'])->where('id', $id)
+        return GuruStaff::with(['riwayatPendidikans', 'pengalamanKerjas', 'prestasis'])
+            ->where('id', $id)
             ->where('role', 'pimpinan')
             ->first();
-        if (!$pimpinan) {
-            return null;
-        }
-        return  $pimpinan;
     }
 
     public function showAll()

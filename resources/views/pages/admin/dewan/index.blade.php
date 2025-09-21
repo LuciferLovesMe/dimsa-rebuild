@@ -151,6 +151,7 @@
                                     <div class="py-2">
                                         <p class="font-semibold">${work.posisi}</p>
                                         <p class="text-sm text-gray-600">${work.perusahaan}</p>
+                                        <p class="text-sm text-gray-600">${work.kota}</p>
                                         <p class="text-sm text-gray-500">${work.tahun_mulai} - ${work.tahun_akhir || 'Sekarang'}</p>
                                     </div>
                                 `).join('<hr class="my-1">');
