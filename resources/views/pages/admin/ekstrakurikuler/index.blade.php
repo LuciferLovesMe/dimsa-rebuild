@@ -156,7 +156,7 @@
                             `;
 
                             Swal.fire({
-                                title: `<strong>Detail Majalah</strong>`,
+                                title: `<strong>Detail Eksrakurikuler</strong>`,
                                 html: contentHtml,
                                 showCloseButton: true,
                                 confirmButtonText: 'Tutup',
