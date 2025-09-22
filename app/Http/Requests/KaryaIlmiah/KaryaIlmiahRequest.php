@@ -26,7 +26,7 @@ class KaryaIlmiahRequest extends FormRequest
             "penulis" => ['required', 'string', 'max:255'],
             "tanggal_terbit" => ['nullable', 'date'],
             "url" => ['required', 'url'],
-            "image" => ['required', 'image', 'mimes:png,jpg,jpeg',],
+            "image" => ['nullable', 'image', 'mimes:png,jpg,jpeg',],
             "is_publish" => ['nullable', 'boolean']
 
 

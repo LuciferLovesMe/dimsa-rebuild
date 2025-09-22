@@ -17,6 +17,9 @@
                     <tr>
                         <th
                             class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            No.</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Judul</th>
                         <th
                             class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -43,7 +46,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // Menyimpan instance DataTable ke dalam variabel
             const table = $('#karya-ilmiah-datatable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -54,12 +56,18 @@
                     url: "{{ url('/api/admin/karya-ilmiah/showAll') }}",
                     dataFilter: function(data) {
                         let json = JSON.parse(data);
-                        // Menyesuaikan dengan struktur respons API Anda
                         let dtData = json.data.original;
                         return JSON.stringify(dtData);
                     }
                 },
                 columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center'
+                    },
+                    {
                         data: 'judul',
                         name: 'judul'
                     },
@@ -105,7 +113,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             url: deleteUrl,
-                            type: 'DELETE', // Menggunakan DELETE sesuai rute Anda
+                            type: 'DELETE',
                             data: {
                                 "_token": "{{ csrf_token() }}",
                             },

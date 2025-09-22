@@ -49,7 +49,7 @@ class KaryaIlmiahRepository implements KaryaIlmiahInterface
             $karyaIlmiah->update([
                 'judul'      => $data['judul'],
                 'penulis'    => $data['penulis'],
-                'tanggal_terbit'    => $data['tanggal'],
+                'tanggal_terbit'    => $data['tanggal_terbit'],
                 'url'        => $data['url'],
                 'is_publish' => $data['is_publish'] ?? 0,
             ]);
