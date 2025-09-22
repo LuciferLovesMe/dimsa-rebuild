@@ -23,6 +23,12 @@ class SlideshowController extends Controller
                 return apiFailed('No file uploaded.', null, 400);
             }
 
+            // Cek jumlah slideshow di database
+            $count = $this->slideshowRepo->count();
+            if ($count >= 3) {
+                return apiFailed('Maksimal 3 slideshow diperbolehkan.', null, 400);
+            }
+
             $this->slideshowRepo->store([
                 'files' => $request->file('file'),
                 'headlines' => $request->input('headline', []),
@@ -33,6 +39,7 @@ class SlideshowController extends Controller
             return apiFailed('Failed to save slideshow.', null, 500, $th->getMessage());
         }
     }
+
 
     public function show(string $id)
     {

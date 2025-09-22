@@ -101,4 +101,9 @@ class SlideshowRepository implements SlideshowInterface
 
         return $slideshow->delete();
     }
+
+    public function count()
+    {
+        return Slideshow::count();
+    }
 }

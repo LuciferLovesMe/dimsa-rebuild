@@ -9,4 +9,6 @@ interface SlideshowInterface
     public function showAll();
     public function update(array $data);
     public function destroy($id);
+
+    public function count();
 }
