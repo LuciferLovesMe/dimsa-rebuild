@@ -80,12 +80,12 @@
                         <i class="fa fa-trophy"></i>
                         <span>Program Unggulan</span>
                     </a></li>
-                {{-- <li><a href="{{ route('admin.tata-tertib.index') }}"
+                <li><a href="{{ route('admin.tata-tertib.index') }}"
                         class="sidebar-subitem
                             {{ request()->is('admin/tata-tertib*') ? 'bg-blue-600 text-white' : '' }}">
                         <i class="fa fa-warning"></i>
                         <span>Tata Tertib</span>
-                    </a></li> --}}
+                    </a></li>
             </ul>
         </div>
 
